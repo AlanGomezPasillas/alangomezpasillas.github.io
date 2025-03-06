@@ -39,7 +39,7 @@ header {
 nav {
   margin-left: 1px;
   margin-top: 10px;
-  margin-bottom 2px;
+  margin-bottom: 2px;
 }
 
 button {
@@ -99,32 +99,20 @@ section {
   border-radius: 10px;
 }
 
-#about {
-  display: block;
-}
-
 #alan {
   float: left;
   margin-right: 10px;
   padding-top: 2px;
 }
 
-#home {
+#home, #about, #new {
   display: block;
 }
 
-#music {
-  display: none;
+#about {
+  display: block;
 }
 
-#videos {
-  display: none;
-}
-
-#games {
-  display: none;
-}
-
-#game1 {
+#music, #videos, #games, #alanbros {
   display: none;
 }
