@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg
+	version="1.1"
+	xmlns="http://www.w3.org/2000/svg"
+	xmlns:xlink="http://www.w3.org/1999/xlink"
+	x="0px" y="0px"
+	width="24.0px" height="24.0px"
+	viewBox="0 0 24.0 24.0"
+	enable-background="new 0 0 24.0 24.0"
+	xml:space="preserve">
+<defs>
+	<radialGradient id="fillGrad6" cx="50.000%" cy="50.000%" fx="50.000%" fy="50.000%" r="50.000%">
+   		<stop offset="0.000%" style="stop-color:rgb(7,7,7);stop-opacity:1.000" />
+		<stop offset="100.000%" style="stop-color:rgb(15,218,255);stop-opacity:1.000" />
+	</radialGradient>
+
+</defs>
+	<path
+		transform = "rotate(-0.00 12.00 12.00)"
+		fill="url(#fillGrad6)"
+		stroke="#00FEFF"
+		fill-opacity="1.0"
+		stroke-opacity="1.000"
+		fill-rule="nonzero"
+		stroke-width="0.6"
+		stroke-linejoin="miter"
+		stroke-linecap="square"
+		d="M12.00,22.00L7.00,12.00L12.00,2.00L17.00,12.00L12.00,22.00z"/>
+	<path
+		fill="#FFFFFF"
+		stroke="#00FEFF"
+		fill-opacity="1.000"
+		stroke-opacity="1.000"
+		fill-rule="nonzero"
+		stroke-width="0.43199998"
+		stroke-linejoin="miter"
+		stroke-linecap="square"
+		d="M12.00,22.00L12.00,2.00"/>
+	<path
+		fill="#FFFFFF"
+		stroke="#00FEFF"
+		fill-opacity="1.000"
+		stroke-opacity="1.000"
+		fill-rule="nonzero"
+		stroke-width="0.43199998"
+		stroke-linejoin="miter"
+		stroke-linecap="square"
+		d="M7.00,12.00L17.00,12.00"/>
+</svg>
