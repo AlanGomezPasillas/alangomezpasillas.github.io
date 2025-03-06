@@ -1,9 +1,11 @@
 function changeSection(sec){
   if(sec==1){
     document.getElementById('home').style.display='block';
+    document.getElementById('new').style.display='block';
     document.getElementById('about').style.display='block';
   }else{
     document.getElementById('home').style.display='none';
+    document.getElementById('new').style.display='none';
     document.getElementById('about').style.display='none';
   }
   if(sec==2){
@@ -18,9 +20,9 @@ function changeSection(sec){
   }
   if(sec==4){
     document.getElementById('games').style.display='block';
-    document.getElementById('game1').style.display='block';
+    document.getElementById('alan-bros').style.display='block';
   }else{
     document.getElementById('games').style.display='none';
-    document.getElementById('game1').style.display='none';
+    document.getElementById('alan-bros').style.display='none';
   }
 }
