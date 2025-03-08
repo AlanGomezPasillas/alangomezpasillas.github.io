@@ -1,19 +1,13 @@
 function changeSection(sec){
   if(sec==1){
     document.getElementById('home').style.display='block';
-    document.getElementById('new').style.display='block';
-    document.getElementById('about').style.display='block';
   }else{
     document.getElementById('home').style.display='none';
-    document.getElementById('new').style.display='none';
-    document.getElementById('about').style.display='none';
   }
   if(sec==2){
     document.getElementById('music').style.display='block';
-    document.getElementById('alancinos').style.display='block';
   }else{
     document.getElementById('music').style.display='none';
-    document.getElementById('alancinos').style.display='none';
   }
   if(sec==3){
     document.getElementById('videos').style.display='block';
@@ -22,9 +16,7 @@ function changeSection(sec){
   }
   if(sec==4){
     document.getElementById('games').style.display='block';
-    document.getElementById('alan-bros').style.display='block';
   }else{
     document.getElementById('games').style.display='none';
-    document.getElementById('alan-bros').style.display='none';
   }
 }
