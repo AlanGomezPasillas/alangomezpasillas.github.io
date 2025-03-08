@@ -10,8 +10,10 @@ function changeSection(sec){
   }
   if(sec==2){
     document.getElementById('music').style.display='block';
+    document.getElementById('alancinos').style.display='block';
   }else{
     document.getElementById('music').style.display='none';
+    document.getElementById('alancinos').style.display='none';
   }
   if(sec==3){
     document.getElementById('videos').style.display='block';

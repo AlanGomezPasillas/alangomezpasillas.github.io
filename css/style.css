@@ -104,6 +104,10 @@ section {
   border-radius: 10px;
 }
 
+.profile {
+  border-radius: 50%;
+}
+
 #alan {
   float: left;
   margin-right: 10px;
@@ -118,6 +122,5 @@ section {
   display: block;
 }
 
-#music, #videos, #games, #alan-bros {
+#music, #alancinos, #videos, #games, #alan-bros {
   display: none;
-}
