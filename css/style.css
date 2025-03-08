@@ -28,7 +28,7 @@ footer {
 }
 
 h1 {
-  font-size: 52px;
+  font-size: 42.2px;
   margin-right: 22px;
   margin-top: 12px;
   margin-bottom: 10px;
@@ -46,8 +46,7 @@ header {
 }
 
 nav {
-  margin-left: 1px;
-  margin-top: 10px;
+  margin-top: 4px;
   margin-bottom: 2px;
 }
 
@@ -59,7 +58,7 @@ button {
   margin-left: 2px;
   background-color: black;
   border: 2px solid white;
-  width: 100px;
+  width: 90px;
   justify-content: center;
   transition-duration: 0.2s;
 }
@@ -81,23 +80,29 @@ section {
   border-radius: 10px;
 }
 
+.box{
+  display: inline-block;
+}
+
 .flex-box {
   display: inline-flex;
   background-color: black;
   float: left;
   margin-right: 6px;
+  margin-top: 10px;
 }
 
 .flex-box > div {
   margin-left: 10px;
   margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .follow {
-  /*display: inline-flex;*/
   Background: white;
   width:84px;
   height:84px;
+  margin-top:10px;
 }
 
 .game-img {
@@ -107,7 +112,6 @@ section {
   margin-top: 4px;
   width: 124px;
   height: 124px;
-  /*float: left;*/
   border-radius: 10px;
   display: inline-flex;
 }
