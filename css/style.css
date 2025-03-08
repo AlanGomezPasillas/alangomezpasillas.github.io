@@ -112,6 +112,11 @@ section {
   border-radius: 50%;
 }
 
+.video {
+  display: flex;
+  justify-content: center;
+}
+
 #alan {
   float: left;
   margin-right: 10px;
