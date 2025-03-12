@@ -1,3 +1,9 @@
+document.getElementById("home").innerHTML += '${navigator.language}';
+function checkLanguage(){
+  let langu = navigator.language;
+  
+}
+
 function changeSection(sec){
   if(sec==1){
     document.getElementById('home').style.display='block';
