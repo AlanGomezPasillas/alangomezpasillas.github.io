@@ -1,7 +1,7 @@
-document.getElementById("home").innerHTML += '${navigator.language}';
+let langu = navigator.language.substring(0,2);
+
 function checkLanguage(){
-  let langu = navigator.language;
-  
+  document.getElementById("home").innerHTML += langu;
 }
 
 function changeSection(sec){

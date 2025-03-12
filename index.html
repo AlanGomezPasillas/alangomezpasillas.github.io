@@ -28,27 +28,39 @@
       <a target="_blank" href="https://mx.linkedin.com/in/alan-gomez-pasillas/es"><img class="follow borderblue" src="https://upload.wikimedia.org/wikipedia/commons/f/f8/LinkedIn_icon_circle.svg"/></a>
     </div>
     <nav>
-      <button type="button" onclick="changeSection(1)">Home</button> 
-      <button type="button" onclick="changeSection(2)">Music</button>
-      <button type="button" onclick="changeSection(3)">Videos</button>
-      <button type="button" onclick="changeSection(4)">Games</button>
+      <button class="en" type="button" onclick="changeSection(1)">Home</button> 
+      <button class="en" type="button" onclick="changeSection(2)">Music</button>
+      <button class="en" type="button" onclick="changeSection(3)">Videos</button>
+      <button class="en" type="button" onclick="changeSection(4)">Games</button>
+      
+      <button class="es" type="button" onclick="changeSection(1)">Inicio</button> 
+      <button class="es" type="button" onclick="changeSection(2)">Música</button>
+      <button class="es" type="button" onclick="changeSection(3)">Videos</button>
+      <button class="es" type="button" onclick="changeSection(4)">Juegos</button>
     </nav>
   </header>
   
-  <body onload="checkLanguage()">
+  <body>
     <!-- home -->
     <div id="home">
       <section>
-        <h2>Home</h2>
-        <p>
+        <h2 class="en">Home</h2>
+        <h2 class="en">Inicio</h2>
+        <p class="en">
           Hi, Welcome to Mystic Prisma, this is a company 
           made by Alan Gómez Pasillas, here we make games,
           music, graphics, animations and more, hopefully
           you'll find something you like, have fun!
         </p>
+        <p class="es">
+          Hola, bienvenido a Mystic Prisma, esta es una compañía
+          hecha por Alan Gómez Pasillas, nosotros hacemos juegos,
+          música, gráficos, animaciones y más, espero que
+          encuentres aquí algo que te guste, diviertete!
+        </p>
       </section>
       <section>
-        <h2>What's New</h2>
+        <h2 class="en">What's New</h2>
         <h3>Alan in Super Mario Bros is Here!</h3>
         <p>
           Alan in Super Mario Bros is now available to play
