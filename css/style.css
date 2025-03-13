@@ -131,7 +131,7 @@ section {
   padding-top: 2px;
 }
 
-#en{
+.home, #en{
   display: block;
 }
 

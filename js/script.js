@@ -4,7 +4,7 @@ function checkLanguage(){
   if(la=="es"){
     changeLanguage(1);
   }else{
-    document.getElementById("es").style.display='none';
+    changeLanguage(0);
   }
 }
 
@@ -16,19 +16,19 @@ function changeLanguage(lan){
     document.getElementById("es").style.display='none';
     document.getElementById("en").style.display='block';
   }
-  changeSection(sec)
+  changeSection(1)
 }
 
 function changeSection(sec){
   if(sec==1){
-    document.getElementsByClassName('home')[la].style.display='block';
+    document.getElementsByClassName('home').item(1).style.display='block';
   }else{
-    document.getElementsByClassName('home')[la].style.display='none';
+    document.getElementsByClassName('home').item(1).style.display='none';
   }
   if(sec==2){
-    document.getElementsByClassName('music')[la].style.display='block';
+    document.getElementsByClassName('music').item(1).style.display='block';
   }else{
-    document.getElementsByClassName('music')[la].style.display='none';
+    document.getElementsByClassName('music').item(1).style.display='none';
   }
   /*if(sec==3){
     document.getElementsById('videos').style.display='block';
