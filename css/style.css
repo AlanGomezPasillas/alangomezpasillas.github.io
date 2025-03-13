@@ -131,10 +131,10 @@ section {
   padding-top: 2px;
 }
 
-#home{
+#en{
   display: block;
 }
 
-#music, #videos, #games{
+.music, .videos, .games, #es{
   display: none;
 }
