@@ -1,7 +1,22 @@
-let langu = navigator.language.substring(0,2);
+let language = navigator.language.substring(0,2);
+checkLanguage();
 
 function checkLanguage(){
-  document.getElementById("home").innerHTML += langu;
+  if(language=="es"){
+    changeLanguage(1);
+  }else{
+    document.getElementById('es').style.display='none';
+  }
+}
+
+function changeLanguage(lan){
+  if(lan==1){
+    document.getElementById('en').style.display='none';
+    document.getElementById('es').style.display='block';
+  }else{
+    document.getElementById('es').style.display='none';
+    document.getElementById('en').style.display='block';
+  }
 }
 
 function changeSection(sec){
