@@ -1,8 +1,7 @@
 let la = (navigator.language.substring(0,2) == "es") ? 1 : 0;
-changeLanguage(la);
 
-function changeLanguage(lan){
-  if(lan==1){
+function changeLanguage(){
+  if(la){
     document.getElementById("en").style.display='none';
     document.getElementById("es").style.display='block';
   }else{
