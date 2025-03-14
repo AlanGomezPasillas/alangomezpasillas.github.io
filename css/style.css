@@ -50,7 +50,7 @@ nav {
   margin-bottom: 2px;
 }
 
-button {
+nav > button {
   display: inline-flex;
   color: white;
   margin-top: 4px;
@@ -80,8 +80,20 @@ section {
   border-radius: 10px;
 }
 
-.box{
+.box {
   display: inline-block;
+}
+
+.pack {
+  display: inline;
+}
+
+.flag {
+  display: inline-flex;
+  width: 150px;
+  height: 90px;
+  margin-right: 26px;
+  margin-top: 1px;
 }
 
 .flex-box {
