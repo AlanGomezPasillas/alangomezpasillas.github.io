@@ -25,10 +25,10 @@ function changeSection(sec){
   if(sec==3){
     document.getElementsByClassName('videos').item(la).style.display='block';
   }else{
-    document.getElementsByClassName('games').item(la).style.display='none';
+    document.getElementsByClassName('videos').item(la).style.display='none';
   }
   if(sec==4){
-    document.getElementsByClassName('videos').item(la).style.display='block';
+    document.getElementsByClassName('games').item(la).style.display='block';
   }else{
     document.getElementsByClassName('games').item(la).style.display='none';
   }
