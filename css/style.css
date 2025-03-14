@@ -90,10 +90,17 @@ section {
 
 .flag {
   display: inline-flex;
-  width: 150px;
-  height: 90px;
-  margin-right: 26px;
-  margin-top: 1px;
+  width: 140px;
+  height: 90px;/*
+  padding-right: 26px;
+  margin-top: 1px;*/
+}
+
+.tran {
+  margin-left: 18px;
+  margin-right: 12px;
+  margin-top: 5px;
+  background-color: transparent;
 }
 
 .flex-box {
