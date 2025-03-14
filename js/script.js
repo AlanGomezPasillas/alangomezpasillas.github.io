@@ -1,14 +1,24 @@
 let la = (navigator.language.substring(0,2) == "es") ? 1 : 0;
 
-function changeLanguage(){
-  if(la){
-    document.getElementById("en").style.display='none';
-    document.getElementById("es").style.display='block';
+function changeLanguage(lan){
+  if(lan == 2){
+    if(la){
+      document.getElementById("en").style.display='none';
+      document.getElementById("es").style.display='block';
+    }else{
+      document.getElementById("es").style.display='none';
+      document.getElementById("en").style.display='block';
+    }
+    changeSection(1)
   }else{
-    document.getElementById("es").style.display='none';
-    document.getElementById("en").style.display='block';
+    if(lan){
+      document.getElementById("en").style.display='none';
+      document.getElementById("es").style.display='block';
+    }else{
+      document.getElementById("es").style.display='none';
+      document.getElementById("en").style.display='block';
+    }
   }
-  changeSection(1)
 }
 
 function changeSection(sec){
