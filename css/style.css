@@ -90,16 +90,13 @@ section {
 
 .flag {
   display: inline-flex;
-  width: 140px;
-  height: 90px;/*
-  padding-right: 26px;
-  margin-top: 1px;*/
+  width: 173px;
+  height: 90px;
 }
 
 .tran {
-  margin-left: 18px;
-  margin-right: 12px;
-  margin-top: 5px;
+  margin-top: 7px;
+  border: 2px solid cyan;
   background-color: transparent;
 }
 

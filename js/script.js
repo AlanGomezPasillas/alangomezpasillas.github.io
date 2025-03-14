@@ -11,7 +11,8 @@ function changeLanguage(lan){
     }
     changeSection(1)
   }else{
-    if(lan){
+    la = lan;
+    if(la){
       document.getElementById("en").style.display='none';
       document.getElementById("es").style.display='block';
     }else{
