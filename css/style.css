@@ -30,8 +30,8 @@ footer {
 h1 {
   font-size: 42.2px;
   margin-right: 22px;
-  margin-top: 12px;
-  margin-bottom: 10px;
+  margin-top: 1px;
+  margin-bottom: 1px;
 }
 
 h2 {
@@ -58,7 +58,7 @@ nav > button {
   margin-left: 2px;
   background-color: black;
   border: 2px solid white;
-  width: 90px;
+  width: 87px;
   justify-content: center;
   transition-duration: 0.2s;
 }
@@ -90,8 +90,8 @@ section {
 
 .flag {
   display: inline-flex;
-  width: 166px;
-  height: 90px;
+  width: 160px;
+  height: 60px;
 }
 
 .tran {
@@ -104,22 +104,24 @@ section {
 .flex-box {
   display: inline-flex;
   background-color: black;
-  float: left;
   margin-right: 6px;
   margin-top: 10px;
 }
 
-.flex-box > div {
-  margin-left: 10px;
-  margin-top: 10px;
-  margin-bottom: 10px;
+.flex-box > div > img {
+  margin-left: 1px;
+  display: block;
+  width: 62px;
+  height: 62px;
 }
 
 .follow {
   Background: white;
-  width:84px;
-  height:84px;
-  margin-top:10px;
+  width: 49px;
+  height: 49px;
+  padding: 4px;
+  margin-top: 8px;
+  margin-right: 32px;
 }
 
 .game-img {
