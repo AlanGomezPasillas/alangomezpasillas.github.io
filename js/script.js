@@ -22,29 +22,6 @@ function changeLanguage(lan){
   }
 }
 
-/*function changeSection(sec){
-  if(sec==1){
-    document.getElementsByClassName('home').item(la).style.display='block';
-  }else{
-    document.getElementsByClassName('home').item(la).style.display='none';
-  }
-  if(sec==2){
-    document.getElementsByClassName('music').item(la).style.display='block';
-  }else{
-    document.getElementsByClassName('music').item(la).style.display='none';
-  }
-  if(sec==3){
-    document.getElementsByClassName('videos').item(la).style.display='block';
-  }else{
-    document.getElementsByClassName('videos').item(la).style.display='none';
-  }
-  if(sec==4){
-    document.getElementsByClassName('games').item(la).style.display='block';
-  }else{
-    document.getElementsByClassName('games').item(la).style.display='none';
-  }
-}*/
-
 function changeSection(sec){
   if(sec==1){
     document.getElementsByClassName('home').item(0).style.display='block';

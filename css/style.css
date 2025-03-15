@@ -90,12 +90,13 @@ section {
 
 .flag {
   display: inline-flex;
-  width: 160px;
+  width: 150px;
   height: 60px;
 }
 
 .tran {
   margin-left: 2px;
+  margin-right: 20px;
   margin-top: 7px;
   border: 4px solid cyan;
   background-color: transparent;
@@ -108,7 +109,7 @@ section {
   margin-top: 10px;
 }
 
-.flex-box > div > img {
+.flex-box > img {
   margin-left: 1px;
   display: block;
   width: 62px;
