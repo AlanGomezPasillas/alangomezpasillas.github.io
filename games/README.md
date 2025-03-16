@@ -1,1 +1,0 @@
-# alangomezpasillas.github.io/games/alan-in-super-mario-bros/
