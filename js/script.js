@@ -1,23 +1,29 @@
 let la = (navigator.language.substring(0,2) == "es") ? 1 : 0;
 
+function displayClass(elems, att){
+  for(let i = 0; i < elems.lenght; i++){
+    elems[i].style.display = att;
+  }
+}
+
 function changeLanguage(lan){
   if(lan == 2){
-    if(la){
-      document.getElementById("en").style.display='none';
-      document.getElementById("es").style.display='block';
+    if(!la){
+      displayClass(document.getElementsByClassName("en"), 'block');
+      displayClass(document.getElementsByClassName("es"), 'none');
     }else{
-      document.getElementById("es").style.display='none';
-      document.getElementById("en").style.display='block';
+      displayClass(document.getElementsByClassName("en"), 'none');
+      displayClass(document.getElementsByClassName("es"), 'block');
     }
     changeSection(1)
   }else{
     la = lan;
-    if(la){
-      document.getElementById("en").style.display='none';
-      document.getElementById("es").style.display='block';
+    if(!la){
+      displayClass(document.getElementsByClassName("en"), 'block');
+      displayClass(document.getElementsByClassName("es"), 'none');
     }else{
-      document.getElementById("es").style.display='none';
-      document.getElementById("en").style.display='block';
+      displayClass(document.getElementsByClassName("en"), 'none');
+      displayClass(document.getElementsByClassName("es"), 'block');
     }
   }
 }
