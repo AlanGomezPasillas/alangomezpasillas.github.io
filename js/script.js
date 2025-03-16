@@ -1,7 +1,7 @@
 let la = (navigator.language.substring(0,2) == "es") ? 1 : 0;
 
 function displayClass(elems, att){
-  for(let i = 0; i < elems.lenght; i++){
+  for(let i = 0; i < elems.length; i++){
     elems[i].style.display = att;
   }
 }
