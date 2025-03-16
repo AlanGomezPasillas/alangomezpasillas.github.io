@@ -15,7 +15,6 @@ function changeLanguage(lan){
       displayClass(document.getElementsByClassName("en"), 'none');
       displayClass(document.getElementsByClassName("es"), 'block');
     }
-    changeSection(1)
   }else{
     la = lan;
     if(!la){
