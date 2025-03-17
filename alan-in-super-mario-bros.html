@@ -2,9 +2,6 @@
 <html>
   <head>
     <script src="js/script.js"></script>
-    <script type="text/javascript" src="https://unpkg.com/jsnes/dist/jsnes.min.js"></script>
-		<script type="text/javascript" src="nes-embed.js"></script>
-		<script>window.onload = function(){nes_load_url("nes-canvas", "alan-bros.nes");}</script>
     <link rel="icon" href="img/MysticPrisma.svg"/>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
@@ -27,7 +24,6 @@
       <button class="tran" onclick="changeLanguage(0)"><img class="flag" src="img/USAFlag.svg"></button>
     </div>
   </header>
-
   <body onload="checkLanguage(2)">
     <section>
       <div class="en">
@@ -50,7 +46,7 @@
   </body>
   <section>
     <div align="center">
-      <canvas id="nes-canvas" width="256" height="240" style="width: 100%"/>
+      <iframe width="560" height="315" src="https://www.indiexpo.net/en/embed/alan-en-super-mario-bros" frameborder="0" !allowfullscreen></iframe>
     </div>
   </section>
   <body>
