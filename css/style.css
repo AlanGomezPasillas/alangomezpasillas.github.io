@@ -150,10 +150,10 @@ section {
   padding-top: 2px;
 }
 
-.home, .en{
+#home, .en{
   display: block;
 }
 
-.music, .videos, .games, .es{
+#music, #videos, #games, .es{
   display: none;
 }
