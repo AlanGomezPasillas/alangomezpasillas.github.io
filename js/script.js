@@ -29,31 +29,23 @@ function changeLanguage(lan){
 
 function changeSection(sec){
   if(sec==1){
-    document.getElementsByClassName('home').item(0).style.display='block';
-    document.getElementsByClassName('home').item(1).style.display='block';
+    document.getElementById('home').style.display='block';
   }else{
-    document.getElementsByClassName('home').item(0).style.display='none';
-    document.getElementsByClassName('home').item(1).style.display='none';
+    document.getElementById('home').style.display='none';
   }
   if(sec==2){
-    document.getElementsByClassName('music').item(0).style.display='block';
-    document.getElementsByClassName('music').item(1).style.display='block';
+    document.getElementById('music').style.display='block';
   }else{
-    document.getElementsByClassName('music').item(0).style.display='none';
-    document.getElementsByClassName('music').item(1).style.display='none';
+    document.getElementById('music').style.display='none';
   }
   if(sec==3){
-    document.getElementsByClassName('videos').item(0).style.display='block';
-    document.getElementsByClassName('videos').item(1).style.display='block';
+    document.getElementById('videos').style.display='block';
   }else{
-    document.getElementsByClassName('videos').item(0).style.display='none';
-    document.getElementsByClassName('videos').item(1).style.display='none';
+    document.getElementById('videos').style.display='none';
   }
   if(sec==4){
-    document.getElementsByClassName('games').item(0).style.display='block';
-    document.getElementsByClassName('games').item(1).style.display='block';
+    document.getElementById('games').style.display='block';
   }else{
-    document.getElementsByClassName('games').item(0).style.display='none';
-    document.getElementsByClassName('games').item(1).style.display='none';
+    document.getElementById('games').style.display='none';
   }
 }
