@@ -1,1 +1,103 @@
-
+<!DOCTYPE html>
+<html>
+  <head>
+    <script async custom-element="amp-auto-ads"src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8773996523943422"crossorigin="anonymous"></script>
+    <script src="js/script.js"></script>
+    <link rel="icon" href="img/MysticPrisma.svg"/>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Anta">
+    <title>
+      <span class="en">Sorting Algorithms</span>
+      <span class="es">Algoritmos de Ordenamiento</span>
+    </title>
+    <meta charset="UTF-8">
+    <meta name="google-adsense-account" content="ca-pub-8773996523943422">
+    <meta name="description" content="Computer Art Production Games">
+    <meta name="keywords" content="HTML, CSS, JavaScript, Games">
+    <meta name="author" content="Alan Gómez Pasillas">
+    <meta name="viewport" content="width=device-width, initial-scale=0.9">
+  </head>
+  <header>
+    <a href="http://alangomezpasillas.github.io">
+      <div class="flex-box borderblue">
+        <img src="img/MysticPrisma.svg" width="64px" height="64px">
+        <h1>Mystic Prisma</h1>
+      </div>
+    </a>
+    <div class="box">
+      <button class="tran" onclick="changeLanguage(1)"><img class="flag" src="img/MXFlag.svg"></button>
+      <button class="tran" onclick="changeLanguage(0)"><img class="flag" src="img/USAFlag.svg"></button>
+    </div>
+  </header>
+  <body onload="changeLanguage(2)">
+    <amp-auto-ads type="adsense"
+        data-ad-client="ca-pub-8773996523943422">
+    </amp-auto-ads>
+    <section>
+      <h2>
+        <span class="en">Sorting Algorithms</span>
+        <span class="es">Algoritmos de Ordenamiento</span>
+      </h2>
+      <p>
+        <span class="en">
+          In this game you will be able to choose a sorting algorithm
+          and use it with a set of numbers that can be random or
+          not, then, you will be able to see how it works step by step.
+        </span>
+        <span class="es">
+          En este juego podrás elegir un algoritmo de ordenamiento y
+          usarlo con un conjunto de numeros que puede ser aleatorio o
+          no, después, podras ver como se comporta paso a paso.
+        </span>
+      </p>
+    </section>
+    <section>
+      <div id="game-scr" align="center">
+        <canvas id="game" class="borderblue" width="640" height="480"></canvas>
+        <script>
+          var canvas = document.getElementById('myCanvas');
+          var ctx = canvas.getContext('2d');
+          
+          const img = new Image();
+          img.src = "img/sorting-algorithms/balan.png";
+          await img.decode();
+          
+          ctx.drawImage(img, 10, 10);
+        </script>
+      </div>
+    </section>
+    <section>
+      <h2>
+        <span class="en">Controls</span>
+        <span class="es">Controles</span>
+      </h2>
+      <p>
+        <span class="en">
+          - <b>Mouse</b><br>
+          - <b>Keyboard</b><br>
+        </span>
+        <span class="es">
+          - <b>Ratón</b><br>
+          - <b>Teclado</b><br>
+        </span>
+      </p>
+    </section>
+  </body>
+  <footer>
+    <h3>
+      <span class="en">Contact us!</span>
+      <span class="es">Contactanos!</span>
+    </h3>
+    Email: alangomezpasillas@gmail.com<br><br><b>
+      &copy;Mystic Prisma 2025.
+      <span class="en">
+        All Rights Reserved.
+      </span>
+      <span class="es">
+        Todos los derechos resrvados.
+      </span>
+    </b>
+  </footer>
+</html>
