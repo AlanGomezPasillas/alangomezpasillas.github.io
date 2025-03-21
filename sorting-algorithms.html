@@ -8,10 +8,8 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Anta">
-    <title>
-      <span class="en">Sorting Algorithms</span>
-      <span class="es">Algoritmos de Ordenamiento</span>
-    </title>
+    <div class="en"><title>Sorting Algorithms</title></div>
+    <div class="es"><title>Algoritmos de Ordenamiento</title></div>
     <meta charset="UTF-8">
     <meta name="google-adsense-account" content="ca-pub-8773996523943422">
     <meta name="description" content="Computer Art Production Games">
@@ -62,9 +60,9 @@
           
           const img = new Image();
           img.src = "img/sorting-algorithms/balan.png";
-          await img.decode();
-          
-          ctx.drawImage(img, 10, 10);
+          img.onload = function() {
+            ctx.drawImage(img, 10, 10);
+          };
         </script>
       </div>
     </section>
