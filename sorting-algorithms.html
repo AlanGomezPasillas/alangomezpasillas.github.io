@@ -62,8 +62,10 @@
           var ctx = canvas.getContext('2d');
           const img = new Image();
           img.src = "img/sorting-algorithms/balan.png";
-          await img.decode();
-          ctx.drawImage(img, 10, 10);
+          img.onload = function() {
+            // Image loaded! Ready to draw 
+            ctx.drawImage(img, 10, 10)
+          };
         </script>
       </div>
     </section>
