@@ -60,7 +60,9 @@
         <script>
           var canvas = document.getElementById('game');
           var ctx = canvas.getContext('2d');
-          var img = document.getElementById("balan");
+          const img = new Image();
+          img.src = "img/sorting-algorithms/balan.png";
+          await img.decode();
           ctx.drawImage(img, 10, 10);
         </script>
       </div>
