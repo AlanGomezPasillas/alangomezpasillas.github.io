@@ -58,14 +58,29 @@
       <div id="game-scr" align="center">
         <canvas id="game" class="borderblue" width="640" height="480"></canvas>
         <script>
+          function sleep(milliseconds) {
+            var start = new Date().getTime();
+            for (var i = 0; i < 1e7; i++) {
+              if ((new Date().getTime() - start) > milliseconds){
+                break;
+              }
+            }
+          }
+          
           var canvas = document.getElementById('game');
           var ctx = canvas.getContext('2d');
-          const img = new Image();
-          img.src = "img/sorting-algorithms/balan.png";
-          img.onload = function() {
+          const img_pre = new Image();
+          img.src = "img/sorting-algorithms/presentation.png";
+          //img.onload = function() {
             // Image loaded! Ready to draw 
-            ctx.drawImage(img, 10, 10)
-          };
+            
+          //};
+          
+          while(!img_pre.complete){}
+          ctx.drawImage(img, 0, 0);
+          sleep(10000);
+          ctx.fillStyle = "black";
+          ctx.fillRect(0, 0, 640, 480);
         </script>
       </div>
     </section>
