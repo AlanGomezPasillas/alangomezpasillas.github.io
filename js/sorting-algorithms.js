@@ -17,7 +17,7 @@ class Sprite {
     }else{
       this.fIdx=0;
     }
-    this.px=this.px+(this.width*this.fIdx);
+    this.px=this.width*this.fIdx;
   }
 }
 
