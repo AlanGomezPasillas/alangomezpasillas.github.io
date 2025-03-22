@@ -9,3 +9,5 @@ function main(){
     //ctx.fillRect(0, 0, 640, 480); 
   };
 }
+
+main();
