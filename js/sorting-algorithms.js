@@ -12,7 +12,7 @@ class Sprite {
   }
 
   update(){
-    if(this.fIdx < this.nFrames){
+    if(this.fIdx < this.nFrames-1){
       this.fIdx++;
     }else{
       this.fIdx=0;
@@ -62,7 +62,7 @@ function title(ctx, img_tit, obj_cli){
   obj_cli.update();
   /*var audio = new Audio('audio_file.mp3');
   audio.play();*/
-  setTimeout(title, 10, ctx, img_tit, obj_cli);
+  setTimeout(title, 100, ctx, img_tit, obj_cli);
 }
 
 main();
