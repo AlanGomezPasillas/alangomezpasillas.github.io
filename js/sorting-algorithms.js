@@ -9,7 +9,7 @@ function main(){
   };
 }
 
-function fadeIn(){
+function fadeIn(i, ctx, img_pre){
   ctx.clearRect(0,0,640,480);
   ctx.globalAlpha = 1;
   ctx.drawImage(img_pre, 0, 0);
