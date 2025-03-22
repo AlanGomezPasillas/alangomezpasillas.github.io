@@ -9,9 +9,9 @@ function main(){
     ctx.fillStyle = "black";
     setTimeout(fade, 100, 1, ctx, img_pre, 1);
     setTimeout(fade, 4000, 0, ctx, img_pre, 0);
+    ctx.globalAlpha = 1;
+    setTimeout(title, 10, ctx, img_tit);
   };
-  ctx.globalAlpha = 1;
-  setTimeout(title, 10, ctx, img_tit);
 }
 
 function fade(i, ctx, img_pre, type){
@@ -32,6 +32,9 @@ function fade(i, ctx, img_pre, type){
 function title(ctx, img_tit){
   ctx.clearRect(0,0,640,480);
   ctx.drawImage(img_tit, 0, 0);
+  /*var audio = new Audio('audio_file.mp3');
+  audio.play();*/
+  setTimeout(title, 10, ctx, img_tit);
 }
 
 main();
