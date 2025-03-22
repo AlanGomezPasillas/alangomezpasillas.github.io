@@ -1,13 +1,23 @@
 class Sprite {
-  constructor(img, nFrames, width, height, px, py, x, y) {
+  constructor(img, px, py, width, height, x, y, nFrames, fIdx) {
     this.img = img;
-    this.nFrames = nFrames;
-    this.width = width;
-    this.height = height;
     this.px = px;
     this.py = py;
+    this.width = width;
+    this.height = height;
     this.x = x;
     this.y = y;
+    this.nFrames = nFrames;
+    this.fIdx = fIdx;
+  }
+
+  function update(){
+    if(fIdx < nFrames){
+      fIdx++;
+    }else{
+      fIdx=0;
+    }
+    px=px+(width*fIdx);
   }
 }
 
@@ -19,7 +29,7 @@ function main(){
   const img_cli = new Image();
   img_pre.src = "img/sorting-algorithms/presentation.png";
   img_tit.src = "img/sorting-algorithms/title.png";
-  img_cli.src = "img/sorting-algorithms/click.png";
+  img_cli.src = "img/sorting-algorithms/cli-st.png";
   img_cli.onload = function() {
     ctx.fillStyle = "black";
     setTimeout(fade, 100, 1, ctx, img_pre, 1);
@@ -49,6 +59,7 @@ function title(ctx, img_tit, obj_cli){
   ctx.clearRect(0,0,640,480);
   ctx.drawImage(img_tit, 0, 0);
   ctx.drawImage(obj_cli.img, obj_cli.px, obj_cli.py, obj_cli.width, obj_cli.height, obj_cli.x, obj_cli.y, obj_cli.width, obj_cli.height);
+  obj_cli.update();
   /*var audio = new Audio('audio_file.mp3');
   audio.play();*/
   setTimeout(title, 10, ctx, img_tit, obj_cli);
