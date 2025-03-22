@@ -4,9 +4,13 @@ function main(){
   const img_pre = new Image();
   img_pre.src = "img/sorting-algorithms/presentation.png";
   img_pre.onload = function() {
-    ctx.drawImage(img_pre, 0, 0);
-    //ctx.fillStyle = "blue";
-    //ctx.fillRect(0, 0, 640, 480); 
+    for(let i=1; i!=0; i-=0.02){
+      ctx.globalAlpha = i;
+      ctx.fillStyle = "black";
+      ctx.fillRect(0, 0, 640, 480);
+      ctx.globalAlpha = 1;
+      ctx.drawImage(img_pre, 0, 0);
+    }
   };
 }
 
