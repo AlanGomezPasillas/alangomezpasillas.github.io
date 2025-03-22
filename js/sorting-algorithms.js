@@ -12,12 +12,12 @@ class Sprite {
   }
 
   update(){
-    if(fIdx < nFrames){
-      fIdx++;
+    if(this.fIdx < this.nFrames){
+      this.fIdx++;
     }else{
-      fIdx=0;
+      this.fIdx=0;
     }
-    px=px+(width*fIdx);
+    this.px=this.px+(this.width*this.fIdx);
   }
 }
 
