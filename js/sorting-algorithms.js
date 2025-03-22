@@ -35,7 +35,7 @@ function main(){
     setTimeout(fade, 100, 1, ctx, img_pre, 1);
     setTimeout(fade, 4000, 0, ctx, img_pre, 0);
     ctx.globalAlpha = 1;
-    const obj_cli = new Sprite(img_cli, 10, 180, 64, 0, 0, 230, 200);
+    const obj_cli = new Sprite(img_cli, 0, 0, 180, 64, 230, 200, 10, 0);
     setTimeout(title, 6000, ctx, img_tit, obj_cli);
   };
 }
