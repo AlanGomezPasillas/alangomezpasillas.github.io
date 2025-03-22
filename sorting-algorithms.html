@@ -60,27 +60,29 @@
         <script>
           function sleep(milliseconds) {
             var start = new Date().getTime();
-            for (var i = 0; i < 1e7; i++) {
-              if ((new Date().getTime() - start) > milliseconds){
-                break;
-              }
+            while(1){
+              if (new Date().getTime() - start) > milliseconds) break;
             }
           }
           
-          var canvas = document.getElementById('game');
-          var ctx = canvas.getContext('2d');
-          const img_pre = new Image();
-          img_pre.src = "img/sorting-algorithms/presentation.png";
-          //img.onload = function() {
+          function main(){
+            var canvas = document.getElementById('game');
+            var ctx = canvas.getContext('2d');
+            const img_pre = new Image();
+            img_pre.src = "img/sorting-algorithms/presentation.png";
+            //img.onload = function() {
             // Image loaded! Ready to draw 
-            
-          //};
           
-          while(!img_pre.complete){}
-          ctx.drawImage(img_pre, 0, 0);
-          sleep(10000);
-          ctx.fillStyle = "black";
-          ctx.fillRect(0, 0, 640, 480);
+            //};
+          
+            while(!img_pre.complete){}
+            ctx.drawImage(img_pre, 0, 0);
+            sleep(10000);
+            ctx.fillStyle = "black";
+            ctx.fillRect(0, 0, 640, 480);  
+          }
+
+          main();
         </script>
       </div>
     </section>
