@@ -57,31 +57,7 @@
     <section>
       <div id="game-scr" align="center">
         <canvas id="game" class="borderblue" width="640" height="480"></canvas>
-        <script>
-          function sleep(milliseconds) {
-            var start = new Date().getTime();
-            while(1){
-              if (new Date().getTime() - start) > milliseconds) break;
-            }
-          }
-          
-          function main(){
-            var canvas = document.getElementById('game');
-            var ctx = canvas.getContext('2d');
-            const img_pre = new Image();
-            img_pre.src = "img/sorting-algorithms/presentation.png";
-            //img.onload = function() {
-            // Image loaded! Ready to draw 
-          
-            //};
-          
-            while(!img_pre.complete){}
-            ctx.drawImage(img_pre, 0, 0);
-            sleep(10000);
-            ctx.fillStyle = "black";
-            ctx.fillRect(0, 0, 640, 480);  
-          }
-
+        <script src="js/sorting-algorithms.js">
           main();
         </script>
       </div>
