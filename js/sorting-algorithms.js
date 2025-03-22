@@ -4,15 +4,19 @@ function main(){
   const img_pre = new Image();
   img_pre.src = "img/sorting-algorithms/presentation.png";
   img_pre.onload = function() {
-    for(let i=1; i>0; i-=0.05){
-      ctx.clearRect(0,0,640,480);
-      ctx.globalAlpha = 1;
-      ctx.drawImage(img_pre, 0, 0);
-      ctx.globalAlpha = i;
-      ctx.fillStyle = "black";
-      ctx.fillRect(0, 0, 640, 480);
-    }
+    setTimeout(fadeIn, 100, 1);
   };
 }
 
+function fadeIn(){
+  ctx.clearRect(0,0,640,480);
+  ctx.globalAlpha = 1;
+  ctx.drawImage(img_pre, 0, 0);
+  ctx.globalAlpha = i;
+  ctx.fillStyle = "black";
+  ctx.fillRect(0, 0, 640, 480);
+  i-=0.05;
+  if(i>0)setTimeout(fadeIn, 100, i);
+}
+  
 main();
