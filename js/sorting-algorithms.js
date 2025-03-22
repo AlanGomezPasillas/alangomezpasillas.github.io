@@ -11,7 +11,7 @@ class Sprite {
     this.fIdx = fIdx;
   }
 
-  function update(){
+  update(){
     if(fIdx < nFrames){
       fIdx++;
     }else{
