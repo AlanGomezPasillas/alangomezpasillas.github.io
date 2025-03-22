@@ -20,6 +20,9 @@ function main(){
   img_pre.src = "img/sorting-algorithms/presentation.png";
   img_tit.src = "img/sorting-algorithms/title.png";
   img_cli.src = "img/sorting-algorithms/click.png";
+  img_cli.onload = function() {
+    const obj_cli = new Sprite(img_cli, 10, 180, 64, 0, 0, 230, 200);
+  }
   img_pre.onload = function() {
     ctx.fillStyle = "black";
     setTimeout(fade, 100, 1, ctx, img_pre, 1);
@@ -27,9 +30,6 @@ function main(){
     ctx.globalAlpha = 1;
     setTimeout(title, 6000, ctx, img_tit, obj_cli);
   };
-  img_cli.onload = function() {
-    const obj_cli = new Sprite(img_cli, 10, 180, 64, 0, 0, 230, 200);
-  }
 }
 
 function fade(i, ctx, img_pre, type){
