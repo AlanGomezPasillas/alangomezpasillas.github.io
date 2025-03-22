@@ -10,7 +10,7 @@ function main(){
     setTimeout(fade, 100, 1, ctx, img_pre, 1);
     setTimeout(fade, 4000, 0, ctx, img_pre, 0);
     ctx.globalAlpha = 1;
-    setTimeout(title, 5000, ctx, img_tit);
+    setTimeout(title, 6000, ctx, img_tit);
   };
 }
 
