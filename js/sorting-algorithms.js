@@ -61,19 +61,29 @@ function fade(i, ctx, img_pre, type){
 }
 
 function title(ctx, img_tit, obj_cli){
+  var timeout=100;
+  ctx.fillStyle = "white";
   ctx.clearRect(0, 0, 640, 480);
   ctx.fillRect(0, 0, 640, 480);
   ctx.drawImage(img_tit, titX, titY);
-  ctx.drawImage(obj_cli.img, obj_cli.px, obj_cli.py, obj_cli.width, obj_cli.height, obj_cli.x, obj_cli.y, obj_cli.width, obj_cli.height);
+  if(titY==0){
+    ctx.drawImage(obj_cli.img, obj_cli.px, obj_cli.py, obj_cli.width, obj_cli.height, obj_cli.x, obj_cli.y, obj_cli.width, obj_cli.height);
+  }else{
+    timeout=15;
+  }
   obj_cli.update();
   /*var audio = new Audio('audio_file.mp3');
   audio.play();*/
-  setTimeout(title, 100, ctx, img_tit, obj_cli);
+  titY+=titY;
+  setTimeout(title, timeout, ctx, img_tit, obj_cli);
 }
 
 canvas.addEventListener("click", (e) => {
-  if (e.clientX > 230 && e.clientY > 200) {
-    titY-=4;
+  var rect = canvas.getBoundingClientRect();   
+  if (e.clientX-rect.left > 230 && e.clientX-rect.left < 410) {
+    if (e.clientY-rect.top > 200 && e.clientY-rect.top < 264) {
+    	titY=-0.001;
+    }
   }
 });
 
