@@ -69,7 +69,7 @@ function title(canvas, ctx, img_tit, obj_cli, titX, titY){
       titY-=4;
     }
   });
-  setTimeout(title, 100, ctx, img_tit, obj_cli);
+  setTimeout(title, 100, ctx, img_tit, obj_cli, titX, titY);
 }
 
 main();
