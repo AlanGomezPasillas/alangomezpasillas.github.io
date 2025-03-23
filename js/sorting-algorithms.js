@@ -1,3 +1,7 @@
+var canvas = document.getElementById('game');
+var titX = 0;
+var titY = 0;
+
 class Sprite {
   constructor(img, px, py, width, height, x, y, nFrames, fIdx) {
     this.img = img;
@@ -36,9 +40,7 @@ function main(){
     ctx.globalAlpha = 1;
     ctx.fillStyle = "white";
     const obj_cli = new Sprite(img_cli, 0, 0, 180, 64, 230, 200, 10, 0);
-    var titX = 0;
-    var titY = 0;
-    setTimeout(title, 6000, canvas, ctx, img_tit, obj_cli, titX, titY);
+    setTimeout(title, 6000, canvas, ctx, img_tit, obj_cli);
   };
 }
 
@@ -58,7 +60,7 @@ function fade(i, ctx, img_pre, type){
   }
 }
 
-function title(canvas, ctx, img_tit, obj_cli, titX, titY){
+function title(canvas, ctx, img_tit, obj_cli){
   ctx.clearRect(0, 0, 640, 480);
   ctx.fillRect(0, 0, 640, 480);
   ctx.drawImage(img_tit, titX, titY);
@@ -66,13 +68,13 @@ function title(canvas, ctx, img_tit, obj_cli, titX, titY){
   obj_cli.update();
   /*var audio = new Audio('audio_file.mp3');
   audio.play();*/
-  canvas.addEventListener("click", (e) => {
-    if (e.clientX > 230 && e.clientY > 200) {
-      titY-=4;
-    }
-  });
-
-  setTimeout(title, 100, ctx, img_tit, obj_cli, titX, titY);
+  setTimeout(title, 100, ctx, img_tit, obj_cli);
 }
+
+canvas.addEventListener("click", (e) => {
+  if (e.clientX > 230 && e.clientY > 200) {
+    titY-=4;
+  }
+});
 
 main();
