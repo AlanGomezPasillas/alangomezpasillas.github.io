@@ -60,7 +60,7 @@ function fade(i, ctx, img_pre, type){
   }
 }
 
-function title(canvas, ctx, img_tit, obj_cli){
+function title(ctx, img_tit, obj_cli){
   ctx.clearRect(0, 0, 640, 480);
   ctx.fillRect(0, 0, 640, 480);
   ctx.drawImage(img_tit, titX, titY);
