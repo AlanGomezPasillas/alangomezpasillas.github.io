@@ -31,17 +31,19 @@ function main(){
   img_tit.src = "img/sorting-algorithms/title.png";
   img_cli.src = "img/sorting-algorithms/cli-st.png";
   img_cli.onload = function() {
-    ctx.fillStyle = "black";
     setTimeout(fade, 100, 1, ctx, img_pre, 1);
     setTimeout(fade, 4000, 0, ctx, img_pre, 0);
     ctx.globalAlpha = 1;
     ctx.fillStyle = "white";
     const obj_cli = new Sprite(img_cli, 0, 0, 180, 64, 230, 200, 10, 0);
-    setTimeout(title, 6000, canvas, ctx, img_tit, obj_cli, 0, 0);
+    var titX = 0;
+    var titY = 0;
+    setTimeout(title, 6000, canvas, ctx, img_tit, obj_cli, titX, titY);
   };
 }
 
 function fade(i, ctx, img_pre, type){
+  ctx.fillStyle = "black";
   ctx.clearRect(0,0,640,480);
   ctx.globalAlpha = 1;
   ctx.drawImage(img_pre, 0, 0);
@@ -57,7 +59,7 @@ function fade(i, ctx, img_pre, type){
 }
 
 function title(canvas, ctx, img_tit, obj_cli, titX, titY){
-  ctx.clearRect(0,0,640,480);
+  ctx.clearRect(0, 0, 640, 480);
   ctx.fillRect(0, 0, 640, 480);
   ctx.drawImage(img_tit, titX, titY);
   ctx.drawImage(obj_cli.img, obj_cli.px, obj_cli.py, obj_cli.width, obj_cli.height, obj_cli.x, obj_cli.y, obj_cli.width, obj_cli.height);
@@ -69,6 +71,7 @@ function title(canvas, ctx, img_tit, obj_cli, titX, titY){
       titY-=4;
     }
   });
+
   setTimeout(title, 100, ctx, img_tit, obj_cli, titX, titY);
 }
 
