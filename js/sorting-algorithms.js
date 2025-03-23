@@ -37,7 +37,7 @@ function main(){
     ctx.globalAlpha = 1;
     ctx.fillStyle = "white";
     const obj_cli = new Sprite(img_cli, 0, 0, 180, 64, 230, 200, 10, 0);
-    setTimeout(title, 6000, canvas, ctx, img_tit, obj_cli);
+    setTimeout(title, 6000, canvas, ctx, img_tit, obj_cli, 0, 0);
   };
 }
 
@@ -56,19 +56,19 @@ function fade(i, ctx, img_pre, type){
   }
 }
 
-function title(canvas, ctx, img_tit, obj_cli){
+function title(canvas, ctx, img_tit, obj_cli, titX, titY){
   ctx.clearRect(0,0,640,480);
   ctx.fillRect(0, 0, 640, 480);
-  ctx.drawImage(img_tit, 0, 0);
+  ctx.drawImage(img_tit, titX, titY);
   ctx.drawImage(obj_cli.img, obj_cli.px, obj_cli.py, obj_cli.width, obj_cli.height, obj_cli.x, obj_cli.y, obj_cli.width, obj_cli.height);
   obj_cli.update();
   /*var audio = new Audio('audio_file.mp3');
   audio.play();*/
   canvas.addEventListener("click", (e) => {
-  if (e.clientX > 230 && e.clientY > 200) {
-    break;
-  }
-});
+    if (e.clientX > 230 && e.clientY > 200) {
+      titY-=4;
+    }
+  });
   setTimeout(title, 100, ctx, img_tit, obj_cli);
 }
 
