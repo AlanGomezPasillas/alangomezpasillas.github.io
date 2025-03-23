@@ -40,7 +40,7 @@ function main(){
     ctx.globalAlpha = 1;
     ctx.fillStyle = "white";
     const obj_cli = new Sprite(img_cli, 0, 0, 180, 64, 230, 200, 10, 0);
-    setTimeout(title, 6000, canvas, ctx, img_tit, obj_cli);
+    setTimeout(title, 6000, ctx, img_tit, obj_cli);
   };
 }
 
