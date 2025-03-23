@@ -1,5 +1,5 @@
 var canvas = document.getElementById('game');
-var titX = 0;
+var state = "presentation";
 var titY = 0;
 
 class Sprite {
@@ -31,9 +31,13 @@ function main(){
   const img_pre = new Image();
   const img_tit = new Image();
   const img_cli = new Image();
+  const img_bubs = new Image();
+  const img_fils = new Image();
   img_pre.src = "img/sorting-algorithms/presentation.png";
   img_tit.src = "img/sorting-algorithms/title.png";
   img_cli.src = "img/sorting-algorithms/cli-st.png";
+  img_cli.src = "img/sorting-algorithms/bubble-sort.png";
+  img_cli.src = "img/sorting-algorithms/file-select.png";
   img_cli.onload = function() {
     setTimeout(fade, 100, 1, ctx, img_pre, 1);
     setTimeout(fade, 4000, 0, ctx, img_pre, 0);
@@ -61,11 +65,12 @@ function fade(i, ctx, img_pre, type){
 }
 
 function title(ctx, img_tit, obj_cli){
+  state = "title";
   var timeout=100;
   ctx.fillStyle = "white";
   ctx.clearRect(0, 0, 640, 480);
   ctx.fillRect(0, 0, 640, 480);
-  ctx.drawImage(img_tit, titX, titY);
+  ctx.drawImage(img_tit, 0, titY);
   if(titY==0){
     ctx.drawImage(obj_cli.img, obj_cli.px, obj_cli.py, obj_cli.width, obj_cli.height, obj_cli.x, obj_cli.y, obj_cli.width, obj_cli.height);
   }else{
@@ -75,14 +80,24 @@ function title(ctx, img_tit, obj_cli){
   /*var audio = new Audio('audio_file.mp3');
   audio.play();*/
   titY+=titY;
-  setTimeout(title, timeout, ctx, img_tit, obj_cli);
+  if(titY < -880){
+    selectAlg();
+  } else {
+    setTimeout(title, timeout, ctx, img_tit, obj_cli);
+  }
+}
+
+function selectAlg(){
+  //todo draw images of bubble sort and file select
 }
 
 canvas.addEventListener("click", (e) => {
-  var rect = canvas.getBoundingClientRect();   
-  if (e.clientX-rect.left > 230 && e.clientX-rect.left < 410) {
-    if (e.clientY-rect.top > 200 && e.clientY-rect.top < 264) {
-    	titY=-0.001;
+  if(state == "title"){
+    var rect = canvas.getBoundingClientRect();   
+    if (e.clientX-rect.left > 230 && e.clientX-rect.left < 410) {
+      if (e.clientY-rect.top > 200 && e.clientY-rect.top < 264) {
+	  titY=-0.0001;
+      }
     }
   }
 });
