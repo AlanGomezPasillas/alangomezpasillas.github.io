@@ -42,11 +42,13 @@ async function main(){
   const img_cli = new Image();
   const img_bubs = new Image();
   const img_fils = new Image();
+  const img_play = new Image();
   img_pre.src = "img/sorting-algorithms/presentation.png";
   img_tit.src = "img/sorting-algorithms/title.png";
   img_cli.src = "img/sorting-algorithms/cli-st.png";
   img_bubs.src = "img/sorting-algorithms/bubble-sort.png";
   img_fils.src = "img/sorting-algorithms/file-select.png";
+  img_play.src = "img/sorting-algorithms/play.png";
   //img_cli.onload = function() {
   //setTimeout(fade, 100, 1, ctx, img_pre, 1);
   await sleep(100);
@@ -63,7 +65,7 @@ async function main(){
   await sleep(2500);
   //rInTime("tit", 6100, ctx, img_tit, img_bubs, img_fils, obj_cli);
   await title(ctx, img_tit, obj_cli);
-  await selectAlg(ctx, img_bubs, img_fils);
+  await selectAlg(ctx, img_bubs, img_fils, img_play);
   //};
 }
 
@@ -109,13 +111,13 @@ async function title(ctx, img_tit, obj_cli){
   }
 }
 
-async function selectAlg(ctx, img_bubs, img_fils){
+async function selectAlg(ctx, img_bubs, img_fils, img_play){
   //todo draw images of bubble sort and file select
-  state = "select";
+  ctx.fillStyle = "white";
   ctx.clearRect(0, 0, 640, 480);
   ctx.fillRect(0, 0, 640, 480);
-  ctx.drawImage(img_bubs, 136, 126);
-  ctx.drawImage(img_fils, 364, 126);
+  ctx.drawImage(img_bubs, 32, 120);
+  ctx.drawImage(img_fils, 256, 120);
   ctx.font = "48px Arial";
   ctx.strokeText("Drag and Drop a .txt File: ", 10, 50);
   const fr = new FileReader();
@@ -128,12 +130,16 @@ async function selectAlg(ctx, img_bubs, img_fils){
   if(file!=undefined)
   fr.readAsText(file);
   if(data!=undefined){
+    state = "selected";
     ctx.strokeText("Done!", 10, 100);
     ctx.strokeText("Total: "+n, 10, 300);
     ctx.strokeText('{'+numbers+'}', 10, 350);
+    ctx.fillStyle = "black";
+    ctx.drawImage(img_play, 480, 120);
+    ctx.fillText("Ready! Press Play to Start", 34, 420);
   }
   await sleep(100);
-  await selectAlg(ctx, img_bubs, img_fils);
+  await selectAlg(ctx, img_bubs, img_fils, img_play);
 }
 
 canvas.addEventListener("click", (e) => {
@@ -142,6 +148,7 @@ canvas.addEventListener("click", (e) => {
     if (e.clientX-rect.left > 230 && e.clientX-rect.left < 410) {
       if (e.clientY-rect.top > 200 && e.clientY-rect.top < 264) {
 	  titY=-0.0001;
+	  state = "select";
       }
     }
   }
@@ -154,11 +161,9 @@ canvas.addEventListener("dragover", (e) => {
 });
 
 canvas.addEventListener("drop", (e) => {
-  if(state == "select"){
-    e.stopPropagation();
-    e.preventDefault();
-    file = e.dataTransfer.files[0];
-  }
+  e.stopPropagation();
+  e.preventDefault();
+  file = e.dataTransfer.files[0];
 });
 
 main();
