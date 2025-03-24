@@ -5,6 +5,7 @@ var file;
 var data;
 var numbers;
 var n;
+const armony = new Audio("msc/armonia.wav");
 //var file = "Drop a file to open it.";
 
 class Sprite {
@@ -64,6 +65,7 @@ async function main(){
   });*/
   await sleep(2500);
   //rInTime("tit", 6100, ctx, img_tit, img_bubs, img_fils, obj_cli);
+  armony.play();
   await title(ctx, img_tit, obj_cli);
   await selectAlg(ctx, img_bubs, img_fils, img_play);
   //};
@@ -99,7 +101,7 @@ async function title(ctx, img_tit, obj_cli){
   }
   obj_cli.update();
   /*var audio = new Audio('audio_file.mp3');
-  audio.play();*/
+  armonia.play();*/
   titY+=titY;
   if(titY < -880){
     return sleep(0);
@@ -165,5 +167,10 @@ canvas.addEventListener("drop", (e) => {
   e.preventDefault();
   file = e.dataTransfer.files[0];
 });
+
+armony.addEventListener("ended", function() {
+  this.currentTime = 0;
+  this.play();
+},false);
 
 main();
