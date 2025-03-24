@@ -1,6 +1,11 @@
 var canvas = document.getElementById('game');
 var state = "presentation";
 var titY = 0;
+var file;
+var data;
+var numbers;
+var n;
+//var file = "Drop a file to open it.";
 
 class Sprite {
   constructor(img, px, py, width, height, x, y, nFrames, fIdx) {
@@ -104,13 +109,31 @@ async function title(ctx, img_tit, obj_cli){
   }
 }
 
-function selectAlg(ctx, img_bubs, img_fils){
+async function selectAlg(ctx, img_bubs, img_fils){
   //todo draw images of bubble sort and file select
   state = "select";
   ctx.clearRect(0, 0, 640, 480);
   ctx.fillRect(0, 0, 640, 480);
   ctx.drawImage(img_bubs, 136, 126);
   ctx.drawImage(img_fils, 364, 126);
+  ctx.font = "48px Arial";
+  ctx.strokeText("Drag and Drop a .txt File: ", 10, 50);
+  const fr = new FileReader();
+  fr.addEventListener("load", (e) => {
+    data = e.target.result.split(/[\r\n]+/).filter(Boolean).join(' ');
+    numbers = data.split(' ');
+    n = numbers[0];
+    numbers.shift();
+  });
+  if(file!=undefined)
+  fr.readAsText(file);
+  if(data!=undefined){
+    ctx.strokeText("Done!", 10, 100);
+    ctx.strokeText("Total: "+n, 10, 300);
+    ctx.strokeText('{'+numbers+'}', 10, 350);
+  }
+  await sleep(100);
+  await selectAlg(ctx, img_bubs, img_fils);
 }
 
 canvas.addEventListener("click", (e) => {
@@ -121,6 +144,20 @@ canvas.addEventListener("click", (e) => {
 	  titY=-0.0001;
       }
     }
+  }
+});
+
+canvas.addEventListener("dragover", (e) => {
+  e.stopPropagation();
+  e.preventDefault();
+  e.dataTransfer.dropEffect = "copy";
+});
+
+canvas.addEventListener("drop", (e) => {
+  if(state == "select"){
+    e.stopPropagation();
+    e.preventDefault();
+    file = e.dataTransfer.files[0];
   }
 });
 
