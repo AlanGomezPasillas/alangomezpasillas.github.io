@@ -5,6 +5,7 @@ var file;
 var data;
 var numbers;
 var n;
+var start = false;
 const armony = new Audio("msc/armonia.wav");
 //var file = "Drop a file to open it.";
 
@@ -62,7 +63,6 @@ async function main(){
   const img_bubs = new Image();
   const img_fils = new Image();
   const img_play = new Image();
-	var start = false;
   img_pre.src = "img/sorting-algorithms/presentation.png";
   img_tit.src = "img/sorting-algorithms/title.png";
   img_cli.src = "img/sorting-algorithms/cli-st.png";
@@ -71,9 +71,10 @@ async function main(){
   img_play.src = "img/sorting-algorithms/play.png";
   //img_cli.onload = function() {
   //setTimeout(fade, 100, 1, ctx, img_pre, 1);
+  ctx.font = "48px Arial";
 	ctx.fillStyle = "white";
 	ctx.fillText("Click here to start!", 210, 220);
-	await init(start);
+	await init();
   fade(1, ctx, img_pre, 1);
   await sleep(4000);
   fade(0, ctx, img_pre, 0);
@@ -93,12 +94,12 @@ async function main(){
   //};
 }
 
-async function init(start){
+async function init(){
 	if(start){
 		return sleep(0);
 	} else {
 		await sleep(100);
-		await init(start);
+		await init();
 	}
 }
 
