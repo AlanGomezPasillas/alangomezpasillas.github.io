@@ -73,7 +73,7 @@ async function main(){
   //setTimeout(fade, 100, 1, ctx, img_pre, 1);
   ctx.font = "48px Arial";
 	ctx.fillStyle = "white";
-	ctx.fillText("Click here to start!", 100, 240);
+	ctx.fillText("Click here to start!", 130, 240);
 	await init();
   fade(1, ctx, img_pre, 1);
   await sleep(4000);
@@ -172,12 +172,14 @@ async function selectAlg(ctx, img_bubs, img_fils, img_play){
     ctx.drawImage(img_play, 480, 120);
     ctx.fillText("Ready! Press Play to Start", 34, 420);
   }
+  if(state == "playing"){
+    return sleep(0);
+  }
   await sleep(100);
   await selectAlg(ctx, img_bubs, img_fils, img_play);
 }
 
 async function playing(ctx){
-	state = "playing"; 
 	ctx.fillStyle = "white";
   ctx.clearRect(0, 0, 640, 480);
   ctx.fillRect(0, 0, 640, 480);
@@ -196,7 +198,14 @@ canvas.addEventListener("click", (e) => {
     }
   }else if(state == "presentation"){
 		start = true;
-	}
+	}else if(state == "selected"){
+    var rect = canvas.getBoundingClientRect();
+    if(e.clientX-rect.left > 480 && e.clientX-rect.left < 608){
+      if(e.clientY-rect.top > 120 && e.clientX-rect.top < 248){
+        state = "playing";
+      }
+    }
+  }
 });
 
 canvas.addEventListener("dragover", (e) => {
