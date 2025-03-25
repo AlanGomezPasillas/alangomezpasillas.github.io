@@ -71,9 +71,9 @@ async function main(){
   img_play.src = "img/sorting-algorithms/play.png";
   //img_cli.onload = function() {
   //setTimeout(fade, 100, 1, ctx, img_pre, 1);
-	ctx.fillText("Click here to start!", 210, 120);
-	await while(!start);
-  await sleep(100);
+	ctx.fillStyle = "white";
+	ctx.fillText("Click here to start!", 210, 220);
+	await init(start);
   fade(1, ctx, img_pre, 1);
   await sleep(4000);
   fade(0, ctx, img_pre, 0);
@@ -94,11 +94,8 @@ async function main(){
 }
 
 async function init(start){
-	if(!start){
-		await init(start);
-	} else {
-		return sleep(0);
-	}
+	while(!start){ }
+	return;
 }
 
 function fade(i, ctx, img_pre, type){
@@ -188,8 +185,8 @@ canvas.addEventListener("click", (e) => {
     var rect = canvas.getBoundingClientRect();   
     if (e.clientX-rect.left > 230 && e.clientX-rect.left < 410) {
       if (e.clientY-rect.top > 200 && e.clientY-rect.top < 264) {
-	  titY=-0.0001;
-	  state = "select";
+	  		titY=-0.0001;
+	  		state = "select";
       }
     }
   }else if(state == "presentation"){
