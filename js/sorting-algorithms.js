@@ -198,10 +198,10 @@ canvas.addEventListener("click", (e) => {
     }
   }else if(state == "presentation"){
 		start = true;
-	}else if(state == "selected"){
+  }else if(state == "selected"){
     var rect = canvas.getBoundingClientRect();
     if(e.clientX-rect.left > 480 && e.clientX-rect.left < 608){
-      if(e.clientY-rect.top > 120 && e.clientX-rect.top < 248){
+      if(e.clientY-rect.top > 120 && e.clientY-rect.top < 248){
         state = "playing";
       }
     }
