@@ -94,8 +94,11 @@ async function main(){
 }
 
 async function init(start){
-	while(!start){ }
-	return;
+	if(start)
+		return sleep(0);
+	else
+		await sleep(100);
+		return await init(start);
 }
 
 function fade(i, ctx, img_pre, type){
