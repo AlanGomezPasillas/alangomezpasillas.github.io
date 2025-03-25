@@ -8,6 +8,23 @@ var n;
 const armony = new Audio("msc/armonia.wav");
 //var file = "Drop a file to open it.";
 
+class Bubble {
+	constructor(size, x, y, number){
+		this.size = size;
+		this.x = x;
+		this.y = y;
+		this.number = number;
+	}
+
+	draw(){
+		//todo add drawing functions
+	}
+
+	update(){
+		//todo add update functions
+	}
+}
+
 class Sprite {
   constructor(img, px, py, width, height, x, y, nFrames, fIdx) {
     this.img = img;
@@ -68,6 +85,7 @@ async function main(){
   armony.play();
   await title(ctx, img_tit, obj_cli);
   await selectAlg(ctx, img_bubs, img_fils, img_play);
+	await playing(ctx);
   //};
 }
 
@@ -144,6 +162,15 @@ async function selectAlg(ctx, img_bubs, img_fils, img_play){
   await selectAlg(ctx, img_bubs, img_fils, img_play);
 }
 
+async function playing(ctx){
+	state = "playing"; 
+	ctx.fillStyle = "white";
+  ctx.clearRect(0, 0, 640, 480);
+  ctx.fillRect(0, 0, 640, 480);
+	await sleep(100);
+  await playing(ctx);
+}
+
 canvas.addEventListener("click", (e) => {
   if(state == "title"){
     var rect = canvas.getBoundingClientRect();   
@@ -171,6 +198,6 @@ canvas.addEventListener("drop", (e) => {
 armony.addEventListener("ended", function() {
   this.currentTime = 0;
   this.play();
-},false);
+}, false);
 
 main();
