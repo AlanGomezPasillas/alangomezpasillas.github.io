@@ -72,7 +72,7 @@ async function main(){
   //img_cli.onload = function() {
   //setTimeout(fade, 100, 1, ctx, img_pre, 1);
 	ctx.fillText("Click here to start!", 210, 120);
-	await init(start);
+	await while(!start);
   await sleep(100);
   fade(1, ctx, img_pre, 1);
   await sleep(4000);
