@@ -73,7 +73,7 @@ async function main(){
   //setTimeout(fade, 100, 1, ctx, img_pre, 1);
   ctx.font = "48px Arial";
 	ctx.fillStyle = "white";
-	ctx.fillText("Click here to start!", 210, 220);
+	ctx.fillText("Click here to start!", 100, 240);
 	await init();
   fade(1, ctx, img_pre, 1);
   await sleep(4000);
