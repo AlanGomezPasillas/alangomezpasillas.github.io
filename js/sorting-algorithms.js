@@ -9,8 +9,9 @@ const armony = new Audio("msc/armonia.wav");
 //var file = "Drop a file to open it.";
 
 class Bubble {
-	constructor(size, x, y, number){
+	constructor(size, speed, x, y, number){
 		this.size = size;
+		this.speed = speed;
 		this.x = x;
 		this.y = y;
 		this.number = number;
@@ -61,6 +62,7 @@ async function main(){
   const img_bubs = new Image();
   const img_fils = new Image();
   const img_play = new Image();
+	var start = false;
   img_pre.src = "img/sorting-algorithms/presentation.png";
   img_tit.src = "img/sorting-algorithms/title.png";
   img_cli.src = "img/sorting-algorithms/cli-st.png";
@@ -69,6 +71,8 @@ async function main(){
   img_play.src = "img/sorting-algorithms/play.png";
   //img_cli.onload = function() {
   //setTimeout(fade, 100, 1, ctx, img_pre, 1);
+	ctx.fillText("Click here to start!", 210, 120);
+	await init(start);
   await sleep(100);
   fade(1, ctx, img_pre, 1);
   await sleep(4000);
@@ -87,6 +91,14 @@ async function main(){
   await selectAlg(ctx, img_bubs, img_fils, img_play);
 	await playing(ctx);
   //};
+}
+
+async function init(start){
+	if(!start){
+		await init(start);
+	} else {
+		return sleep(0);
+	}
 }
 
 function fade(i, ctx, img_pre, type){
@@ -180,7 +192,9 @@ canvas.addEventListener("click", (e) => {
 	  state = "select";
       }
     }
-  }
+  }else if(state == "presentation"){
+		start = true;
+	}
 });
 
 canvas.addEventListener("dragover", (e) => {
