@@ -160,11 +160,11 @@ async function selectAlg(ctx, img_bubs, img_fils, img_play){
     numbers = data.split(' ');
     n = numbers[0];
     numbers.shift();
+    state = "selected";
   });
   if(file!=undefined)
   fr.readAsText(file);
   if(data!=undefined){
-    if(state == "select") state = "selected";
     ctx.strokeText("Done!", 10, 100);
     ctx.strokeText("Total: "+n, 10, 300);
     ctx.strokeText('{'+numbers+'}', 10, 350);
@@ -174,9 +174,10 @@ async function selectAlg(ctx, img_bubs, img_fils, img_play){
   }
   if(state == "playing"){
     return sleep(0);
+  }else{
+    await sleep(100);
+    await selectAlg(ctx, img_bubs, img_fils, img_play);
   }
-  await sleep(100);
-  await selectAlg(ctx, img_bubs, img_fils, img_play);
 }
 
 async function playing(ctx){
@@ -188,18 +189,17 @@ async function playing(ctx){
 }
 
 canvas.addEventListener("click", (e) => {
-  if(state == "title"){
-    var rect = canvas.getBoundingClientRect();   
+  var rect = canvas.getBoundingClientRect();
+  if(state == "title"){   
     if (e.clientX-rect.left > 230 && e.clientX-rect.left < 410) {
       if (e.clientY-rect.top > 200 && e.clientY-rect.top < 264) {
 	  		titY=-0.0001;
 	  		state = "select";
       }
     }
-  }else if(state == "presentation"){
+  }else if(state == "presentation") {
 		start = true;
-  }else if(state == "selected"){
-    var rect = canvas.getBoundingClientRect();
+  }else if(state == "selected") {
     if(e.clientX-rect.left > 480 && e.clientX-rect.left < 608) {
       if(e.clientY-rect.top > 120 && e.clientY-rect.top < 248) {
         state = "playing";
