@@ -4,7 +4,6 @@ var titY = 0;
 var file;
 var data;
 var numberss;
-var numbersi;
 var numbers;
 var n;
 var start = false;
@@ -187,7 +186,6 @@ async function selectAlg(ctx, img_bubs, img_fils, img_play){
     numberss = data.split(' ');
     n = numberss[0];
     numberss.shift();
-    numbersi = numberss.map(Number);
     numbers = numberss.map(Number);
     state = "selected";
   });
@@ -196,7 +194,7 @@ async function selectAlg(ctx, img_bubs, img_fils, img_play){
   if(data!=undefined){
     ctx.strokeText("Done!", 10, 100);
     ctx.strokeText("Total: "+n, 10, 300);
-    ctx.strokeText('{'+numbersi+'}', 10, 350);
+    ctx.strokeText('{'+numbers+'}', 10, 350);
     ctx.fillStyle = "black";
     ctx.drawImage(img_play, 480, 120);
     ctx.fillText("Ready! Press Play to Start", 34, 420);
@@ -209,16 +207,14 @@ async function selectAlg(ctx, img_bubs, img_fils, img_play){
   }
 }
 
-
 async function initPlay(ctx, img_bub){
-  const sorted = numbersi.toSorted(function (a, b){return a - b;});
+  const sorted = numbers.toSorted(function (a, b){return a - b;});
   for(let i = 0; i < n; i++){
-    const bub = new Bubble(400/n, 1, i*(400/n), (n-sorted.indexOf(numbersi[i]))*(400/n), numbersi[i]);
+    const bub = new Bubble(400/n, 1, i*(400/n), (n-sorted.indexOf(numbers[i]))*(400/n), numbers[i]);
     bubbles.push(bub);
   }
   await playing(ctx, img_bub, 0);
 }
-
 
 async function playing(ctx, img_bub, h){
   if (h < n-1){
@@ -249,14 +245,14 @@ async function checking(ctx, img_bub, h, j, swapped){
   }
 
   if(j < n-1){
-    if(numbersi[j] > numbersi[j+1]){
-      bubbles[numbers.indexOf(numbersi[j])].upto=false;
-      bubbles[numbers.indexOf(numbersi[j+1])].upto=false;
-      bubbles[numbers.indexOf(numbersi[j])].go = bubbles[numbers.indexOf(numbersi[j+1])].x;
-      bubbles[numbers.indexOf(numbersi[j+1])].go = bubbles[numbers.indexOf(numbersi[j])].x;
-      numbersi[j+1] = numbersi[j] ^ numbersi[j+1];
-      numbersi[j] = numbersi[j] ^ numbersi[j+1];
-      numbersi[j+1] = numbersi[j] ^ numbersi[j+1];
+    if(numbers[j] > numbers[j+1]){
+      bubbles[j].upto=false;
+      bubbles[j+1].upto=false;
+      bubbles[j].go = bubbles[j+1].x;
+      bubbles[j+1].go = bubbles[j].x;
+      numbers[j+1] = numbers[j] ^ numbers[j+1];
+      numbers[j] = numbers[j] ^ numbers[j+1];
+      numbers[j+1] = numbers[j] ^ numbers[j+1];
       await swap(ctx, img_bub, j);
       swapped=true;
     }
@@ -274,8 +270,8 @@ async function swap(ctx, img_bub, j){
   for(let i = 0; i < n; i++){
     bubbles[i].draw(ctx, img_bub);
   }
-  if(bubbles[numbers.indexOf(numbersi[j])].upto == true){
-    if(bubbles[numbers.indexOf(numbersi[j+1])].upto == true){
+  if(bubbles[j].upto == true){
+    if(bubbles[j+1].upto == true){
       return sleep(0);
     }
   }else{
