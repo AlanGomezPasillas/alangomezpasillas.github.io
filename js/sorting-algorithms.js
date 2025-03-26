@@ -33,7 +33,7 @@ class Bubble {
   }
 
   update(){
-    let distance = abs(this.x-this.go);
+    let distance = this.x-this.go;
     this.speed = distance;
     if(this.x<this.go){
       this.x+=this.speed;
