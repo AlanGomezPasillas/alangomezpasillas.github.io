@@ -164,7 +164,7 @@ async function selectAlg(ctx, img_bubs, img_fils, img_play){
   if(file!=undefined)
   fr.readAsText(file);
   if(data!=undefined){
-    state = "selected";
+    if(state == "select") state = "selected";
     ctx.strokeText("Done!", 10, 100);
     ctx.strokeText("Total: "+n, 10, 300);
     ctx.strokeText('{'+numbers+'}', 10, 350);
@@ -200,8 +200,8 @@ canvas.addEventListener("click", (e) => {
 		start = true;
   }else if(state == "selected"){
     var rect = canvas.getBoundingClientRect();
-    if(e.clientX-rect.left > 480 && e.clientX-rect.left < 608){
-      if(e.clientY-rect.top > 120 && e.clientY-rect.top < 248){
+    if(e.clientX-rect.left > 480 && e.clientX-rect.left < 608) {
+      if(e.clientY-rect.top > 120 && e.clientY-rect.top < 248) {
         state = "playing";
       }
     }
