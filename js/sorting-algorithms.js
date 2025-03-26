@@ -6,47 +6,48 @@ var data;
 var numbers;
 var n;
 var start = false;
+var bubbles = new Array();
 const armony = new Audio("msc/armonia.wav");
 //var file = "Drop a file to open it.";
 
 class Bubble {
-	constructor(size, speed, x, y, number){
-		this.size = size;
-		this.speed = speed;
-		this.x = x;
-		this.y = y;
-		this.number = number;
-	}
-
-	draw(){
-		//todo add drawing functions
-	}
-
-	update(){
-		//todo add update functions
-	}
-}
-
-class Sprite {
-  constructor(img, px, py, width, height, x, y, nFrames, fIdx) {
-    this.img = img;
-    this.px = px;
-    this.py = py;
-    this.width = width;
-    this.height = height;
+  constructor(size, speed, x, y){
+    this.size = size;
+    this.speed = speed;
     this.x = x;
     this.y = y;
-    this.nFrames = nFrames;
-    this.fIdx = fIdx;
+  }
+
+  draw(ctx, img, num){
+    ctx.drawImage(img, 0, 0, 400, 400, this.x, this.y, this.size, this.size);
+    ctx.drawStroke(num, this.x, this.y);
   }
 
   update(){
-    if(this.fIdx < this.nFrames-1){
-      this.fIdx++;
-    }else{
-      this.fIdx=0;
-    }
-    this.px=this.width*this.fIdx;
+    //todo add update functions
+  }
+}
+
+class Sprite {
+constructor(img, px, py, width, height, x, y, nFrames, fIdx) {
+  this.img = img;
+  this.px = px;
+  this.py = py;
+  this.width = width;
+  this.height = height;
+  this.x = x;
+  this.y = y;
+  this.nFrames = nFrames;
+  this.fIdx = fIdx;
+}
+
+update(){
+  if(this.fIdx < this.nFrames-1){
+    this.fIdx++;
+  }else{
+    this.fIdx=0;
+  }
+  this.px=this.width*this.fIdx;
   }
 }
 
@@ -63,18 +64,27 @@ async function main(){
   const img_bubs = new Image();
   const img_fils = new Image();
   const img_play = new Image();
+  const img_bub = new Image();
   img_pre.src = "img/sorting-algorithms/presentation.png";
   img_tit.src = "img/sorting-algorithms/title.png";
   img_cli.src = "img/sorting-algorithms/cli-st.png";
   img_bubs.src = "img/sorting-algorithms/bubble-sort.png";
   img_fils.src = "img/sorting-algorithms/file-select.png";
   img_play.src = "img/sorting-algorithms/play.png";
+  img_bub.src = "img/sorting-algorithns/bub.png";
+  await img_pre.decode();
+  await img_tit.decode();
+  await img_cli.decode();
+  await img_bubs.decode();
+  await img_fils.decode();
+  await img_play.decode();
+  await img_bub.decode();
   //img_cli.onload = function() {
   //setTimeout(fade, 100, 1, ctx, img_pre, 1);
   ctx.font = "48px Arial";
-	ctx.fillStyle = "white";
-	ctx.fillText("Click here to start!", 130, 240);
-	await init();
+  ctx.fillStyle = "white";
+  ctx.fillText("Click here to start!", 130, 240);
+  await init();
   fade(1, ctx, img_pre, 1);
   await sleep(4000);
   fade(0, ctx, img_pre, 0);
@@ -90,17 +100,17 @@ async function main(){
   armony.play();
   await title(ctx, img_tit, obj_cli);
   await selectAlg(ctx, img_bubs, img_fils, img_play);
-	await playing(ctx);
+  await initPlay(ctx, img_bub);
   //};
 }
 
 async function init(){
-	if(start){
-		return sleep(0);
-	} else {
-		await sleep(100);
-		await init();
-	}
+  if(start){
+    return sleep(0);
+  } else {
+    await sleep(100);
+    await init();
+  }
 }
 
 function fade(i, ctx, img_pre, type){
@@ -180,12 +190,26 @@ async function selectAlg(ctx, img_bubs, img_fils, img_play){
   }
 }
 
-async function playing(ctx){
-	ctx.fillStyle = "white";
+
+async function initPlay(ctx, img_bub){
+  const sorted = numbers.toSorted();
+  for(let i = 0; i < n; i++){
+    const bub = new Bubble(600/n, 4, (n-i)*(600/n), sorted.indexOf(numbers[i])*(400/n));
+    bubbles.push(bub);
+  }
+  await playing(ctx, img_bub);
+}
+
+
+async function playing(ctx, img_bub){
+  ctx.fillStyle = "white";
   ctx.clearRect(0, 0, 640, 480);
   ctx.fillRect(0, 0, 640, 480);
-	await sleep(100);
-  await playing(ctx);
+  for(let i = 0; i < n; i++){
+    bubbles[i].draw(ctx, img_bub, numbers[i]);
+  }
+  await sleep(100);
+  await playing(ctx, img_bub);
 }
 
 canvas.addEventListener("click", (e) => {
@@ -193,12 +217,12 @@ canvas.addEventListener("click", (e) => {
   if(state == "title"){   
     if (e.clientX-rect.left > 230 && e.clientX-rect.left < 410) {
       if (e.clientY-rect.top > 200 && e.clientY-rect.top < 264) {
-	  		titY=-0.0001;
-	  		state = "select";
+	titY=-0.0001;
+	state = "select";
       }
     }
   }else if(state == "presentation") {
-		start = true;
+    start = true;
   }else if(state == "selected") {
     if(e.clientX-rect.left > 480 && e.clientX-rect.left < 608) {
       if(e.clientY-rect.top > 120 && e.clientY-rect.top < 248) {
