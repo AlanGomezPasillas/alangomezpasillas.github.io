@@ -35,11 +35,12 @@ class Bubble {
   update(){
     let distance = this.x-this.go;
     this.speed = distance*0.4;
-    if(math.trunc(this.x)<math.trunc(this.go)){
+    if(Math.round(this.x)<Math.round(this.go)){
       this.x-=this.speed;
-    }else if(math.trunc(this.x)>math.trunc(this.go)){
+    }else if(Math.round(this.x)>Math.round(this.go)){
       this.x-=this.speed;
     }else{
+      this.x = Math.round(this.x);
       this.upto = true;
       this.go=this.x;
     }
