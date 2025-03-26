@@ -36,9 +36,9 @@ class Bubble {
     let distance = this.x-this.go;
     this.speed = distance*0.4;
     if(this.x<this.go){
-      this.x+=this.speed;
+      this.x-=this.speed;
     }else if(this.x>this.go){
-      this.x+=this.speed;
+      this.x-=this.speed;
     }else{
       this.upto = true;
       this.go=this.x;
