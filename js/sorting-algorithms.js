@@ -272,6 +272,9 @@ async function swap(ctx, img_bub, j){
   }
   if(bubbles[j].upto == true){
     if(bubbles[j+1].upto == true){
+      var bubAux=bubbles[j];
+      bubbles[j]=bubbles[j+1];
+      bubbles[j+1]=bubAux;
       return sleep(0);
     }
   }else{
