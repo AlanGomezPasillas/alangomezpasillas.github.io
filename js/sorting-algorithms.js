@@ -3,6 +3,8 @@ var state = "presentation";
 var titY = 0;
 var file;
 var data;
+var numberss;
+var numbersi;
 var numbers;
 var n;
 var start = false;
@@ -11,20 +13,35 @@ const armony = new Audio("msc/armonia.wav");
 //var file = "Drop a file to open it.";
 
 class Bubble {
-  constructor(size, speed, x, y){
+  constructor(size, speed, x, y, num){
     this.size = size;
     this.speed = speed;
     this.x = x;
     this.y = y;
+    this.num = num;
+    this.go = x;
+    this.upto = true;
   }
 
-  draw(ctx, img, num){
+  draw(ctx, img){
+    ctx.textAlign = "center";
+    ctx.font = "20px Arial";
+    ctx.fillStyle = "black";
     ctx.drawImage(img, 0, 0, 400, 400, this.x, this.y, this.size, this.size);
-    ctx.drawStroke(num, this.x, this.y);
+    ctx.fillText(this.num, this.x+(this.size/2), this.y+(this.size/1.5));
+    ctx.textAlign = "left";
+    this.update();
   }
 
   update(){
-    //todo add update functions
+    if(this.x<this.go){
+      this.x+=this.speed;
+    }else if(this.x>this.go){
+      this.x-=this.speed;
+    }else{
+      this.upto = true;
+      this.go=this.x;
+    }
   }
 }
 
@@ -71,7 +88,7 @@ async function main(){
   img_bubs.src = "img/sorting-algorithms/bubble-sort.png";
   img_fils.src = "img/sorting-algorithms/file-select.png";
   img_play.src = "img/sorting-algorithms/play.png";
-  img_bub.src = "img/sorting-algorithns/bub.png";
+  img_bub.src = "img/sorting-algorithms/bub.png";
   await img_pre.decode();
   await img_tit.decode();
   await img_cli.decode();
@@ -167,9 +184,11 @@ async function selectAlg(ctx, img_bubs, img_fils, img_play){
   const fr = new FileReader();
   fr.addEventListener("load", (e) => {
     data = e.target.result.split(/[\r\n]+/).filter(Boolean).join(' ');
-    numbers = data.split(' ');
-    n = numbers[0];
-    numbers.shift();
+    numberss = data.split(' ');
+    n = numberss[0];
+    numberss.shift();
+    numbersi = numberss.map(Number);
+    numbers = numberss.map(Number);
     state = "selected";
   });
   if(file!=undefined)
@@ -177,7 +196,7 @@ async function selectAlg(ctx, img_bubs, img_fils, img_play){
   if(data!=undefined){
     ctx.strokeText("Done!", 10, 100);
     ctx.strokeText("Total: "+n, 10, 300);
-    ctx.strokeText('{'+numbers+'}', 10, 350);
+    ctx.strokeText('{'+numbersi+'}', 10, 350);
     ctx.fillStyle = "black";
     ctx.drawImage(img_play, 480, 120);
     ctx.fillText("Ready! Press Play to Start", 34, 420);
@@ -192,24 +211,77 @@ async function selectAlg(ctx, img_bubs, img_fils, img_play){
 
 
 async function initPlay(ctx, img_bub){
-  const sorted = numbers.toSorted();
+  const sorted = numbersi.toSorted(function (a, b){return a - b;});
   for(let i = 0; i < n; i++){
-    const bub = new Bubble(600/n, 4, (n-i)*(600/n), sorted.indexOf(numbers[i])*(400/n));
+    const bub = new Bubble(400/n, 1, i*(400/n), (n-sorted.indexOf(numbersi[i]))*(400/n), numbersi[i]);
     bubbles.push(bub);
   }
-  await playing(ctx, img_bub);
+  await playing(ctx, img_bub, 0);
 }
 
 
-async function playing(ctx, img_bub){
+async function playing(ctx, img_bub, h){
+  if (h < n-1){
+    if(h==0){
+      ctx.fillStyle = "white";
+      ctx.clearRect(0, 0, 640, 480);
+      ctx.fillRect(0, 0, 640, 480);
+      ctx.strokeText("Start!", 400, 50);
+      for(let i = 0; i < n; i++){
+	bubbles[i].draw(ctx, img_bub);
+      }
+      await sleep(4000);
+    }
+    await checking(ctx, img_bub, h, 0, false);
+    await sleep(10);
+    await playing(ctx, img_bub, h+1);
+  } else {
+    return sleep(0);
+  }
+}
+
+async function checking(ctx, img_bub, h, j, swapped){
   ctx.fillStyle = "white";
   ctx.clearRect(0, 0, 640, 480);
   ctx.fillRect(0, 0, 640, 480);
   for(let i = 0; i < n; i++){
-    bubbles[i].draw(ctx, img_bub, numbers[i]);
+    bubbles[i].draw(ctx, img_bub);
   }
-  await sleep(100);
-  await playing(ctx, img_bub);
+
+  if(j < n-1){
+    if(numbersi[j] > numbersi[j+1]){
+      bubbles[numbers.indexOf(numbersi[j])].upto=false;
+      bubbles[numbers.indexOf(numbersi[j+1])].upto=false;
+      bubbles[numbers.indexOf(numbersi[j])].go = bubbles[numbers.indexOf(numbersi[j+1])].x;
+      bubbles[numbers.indexOf(numbersi[j+1])].go = bubbles[numbers.indexOf(numbersi[j])].x;
+      numbersi[j+1] = numbersi[j] ^ numbersi[j+1];
+      numbersi[j] = numbersi[j] ^ numbersi[j+1];
+      numbersi[j+1] = numbersi[j] ^ numbersi[j+1];
+      await swap(ctx, img_bub, j);
+      swapped=true;
+    }
+    await sleep(10);
+    await checking(ctx, img_bub, h, j+1, swapped);
+  }else{
+    return sleep(0);
+  }
+}
+
+async function swap(ctx, img_bub, j){
+  ctx.fillStyle = "white";
+  ctx.clearRect(0, 0, 640, 480);
+  ctx.fillRect(0, 0, 640, 480);
+  for(let i = 0; i < n; i++){
+    bubbles[i].draw(ctx, img_bub);
+  }
+  if(bubbles[numbers.indexOf(numbersi[j])].upto == true){
+    if(bubbles[numbers.indexOf(numbersi[j+1])].upto == true){
+      return sleep(0);
+    }
+  }else{
+    await sleep(10);
+    await swap(ctx, img_bub, j);
+  }
 }
 
 canvas.addEventListener("click", (e) => {
