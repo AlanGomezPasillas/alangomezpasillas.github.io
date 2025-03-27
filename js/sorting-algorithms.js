@@ -14,7 +14,7 @@ const armony = new Audio("msc/armonia.wav");
 class Bubble {
   constructor(size, speed, x, y, num){
     this.size = size;
-    this.speed = speed*0.1;
+    this.speed = speed*0.01;
     this.x = x;
     this.y = y;
     this.num = num;
