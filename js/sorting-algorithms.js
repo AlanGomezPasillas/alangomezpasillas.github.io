@@ -14,7 +14,7 @@ const armony = new Audio("msc/armonia.wav");
 class Bubble {
   constructor(size, speed, x, y, num){
     this.size = size;
-    this.speed = speed;
+    this.speed = speed*0.1;
     this.x = x;
     this.y = y;
     this.num = num;
@@ -29,12 +29,11 @@ class Bubble {
     ctx.drawImage(img, 0, 0, 400, 400, this.x, this.y, this.size, this.size);
     ctx.fillText(this.num, this.x+(this.size/2), this.y+(this.size/1.5));
     ctx.textAlign = "left";
-    this.update();
   }
 
   update(){
-    let distance = this.x-this.go;
-    this.speed = distance*0.4;
+    var distance = this.x-this.go;
+    var velocity = distance-(distance*this.speed);
     if(Math.round(this.x)<Math.round(this.go)){
       this.x-=this.speed;
     }else if(Math.round(this.x)>Math.round(this.go)){
@@ -214,6 +213,7 @@ async function initPlay(ctx, img_bub){
   const sorted = numbers.toSorted(function (a, b){return a - b;});
   for(let i = 0; i < n; i++){
     const bub = new Bubble(400/n, 1, i*(400/n), (n-sorted.indexOf(numbers[i]))*(400/n), numbers[i]);
+    sorted[sorted.indexOf(numbers[i])]=-123456;
     bubbles.push(bub);
   }
   await playing(ctx, img_bub, 0);
@@ -272,6 +272,7 @@ async function swap(ctx, img_bub, j){
   ctx.fillRect(0, 0, 640, 480);
   for(let i = 0; i < n; i++){
     bubbles[i].draw(ctx, img_bub);
+    bubbles[i].update();
   }
   if(bubbles[j].upto == true){
     if(bubbles[j+1].upto == true){
