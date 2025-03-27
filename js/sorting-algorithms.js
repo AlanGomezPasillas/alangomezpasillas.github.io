@@ -236,7 +236,7 @@ async function initPlay(ctx, img_bub){
 }
 
 async function playing(ctx, img_bub, h){
-  var swapped = false;
+  let checker = {swapped: false};
   if (h < n-1){
     if(h==0){
       ctx.fillStyle = "white";
@@ -248,8 +248,8 @@ async function playing(ctx, img_bub, h){
       }
       await sleep(4000);
     }
-    await checking(ctx, img_bub, h, 0, swapped);
-    if(swapped == true) {
+    await checking(ctx, img_bub, h, 0, checker);
+    if(checker.swapped == true) {
       await playing(ctx, img_bub, h+1);
     } else {
       ctx.font = "48px Arial";
@@ -263,7 +263,7 @@ async function playing(ctx, img_bub, h){
   }
 }
 
-async function checking(ctx, img_bub, h, j, swapped){
+async function checking(ctx, img_bub, h, j, c){
   ctx.fillStyle = "white";
   ctx.clearRect(0, 0, 640, 480);
   ctx.fillRect(0, 0, 640, 480);
@@ -283,10 +283,10 @@ async function checking(ctx, img_bub, h, j, swapped){
       numbers[j] = numbers[j] ^ numbers[j+1];
       numbers[j+1] = numbers[j] ^ numbers[j+1];
       await swap(ctx, img_bub, h, j);
-      swapped=true;
+      c.swapped=true;
     }
     await sleep(1);
-    await checking(ctx, img_bub, h, j+1, swapped);
+    await checking(ctx, img_bub, h, j+1, c);
   }else{
     return sleep(0);
   }
