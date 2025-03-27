@@ -249,7 +249,7 @@ async function playing(ctx, img_bub, h){
       await sleep(4000);
     }
     await checking(ctx, img_bub, h, 0, swapped);
-    if(swapped == true)
+    if(swapped == true) {
       await playing(ctx, img_bub, h+1);
     } else {
       ctx.font = "48px Arial";
