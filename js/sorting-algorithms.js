@@ -257,9 +257,9 @@ async function checking(ctx, img_bub, h, j, swapped){
   ctx.fillStyle = "white";
   ctx.clearRect(0, 0, 640, 480);
   ctx.fillRect(0, 0, 640, 480);
-  ctx.strokeText("Loop1: "+h, 410, 50);
-  ctx.strokeText("Loop2: "+j, 410, 100);
-  ctx.strokeText("Speed: "+((bubbles[0].speed)+1)*100, 410, 150);
+  ctx.strokeText("Loop1: "+h, 500, 50);
+  ctx.strokeText("Loop2: "+j, 500, 100);
+  ctx.strokeText("Speed: "+(bubbles[0].speed+0.01)*100, 500, 150);
   for(let i = 0; i < n; i++){
     bubbles[i].draw(ctx, img_bub);
   }
@@ -286,9 +286,9 @@ async function swap(ctx, img_bub, h, j){
   ctx.fillStyle = "white";
   ctx.clearRect(0, 0, 640, 480);
   ctx.fillRect(0, 0, 640, 480);
-  ctx.strokeText("Loop1: "+h, 410, 50);
-  ctx.strokeText("Loop2: "+j, 410, 100);
-  ctx.strokeText("Speed: "+((bubbles[0].speed)+1)*100, 410, 150);
+  ctx.strokeText("Loop1: "+h, 500, 50);
+  ctx.strokeText("Loop2: "+j, 500, 100);
+  ctx.strokeText("Speed: "+(bubbles[0].speed+0.01)*100, 500, 150);
   for(let i = 0; i < n; i++){
     bubbles[i].draw(ctx, img_bub);
     bubbles[i].update();
