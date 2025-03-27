@@ -130,15 +130,15 @@ async function main(){
 }
 
 async function init(start){
-  let start = {clicked: false};
+  let start = false};
   if(start){
     return sleep(0);
   } else {
     await sleep(100);
     await init();
   }
-  canvas.addEventListener("click", (e, start) => {
-    start = true;
+  canvas.addEventListener("click", (e) => {
+    e.target.start = true;
   });
 }
 
@@ -371,6 +371,6 @@ async function swap(ctx, img_bub, h, j){
 armony.addEventListener("ended", function() {
   this.currentTime = 0;
   this.play();
-}, false);
+});
 
 main();
