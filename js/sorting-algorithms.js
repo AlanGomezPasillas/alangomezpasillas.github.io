@@ -35,9 +35,9 @@ class Bubble {
     var distance = this.x-this.go;
     var velocity = distance-(distance*this.speed);
     if(Math.round(this.x)<Math.round(this.go)){
-      this.x-=this.speed;
+      this.x -= velocity;
     }else if(Math.round(this.x)>Math.round(this.go)){
-      this.x-=this.speed;
+      this.x -= velocity;
     }else{
       this.x = Math.round(this.x);
       this.upto = true;
@@ -204,7 +204,7 @@ async function selectAlg(ctx, img_bubs, img_fils, img_play){
   if(state == "playing"){
     return sleep(0);
   }else{
-    await sleep(100);
+    await sleep(10);
     await selectAlg(ctx, img_bubs, img_fils, img_play);
   }
 }
@@ -212,7 +212,7 @@ async function selectAlg(ctx, img_bubs, img_fils, img_play){
 async function initPlay(ctx, img_bub){
   const sorted = numbers.toSorted(function (a, b){return a - b;});
   for(let i = 0; i < n; i++){
-    const bub = new Bubble(400/n, 1, i*(400/n), (n-sorted.indexOf(numbers[i]))*(400/n), numbers[i]);
+    const bub = new Bubble(400/n, 4, i*(400/n), (n-sorted.indexOf(numbers[i]))*(400/n), numbers[i]);
     sorted[sorted.indexOf(numbers[i])]=-123456;
     bubbles.push(bub);
   }
