@@ -247,7 +247,7 @@ async function playing(ctx, img_bub, h){
       }
       await sleep(4000);
     }
-    if(await checking(ctx, img_bub, h, 0, false) == true) {
+    if((await checking(ctx, img_bub, h, 0, false)) == true) {
       await playing(ctx, img_bub, h+1);
     } else {
       ctx.font = "48px Arial";
@@ -284,7 +284,8 @@ async function checking(ctx, img_bub, h, j, swapped){
       swapped=true;
     }
     await sleep(1);
-    await checking(ctx, img_bub, h, j+1, swapped);
+    checking(ctx, img_bub, h, j+1, swapped);
+    return swapped;
   }else{
     return swapped;
   }
