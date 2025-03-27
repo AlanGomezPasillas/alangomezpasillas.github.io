@@ -117,6 +117,7 @@ async function main(){
   //rInTime("tit", 6100, ctx, img_tit, img_bubs, img_fils, obj_cli);
   armony.play();
   while(true){
+    var bubbles = new Array();
     file = undefined;
     data = undefined;
     state = "title";
@@ -246,15 +247,17 @@ async function playing(ctx, img_bub, h){
       }
       await sleep(4000);
     }
-    if (await checking(ctx, img_bub, h, 0, false) == false){
+    if(await checking(ctx, img_bub, h, 0, false) == true) {
+      await playing(ctx, img_bub, h+1);
+    } else {
       ctx.font = "48px Arial";
       ctx.strokeText("Done!", 480, 400);
       return sleep(5000);
     }
-    await sleep(1);
-    await playing(ctx, img_bub, h+1);
   } else {
-    return sleep(0);
+    ctx.font = "48px Arial";
+    ctx.strokeText("Done!", 480, 400);
+    return sleep(5000);
   }
 }
 
@@ -283,7 +286,7 @@ async function checking(ctx, img_bub, h, j, swapped){
     await sleep(1);
     await checking(ctx, img_bub, h, j+1, swapped);
   }else{
-    return sleep(0);
+    return swapped;
   }
 }
 
