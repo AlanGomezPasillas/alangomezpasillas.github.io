@@ -117,6 +117,8 @@ async function main(){
   //rInTime("tit", 6100, ctx, img_tit, img_bubs, img_fils, obj_cli);
   armony.play();
   while(true){
+    state = "title";
+    titY = 0;
     await title(ctx, img_tit, obj_cli);
     await selectAlg(ctx, img_bubs, img_fils, img_play);
     await initPlay(ctx, img_bub);
@@ -150,7 +152,6 @@ function fade(i, ctx, img_pre, type){
 }
 
 async function title(ctx, img_tit, obj_cli){
-  state = "title";
   var timeout=100;
   ctx.fillStyle = "white";
   ctx.clearRect(0, 0, 640, 480);
@@ -257,9 +258,9 @@ async function checking(ctx, img_bub, h, j, swapped){
   ctx.fillStyle = "white";
   ctx.clearRect(0, 0, 640, 480);
   ctx.fillRect(0, 0, 640, 480);
-  ctx.strokeText("Loop1: "+h, 500, 50);
-  ctx.strokeText("Loop2: "+j, 500, 100);
-  ctx.strokeText("Speed: "+(bubbles[0].speed+0.01)*100, 500, 150);
+  ctx.strokeText("Loop1: "+h, 550, 50);
+  ctx.strokeText("Loop2: "+j, 550, 100);
+  ctx.strokeText("Speed: "+(1-bubbles[0].speed)*100, 550, 150);
   for(let i = 0; i < n; i++){
     bubbles[i].draw(ctx, img_bub);
   }
@@ -286,9 +287,9 @@ async function swap(ctx, img_bub, h, j){
   ctx.fillStyle = "white";
   ctx.clearRect(0, 0, 640, 480);
   ctx.fillRect(0, 0, 640, 480);
-  ctx.strokeText("Loop1: "+h, 500, 50);
-  ctx.strokeText("Loop2: "+j, 500, 100);
-  ctx.strokeText("Speed: "+(bubbles[0].speed+0.01)*100, 500, 150);
+  ctx.strokeText("Loop1: "+h, 550, 50);
+  ctx.strokeText("Loop2: "+j, 550, 100);
+  ctx.strokeText("Speed: "+(1-bubbles[0].speed)*100, 550, 150);
   for(let i = 0; i < n; i++){
     bubbles[i].draw(ctx, img_bub);
     bubbles[i].update();
