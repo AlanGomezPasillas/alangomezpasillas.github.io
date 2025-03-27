@@ -137,8 +137,8 @@ async function init(start){
     await sleep(100);
     await init();
   }
-  canvas.addEventListener("click", (e) => {
-    e.target.start = true;
+  canvas.addEventListener("click", (e, start) => {
+    start = true;
   });
 }
 
