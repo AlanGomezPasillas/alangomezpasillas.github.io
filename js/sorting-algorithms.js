@@ -236,6 +236,7 @@ async function initPlay(ctx, img_bub){
 }
 
 async function playing(ctx, img_bub, h){
+  var swapped = false;
   if (h < n-1){
     if(h==0){
       ctx.fillStyle = "white";
@@ -247,7 +248,8 @@ async function playing(ctx, img_bub, h){
       }
       await sleep(4000);
     }
-    if((await checking(ctx, img_bub, h, 0, false)) == true) {
+    await checking(ctx, img_bub, h, 0, swapped);
+    if(swapped == true)
       await playing(ctx, img_bub, h+1);
     } else {
       ctx.font = "48px Arial";
@@ -284,10 +286,9 @@ async function checking(ctx, img_bub, h, j, swapped){
       swapped=true;
     }
     await sleep(1);
-    checking(ctx, img_bub, h, j+1, swapped);
-    return swapped;
+    await checking(ctx, img_bub, h, j+1, swapped);
   }else{
-    return swapped;
+    return sleep(0);
   }
 }
 
