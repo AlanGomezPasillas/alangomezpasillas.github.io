@@ -212,7 +212,7 @@ async function selectAlg(ctx, img_bubs, img_fils, img_play){
 async function initPlay(ctx, img_bub){
   const sorted = numbers.toSorted(function (a, b){return a - b;});
   for(let i = 0; i < n; i++){
-    const bub = new Bubble(400/n, 4, i*(400/n), (n-sorted.indexOf(numbers[i]))*(400/n), numbers[i]);
+    const bub = new Bubble(400/n, 2, i*(400/n), (n-sorted.indexOf(numbers[i]))*(400/n), numbers[i]);
     sorted[sorted.indexOf(numbers[i])]=-123456;
     bubbles.push(bub);
   }
@@ -232,7 +232,7 @@ async function playing(ctx, img_bub, h){
       await sleep(4000);
     }
     await checking(ctx, img_bub, h, 0, false);
-    await sleep(10);
+    await sleep(1);
     await playing(ctx, img_bub, h+1);
   } else {
     return sleep(0);
@@ -259,7 +259,7 @@ async function checking(ctx, img_bub, h, j, swapped){
       await swap(ctx, img_bub, j);
       swapped=true;
     }
-    await sleep(10);
+    await sleep(1);
     await checking(ctx, img_bub, h, j+1, swapped);
   }else{
     return sleep(0);
@@ -282,7 +282,7 @@ async function swap(ctx, img_bub, j){
       return sleep(0);
     }
   }else{
-    await sleep(10);
+    await sleep(1);
     await swap(ctx, img_bub, j);
   }
 }
