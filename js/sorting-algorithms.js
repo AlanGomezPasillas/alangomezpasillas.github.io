@@ -47,17 +47,17 @@ class Bubble {
 }
 
 class Sprite {
-constructor(img, px, py, width, height, x, y, nFrames, fIdx) {
-  this.img = img;
-  this.px = px;
-  this.py = py;
-  this.width = width;
-  this.height = height;
-  this.x = x;
-  this.y = y;
-  this.nFrames = nFrames;
-  this.fIdx = fIdx;
-}
+  constructor(img, px, py, width, height, x, y, nFrames, fIdx) {
+    this.img = img;
+    this.px = px;
+    this.py = py;
+    this.width = width;
+    this.height = height;
+    this.x = x;
+    this.y = y;
+    this.nFrames = nFrames;
+    this.fIdx = fIdx;
+  }
 
 update(){
   if(this.fIdx < this.nFrames-1){
@@ -130,6 +130,9 @@ async function main(){
 }
 
 async function init(){
+  canvas.addEventListener("click", (e) => {
+    start = true;
+  });
   if(start){
     return sleep(0);
   } else {
@@ -325,8 +328,8 @@ canvas.addEventListener("click", (e) => {
 	    state = "select";
       }
     }
-  }else if(state == "presentation") {
-    start = true;
+  //}else if(state == "presentation") {
+    //start = true;
   }else if(state == "selected") {
     if(e.clientX-rect.left > 480 && e.clientX-rect.left < 608) {
       if(e.clientY-rect.top > 120 && e.clientY-rect.top < 248) {
