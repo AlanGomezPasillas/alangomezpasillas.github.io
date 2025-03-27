@@ -116,9 +116,11 @@ async function main(){
   await sleep(2500);
   //rInTime("tit", 6100, ctx, img_tit, img_bubs, img_fils, obj_cli);
   armony.play();
-  await title(ctx, img_tit, obj_cli);
-  await selectAlg(ctx, img_bubs, img_fils, img_play);
-  await initPlay(ctx, img_bub);
+  while(true){
+    await title(ctx, img_tit, obj_cli);
+    await selectAlg(ctx, img_bubs, img_fils, img_play);
+    await initPlay(ctx, img_bub);
+  }
   //};
 }
 
@@ -196,7 +198,17 @@ async function selectAlg(ctx, img_bubs, img_fils, img_play){
   if(data!=undefined){
     ctx.strokeText("Done!", 10, 100);
     ctx.strokeText("Total: "+n, 10, 300);
-    ctx.strokeText('{'+numbers+'}', 10, 350);
+    if(n < 11)
+      ctx.strokeText('{'+numbers+'}', 10, 350);
+    else{
+      let head = '{';
+      for(let i = 0; i < 10; i++){
+        head += numbers[i];
+        head += ",";
+      }
+      head += "...}";
+      ctx.strokeText(head, 10, 350);
+    }
     ctx.fillStyle = "black";
     ctx.drawImage(img_play, 480, 120);
     ctx.fillText("Ready! Press Play to Start", 34, 420);
@@ -227,11 +239,13 @@ async function playing(ctx, img_bub, h){
       ctx.fillRect(0, 0, 640, 480);
       ctx.strokeText("Start!", 400, 50);
       for(let i = 0; i < n; i++){
-	bubbles[i].draw(ctx, img_bub);
+	    bubbles[i].draw(ctx, img_bub);
       }
       await sleep(4000);
     }
-    await checking(ctx, img_bub, h, 0, false);
+    if (await checking(ctx, img_bub, h, 0, false) == false){
+      return sleep(0);
+    }
     await sleep(1);
     await playing(ctx, img_bub, h+1);
   } else {
@@ -243,10 +257,12 @@ async function checking(ctx, img_bub, h, j, swapped){
   ctx.fillStyle = "white";
   ctx.clearRect(0, 0, 640, 480);
   ctx.fillRect(0, 0, 640, 480);
+  ctx.strokeText("Loop1: "+h, 410, 50);
+  ctx.strokeText("Loop2: "+j, 410, 100);
+  ctx.strokeText("Speed: "+(bubbles[0].speed+1)*100, 410, 100);
   for(let i = 0; i < n; i++){
     bubbles[i].draw(ctx, img_bub);
   }
-
   if(j < n-1){
     if(numbers[j] > numbers[j+1]){
       bubbles[j].upto=false;
@@ -256,7 +272,7 @@ async function checking(ctx, img_bub, h, j, swapped){
       numbers[j+1] = numbers[j] ^ numbers[j+1];
       numbers[j] = numbers[j] ^ numbers[j+1];
       numbers[j+1] = numbers[j] ^ numbers[j+1];
-      await swap(ctx, img_bub, j);
+      await swap(ctx, img_bub, h, j);
       swapped=true;
     }
     await sleep(1);
@@ -266,10 +282,13 @@ async function checking(ctx, img_bub, h, j, swapped){
   }
 }
 
-async function swap(ctx, img_bub, j){
+async function swap(ctx, img_bub, h, j){
   ctx.fillStyle = "white";
   ctx.clearRect(0, 0, 640, 480);
   ctx.fillRect(0, 0, 640, 480);
+  ctx.strokeText("Loop1: "+h, 410, 50);
+  ctx.strokeText("Loop2: "+j, 410, 100);
+  ctx.strokeText("Speed: "+(bubbles[0].speed+1)*100, 410, 100);
   for(let i = 0; i < n; i++){
     bubbles[i].draw(ctx, img_bub);
     bubbles[i].update();
@@ -292,8 +311,8 @@ canvas.addEventListener("click", (e) => {
   if(state == "title"){   
     if (e.clientX-rect.left > 230 && e.clientX-rect.left < 410) {
       if (e.clientY-rect.top > 200 && e.clientY-rect.top < 264) {
-	titY=-0.0001;
-	state = "select";
+	    titY=-0.0001;
+	    state = "select";
       }
     }
   }else if(state == "presentation") {
