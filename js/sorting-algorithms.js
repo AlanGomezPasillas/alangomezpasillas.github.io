@@ -294,6 +294,7 @@ async function playing(ctx, img_bub, h){
 }
 
 async function checking(ctx, img_bub, h, j, c){
+  let next = false;
   ctx.fillStyle = "white";
   ctx.clearRect(0, 0, 640, 480);
   ctx.fillRect(0, 0, 640, 480);
@@ -315,8 +316,9 @@ async function checking(ctx, img_bub, h, j, c){
       numbers[j+1] = numbers[j] ^ numbers[j+1];
       await swap(ctx, img_bub, h, j);
       c.swapped=true;
+      await init(next);
     }else{
-      sleep(Math.round((1-bubbles[0].speed)*100*500))
+      //sleep(Math.round((1-bubbles[0].speed)*100*500))
     }
     await sleep(1);
     await checking(ctx, img_bub, h, j+1, c);
