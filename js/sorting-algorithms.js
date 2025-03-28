@@ -258,7 +258,7 @@ async function selectAlg(ctx, img_bubs, img_fils, img_play){
 async function initPlay(ctx, img_bub){
   const sorted = numbers.toSorted(function (a, b){return a - b;});
   for(let i = 0; i < n; i++){
-    const bub = new Bubble(400/n, 10, i*(400/n)+120, (n-sorted.indexOf(numbers[i]))*(400/n)+20, numbers[i]);
+    const bub = new Bubble(400/n, 1, i*(400/n)+120, (n-sorted.indexOf(numbers[i]))*(400/n)+20, numbers[i]);
     sorted[sorted.indexOf(numbers[i])]=-123456;
     bubbles.push(bub);
   }
@@ -273,7 +273,6 @@ async function playing(ctx, img_bub, h){
       ctx.clearRect(0, 0, 640, 480);
       ctx.fillRect(0, 0, 640, 480);
       ctx.strokeText("Start!", 400, 50);
-      if(n<20)ctx.strokeText("Set: {"+numbers+'}', 420, 200);
       for(let i = 0; i < n; i++){
 	    bubbles[i].draw(ctx, img_bub);
       }
@@ -301,7 +300,7 @@ async function checking(ctx, img_bub, h, j, c){
   ctx.strokeText("Loop1: "+h, 528, 50);
   ctx.strokeText("Loop2: "+j, 528, 100);
   ctx.strokeText("Speed: "+Math.round((1-bubbles[0].speed)*100), 528, 150);
-  if(n<20)ctx.strokeText("Set: {"+numbers+'}', 420, 200);
+  if(n<20)ctx.strokeText("Set: {"+numbers+'}', 100, 420);
   for(let i = 0; i < n; i++){
     bubbles[i].draw(ctx, img_bub);
   }
@@ -331,7 +330,7 @@ async function swap(ctx, img_bub, h, j){
   ctx.strokeText("Loop1: "+h, 528, 50);
   ctx.strokeText("Loop2: "+j, 528, 100);
   ctx.strokeText("Speed: "+Math.round((1-bubbles[0].speed)*100), 528, 150);
-  if(n<20)ctx.strokeText("Set: {"+numbers+'}', 420, 200);
+  if(n<20)ctx.strokeText("Set: {"+numbers+'}', 100, 420);
   for(let i = 0; i < n; i++){
     bubbles[i].draw(ctx, img_bub);
     bubbles[i].update();
