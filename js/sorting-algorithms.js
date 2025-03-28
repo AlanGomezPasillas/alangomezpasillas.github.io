@@ -192,6 +192,7 @@ async function title(ctx, img_tit, obj_cli){
 }
 
 async function selectAlg(ctx, img_bubs, img_fils, img_play){
+  const fr = new FileReader();
   canvas.addEventListener("click", (e) => {
     var rect = canvas.getBoundingClientRect();
     if(state == "selected")
@@ -226,7 +227,6 @@ async function selectAlg(ctx, img_bubs, img_fils, img_play){
   ctx.drawImage(img_fils, 256, 120);
   ctx.font = "48px Arial";
   ctx.strokeText("Drag and Drop a .txt File: ", 10, 50);
-  const fr = new FileReader();
   if(file!=undefined)
   fr.readAsText(file);
   if(data!=undefined){
