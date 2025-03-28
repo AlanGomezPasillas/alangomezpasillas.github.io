@@ -158,6 +158,15 @@ function fade(i, ctx, img_pre, type){
 }
 
 async function title(ctx, img_tit, obj_cli){
+  canvas.addEventListener("click", (e) => {
+    var rect = canvas.getBoundingClientRect();
+    if (e.clientX-rect.left > 230 && e.clientX-rect.left < 410) {
+      if (e.clientY-rect.top > 200 && e.clientY-rect.top < 264) {
+	    titY =- 0.0001;
+	    state = "select";
+      }
+    }
+  });
   var timeout=100;
   ctx.fillStyle = "white";
   ctx.clearRect(0, 0, 640, 480);
@@ -180,19 +189,36 @@ async function title(ctx, img_tit, obj_cli){
     //setTimeout(title, timeout, ctx, img_tit, obj_cli);
     await title(ctx, img_tit, obj_cli);
   }
-  canvas.addEventListener("click", (e) => {
-    var rect = canvas.getBoundingClientRect();
-    if (e.clientX-rect.left > 230 && e.clientX-rect.left < 410) {
-      if (e.clientY-rect.top > 200 && e.clientY-rect.top < 264) {
-	    titY =- 0.0001;
-	    state = "select";
-      }
-    }
-  });
 }
 
 async function selectAlg(ctx, img_bubs, img_fils, img_play){
-  //todo draw images of bubble sort and file select
+  canvas.addEventListener("click", (e) => {
+    var rect = canvas.getBoundingClientRect();
+    if(state == "selected")
+      if(e.clientX-rect.left > 480 && e.clientX-rect.left < 608) {
+        if(e.clientY-rect.top > 120 && e.clientY-rect.top < 248) {
+          state = "playing";
+        }
+      }
+  });
+  canvas.addEventListener("dragover", (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    e.dataTransfer.dropEffect = "copy";
+  });
+  canvas.addEventListener("drop", (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    file = e.dataTransfer.files[0];
+  });
+  fr.addEventListener("load", (e) => {
+    data = e.target.result.split(/[\r\n]+/).filter(Boolean).join(' ');
+    numberss = data.split(' ');
+    n = numberss[0];
+    numberss.shift();
+    numbers = numberss.map(Number);
+    state = "selected";
+  });
   ctx.fillStyle = "white";
   ctx.clearRect(0, 0, 640, 480);
   ctx.fillRect(0, 0, 640, 480);
@@ -227,33 +253,6 @@ async function selectAlg(ctx, img_bubs, img_fils, img_play){
     await sleep(10);
     await selectAlg(ctx, img_bubs, img_fils, img_play);
   }
-  canvas.addEventListener("dragover", (e) => {
-    e.stopPropagation();
-    e.preventDefault();
-    e.dataTransfer.dropEffect = "copy";
-  });
-  canvas.addEventListener("drop", (e) => {
-    e.stopPropagation();
-    e.preventDefault();
-    file = e.dataTransfer.files[0];
-  });
-  fr.addEventListener("load", (e) => {
-    data = e.target.result.split(/[\r\n]+/).filter(Boolean).join(' ');
-    numberss = data.split(' ');
-    n = numberss[0];
-    numberss.shift();
-    numbers = numberss.map(Number);
-    state = "selected";
-  });
-  canvas.addEventListener("click", (e) => {
-    var rect = canvas.getBoundingClientRect();
-    if(state == "selected")
-      if(e.clientX-rect.left > 480 && e.clientX-rect.left < 608) {
-        if(e.clientY-rect.top > 120 && e.clientY-rect.top < 248) {
-          state = "playing";
-        }
-      }
-  });
 }
 
 async function initPlay(ctx, img_bub){
@@ -346,26 +345,6 @@ async function swap(ctx, img_bub, h, j){
     await swap(ctx, img_bub, h, j);
   }
 }
-
-/*canvas.addEventListener("click", (e) => {
-  var rect = canvas.getBoundingClientRect();
-  /*if(state == "title"){   
-    if (e.clientX-rect.left > 230 && e.clientX-rect.left < 410) {
-      if (e.clientY-rect.top > 200 && e.clientY-rect.top < 264) {
-	    titY=-0.0001;
-	    state = "select";
-      }
-    }*/
-  //}else if(state == "presentation") {
-    //start = true;
-  /*}else if(state == "selected") {
-    if(e.clientX-rect.left > 480 && e.clientX-rect.left < 608) {
-      if(e.clientY-rect.top > 120 && e.clientY-rect.top < 248) {
-        state = "playing";
-      }
-    }
-  }
-});*/
 
 armony.addEventListener("ended", function() {
   this.currentTime = 0;
