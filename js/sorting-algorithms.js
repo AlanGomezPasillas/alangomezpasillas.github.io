@@ -130,15 +130,14 @@ async function main(){
 }
 
 async function init(start){
-  let start = false};
   if(start){
     return sleep(0);
   } else {
     await sleep(100);
-    await init();
+    await init(start);
   }
   canvas.addEventListener("click", (e) => {
-    e.target.start = true;
+    start = true;
   });
 }
 
