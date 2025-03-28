@@ -258,7 +258,7 @@ async function selectAlg(ctx, img_bubs, img_fils, img_play){
 async function initPlay(ctx, img_bub){
   const sorted = numbers.toSorted(function (a, b){return a - b;});
   for(let i = 0; i < n; i++){
-    const bub = new Bubble(400/n, 1, i*(400/n)+120, (n-sorted.indexOf(numbers[i]))*(400/n)+20, numbers[i]);
+    const bub = new Bubble(400/n, 10, i*(400/n)+120, (n-sorted.indexOf(numbers[i]))*(400/n)+20, numbers[i]);
     sorted[sorted.indexOf(numbers[i])]=-123456;
     bubbles.push(bub);
   }
