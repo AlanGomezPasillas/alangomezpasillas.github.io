@@ -130,15 +130,15 @@ async function main(){
 }
 
 async function init(start){
+  canvas.addEventListener("click", (e) => {
+    start = true;
+  });
   if(start){
     return sleep(0);
   } else {
     await sleep(100);
     await init(start);
   }
-  canvas.addEventListener("click", (e) => {
-    start = true;
-  });
 }
 
 function fade(i, ctx, img_pre, type){
