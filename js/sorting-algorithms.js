@@ -339,13 +339,11 @@ async function swap(ctx, img_bub, h, j){
     bubbles[i].draw(ctx, img_bub);
     bubbles[i].update();
   }
-  if(bubbles[j].upto == true) {
-    if(bubbles[j+1].upto == true) {
-      var bubAux=bubbles[j];
-      bubbles[j]=bubbles[j+1];
-      bubbles[j+1]=bubAux;
-      return sleep(0);
-    }
+  if(bubbles[j].upto == true && bubbles[j+1].upto == true) {
+    var bubAux=bubbles[j];
+    bubbles[j]=bubbles[j+1];
+    bubbles[j+1]=bubAux;
+    return sleep(0);
   } else {
     await sleep(1);
     await swap(ctx, img_bub, h, j);
