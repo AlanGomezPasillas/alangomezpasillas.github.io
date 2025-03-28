@@ -273,6 +273,7 @@ async function playing(ctx, img_bub, h){
       ctx.clearRect(0, 0, 640, 480);
       ctx.fillRect(0, 0, 640, 480);
       ctx.strokeText("Start!", 400, 50);
+      if(n<20)ctx.strokeText("Set: {"+numbers+'}', 420, 200);
       for(let i = 0; i < n; i++){
 	    bubbles[i].draw(ctx, img_bub);
       }
@@ -300,6 +301,7 @@ async function checking(ctx, img_bub, h, j, c){
   ctx.strokeText("Loop1: "+h, 528, 50);
   ctx.strokeText("Loop2: "+j, 528, 100);
   ctx.strokeText("Speed: "+Math.round((1-bubbles[0].speed)*100), 528, 150);
+  if(n<20)ctx.strokeText("Set: {"+numbers+'}', 420, 200);
   for(let i = 0; i < n; i++){
     bubbles[i].draw(ctx, img_bub);
   }
@@ -329,18 +331,19 @@ async function swap(ctx, img_bub, h, j){
   ctx.strokeText("Loop1: "+h, 528, 50);
   ctx.strokeText("Loop2: "+j, 528, 100);
   ctx.strokeText("Speed: "+Math.round((1-bubbles[0].speed)*100), 528, 150);
+  if(n<20)ctx.strokeText("Set: {"+numbers+'}', 420, 200);
   for(let i = 0; i < n; i++){
     bubbles[i].draw(ctx, img_bub);
     bubbles[i].update();
   }
-  if(bubbles[j].upto == true){
-    if(bubbles[j+1].upto == true){
+  if(bubbles[j].upto == true) {
+    if(bubbles[j+1].upto == true) {
       var bubAux=bubbles[j];
       bubbles[j]=bubbles[j+1];
       bubbles[j+1]=bubAux;
       return sleep(0);
     }
-  }else{
+  } else {
     await sleep(1);
     await swap(ctx, img_bub, h, j);
   }
