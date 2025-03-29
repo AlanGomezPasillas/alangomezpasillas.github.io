@@ -107,7 +107,7 @@ async function presentation(ctx, imgPre){
   fade(0, ctx, imgPre, 0);
   ctx.fillStyle = "white";
   await sleep(2500);
-  armony.play();
+  mscArmony.play();
 }
 
 async function title(canvas, ctx, imgTit, objCli, titY = 0){
