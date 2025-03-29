@@ -62,62 +62,13 @@ class Sprite {
   }
 }
 
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms))
-}
-
-async function main() {
-  var canvas = document.getElementById('game');
-  var ctx = canvas.getContext('2d');
-  var state = "presentation";
-  var n;
-  var arrNum;
-  var arrBub;
-  
-  const imgPre = new Image("img/sorting-algorithms/presentation.png");
-  const imgTit = new Image("img/sorting-algorithms/title.png");
-  const imgCli = new Image("img/sorting-algorithms/cli-st.png");
-  const imgBubs = new Image("img/sorting-algorithms/bubble-sort.png");
-  const imgFils = new Image("img/sorting-algorithms/file-select.png");
-  const imgPlay = new Image("img/sorting-algorithms/play.png");
-  const imgBub = new Image("img/sorting-algorithms/bub.png");
-  
-  await imgPre.decode();
-  await imgTit.decode();
-  await imgCli.decode();
-  await imgBubs.decode();
-  await imgFils.decode();
-  await imgPlay.decode();
-  await imgBub.decode();
-  
-  ctx.font = "48px Arial";
-  ctx.fillStyle = "white";
-  ctx.fillText("Click here to start!", 130, 240);
-  await getClick();
-  
-  fade(1, ctx, imgPre, 1);
-  await sleep(4000);
-  fade(0, ctx, imgPre, 0);
-  ctx.fillStyle = "white";
-  const objCli = new Sprite(imgCli, 0, 0, 180, 64, 230, 200, 10, 0, 1);
-  await sleep(2500);
-  armony.play();
-  
-  await title(canvas, ctx, imgTit, objCli);
-  while(true){
-    n = 0;
-    arrNum = new Array();
-    arrBub = new Array();
-    await selectAlg(ctx, imgBubs, imgFils, imgPlay, n, arrNum);
-    await initPlay(ctx, imgBub, n, arrNum, arrBub);
-  }
-}
-
-async function getClick(clicked = false, loop = true, x1 = 0, x2 = SCR_WIDTH, y1 = 0, y2 = SCR_HEIGHT){
-  var rect = canvas.getBoundingClientRect();
-  if (e.clientX-rect.left > x1 && e.clientX-rect.left < x2) {
-    if (e.clientY-rect.top > y1 && e.clientY-rect.top < y2) {
-      clicked = true;
+async function getClick(canvas, clicked = false, loop = true, x1 = 0, x2 = SCR_WIDTH, y1 = 0, y2 = SCR_HEIGHT){
+  canvas.addEventListener("click", (e) => {
+    var rect = canvas.getBoundingClientRect();
+    if (e.clientX-rect.left > x1 && e.clientX-rect.left < x2) {
+      if (e.clientY-rect.top > y1 && e.clientY-rect.top < y2) {
+        clicked = true;
+      }
     }
   }
   if(clicked){
@@ -132,6 +83,69 @@ async function getClick(clicked = false, loop = true, x1 = 0, x2 = SCR_WIDTH, y1
   }
 }
 
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms))
+}
+
+async function main() {
+  var canvas = document.getElementById('game');
+  var ctx = canvas.getContext('2d');
+  //var state = "presentation";
+  var n;
+  var arrNum;
+  var arrBub;
+  
+  const imgPre = new Image();
+  const imgTit = new Image();
+  const imgCli = new Image();
+  const imgBubs = new Image();
+  const imgFils = new Image();
+  const imgPlay = new Image();
+  const imgBub = new Image();
+  
+  imgPre.src = "img/sorting-algorithms/presentation.png";
+  imgTit.src = "img/sorting-algorithms/title.png";
+  imgCli.src = "img/sorting-algorithms/cli-st.png";
+  imgBubs.src = "img/sorting-algorithms/bubble-sort.png";
+  imgFils.src = "img/sorting-algorithms/file-select.png";
+  imgPlay.src = "img/sorting-algorithms/play.png";
+  imgBub.src = "img/sorting-algorithms/bub.png";
+  
+  await imgPre.decode();
+  await imgTit.decode();
+  await imgCli.decode();
+  await imgBubs.decode();
+  await imgFils.decode();
+  await imgPlay.decode();
+  await imgBub.decode();
+  
+  const objCli = new Sprite(imgCli, 0, 0, 180, 64, 230, 200, 10, 0, 1);
+  
+  ctx.font = "48px Arial";
+  ctx.fillStyle = "white";
+  ctx.fillText("Click here to start!", 130, 240);
+  await getClick(canvas);
+  await presentation(ctx, imgPre)
+  await title(canvas, ctx, imgTit, objCli);
+  while(true){
+    n = 0;
+    arrNum = new Array();
+    arrBub = new Array();
+    await selectAlg(canvas, ctx, imgBubs, imgFils, imgPlay, n, arrNum);
+    await initPlay(imgBub, n, arrNum, arrBub);
+    await playing(canvas, ctx, arrBub, imgBub, 0);
+  }
+}
+
+function presentation(ctx, imgPre){
+  fade(1, ctx, imgPre, 1);
+  await sleep(4000);
+  fade(0, ctx, imgPre, 0);
+  ctx.fillStyle = "white";
+  await sleep(2500);
+  armony.play();
+}
+
 function fade(i, ctx, imgPre, type){
   ctx.fillStyle = "black";
   ctx.clearRect(0, 0, SCR_WIDTH, SCR_HEIGHT);
@@ -139,12 +153,10 @@ function fade(i, ctx, imgPre, type){
   ctx.globalAlpha = i;
   ctx.fillRect(0, 0, SCR_WIDTH, SCR_HEIGHT);
   ctx.globalAlpha = 1;
-  if(type == 1){
-    i-=0.05;
-    if(i>0.01)setTimeout(fade, 100, i, ctx, imgPre, type);
-  }else{
-    i+=0.05;
-    if(i<1.01)setTimeout(fade, 100, i, ctx, imgPre, type);
+  if (type == 1) {
+    if (i > 0.01) setTimeout(fade, 100, i-0.05, ctx, imgPre, type);
+  } else {
+    if (i < 1.01) setTimeout(fade, 100, i+0.05, ctx, imgPre, type);
   }
 }
 
@@ -164,15 +176,15 @@ async function title(canvas, ctx, imgTit, objCli, titY = 0){
   if(titY < -880) {
     return sleep(0);
   } else {
-    if(getClick(false, false, 230, 410, 200, 264)) {
+    if(getClick(canvas, false, false, 230, 410, 200, 264)) {
       titY = -0.0001;
     }
     await sleep(timeout);
-    await title(ctx, imgTit, objCli, titY);
+    await title(canvas, ctx, imgTit, objCli, titY);
   }
 }
 
-async function selectAlg(ctx, imgBubs, imgFils, imgPlay, n, arrNum){
+async function selectAlg(canvas, ctx, imgBubs, imgFils, imgPlay, n, arrNum){
   /*canvas.addEventListener("click", (e) => {
     var rect = canvas.getBoundingClientRect();
     if(state == "selected") {
@@ -186,7 +198,7 @@ async function selectAlg(ctx, imgBubs, imgFils, imgPlay, n, arrNum){
   var file;
   var data;
   const fr = new FileReader();
-  if(getClick(false, false, 480, 608, 120, 248)) return;
+  if(getClick(canvas, false, false, 480, 608, 120, 248)) return;
   canvas.addEventListener("dragover", (e) => {
     e.stopPropagation();
     e.preventDefault();
@@ -233,25 +245,24 @@ async function selectAlg(ctx, imgBubs, imgFils, imgPlay, n, arrNum){
     ctx.drawImage(imgPlay, 480, 120);
     ctx.fillText("Ready! Press Play to Start", 34, 420);
   }
-  if(getClick(false, false, 480, 608, 120, 248)){
+  if(getClick(canvas, false, false, 480, 608, 120, 248)){
     return;
   }else{
     await sleep(10);
-    await selectAlg(ctx, imgBubs, imgFils, imgPlay, n, arrNum);
+    await selectAlg(canvas, ctx, imgBubs, imgFils, imgPlay, n, arrNum);
   }
 }
 
-async function initPlay(ctx, imgBub, n, arrNum, arrBub){
+async function initPlay(imgBub, n, arrNum, arrBub){
   const arrSorted = arrNum.toSorted(function (a, b){return a - b;});
   for(let i = 0; i < n; i++){
     const bub = new Bubble(imgBub, 400/n, 20, i*(400/n)+120, (n-arrSorted.indexOf(arrNum[i]))*(400/n)+20, arrNum[i]);
     arrSorted[arrSorted.indexOf(arrNum[i])]=-123456;
     arrBub.push(bub);
   }
-  await playing(ctx, arrBub, imgBub, 0);
 }
 
-async function playing(ctx, imgBub, h){
+async function playing(canvas, ctx, imgBub, h){
   let checker = {swapped: false};
   if (h < n-1){
     if(h==0){
@@ -264,9 +275,9 @@ async function playing(ctx, imgBub, h){
       }
       await sleep(4000);
     }
-    await checking(ctx, imgBub, h, 0, checker);
+    await checking(canvas, ctx, imgBub, h, 0, checker);
     if(checker.swapped == true) {
-      await playing(ctx, imgBub, h+1);
+      await playing(canvas, ctx, imgBub, h+1);
     } else {
       ctx.font = "48px Arial";
       ctx.strokeText("Done!", 480, 400);
@@ -279,7 +290,7 @@ async function playing(ctx, imgBub, h){
   }
 }
 
-async function checking(ctx, h, j, c) {
+async function checking(canvas, ctx, h, j, c) {
   ctx.fillStyle = "white";
   ctx.clearRect(0, 0, SCR_WIDTH, SCR_HEIGHT);
   ctx.fillRect(0, 0, SCR_WIDTH, SCR_HEIGHT);
