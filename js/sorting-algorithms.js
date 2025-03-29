@@ -1,9 +1,10 @@
 const SCR_WIDTH = 640;
 const SCR_HEIGHT = 480;
-//var file = "Drop a file to open it.";
+const mscArmony = new Audio("msc/armonia.wav");
+
 class Bubble {
   constructor(image, speed, size, x, y, num){
-    this.img = image
+    this.img = image;
     this.spd = 1-(speed*0.01);
     this.size = size;
     this.x = x;
@@ -32,7 +33,7 @@ class Bubble {
     } else {
       this.x = Math.round(this.x);
       this.upto = true;
-      this.go=this.x;
+      this.go = this.x;
     }
   }
 }
@@ -80,7 +81,6 @@ async function main() {
   const imgFils = new Image("img/sorting-algorithms/file-select.png");
   const imgPlay = new Image("img/sorting-algorithms/play.png");
   const imgBub = new Image("img/sorting-algorithms/bub.png");
-  const mscArmony = new Audio("msc/armonia.wav");
   
   await imgPre.decode();
   await imgTit.decode();
@@ -125,7 +125,7 @@ async function getClick(clicked = false, loop = true, x1 = 0, x2 = SCR_WIDTH, y1
   } else {
     if (loop) {
       await sleep(100);
-      await getClick(clicked, x1, x2, y1, y2);
+      await getClick(clicked, loop, x1, x2, y1, y2);
     }else{
       return false;
     }
@@ -244,7 +244,7 @@ async function selectAlg(ctx, imgBubs, imgFils, imgPlay, n, arrNum){
 async function initPlay(ctx, imgBub, n, arrNum, arrBub){
   const arrSorted = arrNum.toSorted(function (a, b){return a - b;});
   for(let i = 0; i < n; i++){
-    const bub = new Bubble(400/n, 20, i*(400/n)+120, (n-arrSorted.indexOf(arrNum[i]))*(400/n)+20, arrNum[i]);
+    const bub = new Bubble(imgBub, 400/n, 20, i*(400/n)+120, (n-arrSorted.indexOf(arrNum[i]))*(400/n)+20, arrNum[i]);
     arrSorted[arrSorted.indexOf(arrNum[i])]=-123456;
     arrBub.push(bub);
   }
@@ -279,8 +279,7 @@ async function playing(ctx, imgBub, h){
   }
 }
 
-async function checking(ctx, imgBub, h, j, c) {
-  let next = true;
+async function checking(ctx, h, j, c) {
   ctx.fillStyle = "white";
   ctx.clearRect(0, 0, SCR_WIDTH, SCR_HEIGHT);
   ctx.fillRect(0, 0, SCR_WIDTH, SCR_HEIGHT);
@@ -289,7 +288,7 @@ async function checking(ctx, imgBub, h, j, c) {
   ctx.strokeText("Speed: " + Math.round((1-arrBubbles[0].speed)*100), 528, 120);
   if(n < 20)ctx.strokeText("Set: {" + arrNum + '}', 100, 40);
   for(let i = 0; i < n; i++) {
-    arrBub[i].draw(ctx, imgBub);
+    arrBub[i].draw(ctx);
   }
   if (j < n-1) {
     if (arrNum[j] > arrNum[j+1]) {
@@ -300,20 +299,20 @@ async function checking(ctx, imgBub, h, j, c) {
       arrNum[j+1] = arrNum[j] ^ arrNum[j+1];
       arrNum[j] = arrNum[j] ^ arrNum[j+1];
       arrNum[j+1] = arrNum[j] ^ arrNum[j+1];
-      await swap(ctx, imgBub, h, j);
+      await swap(ctx, h, j);
       c.swapped = true;
-      await init(next);
+      await getClick(true);
     } else {
       //sleep(Math.round((1-bubbles[0].speed)*100*500))
     }
     await sleep(1);
-    await checking(ctx, imgBub, h, j+1, c);
+    await checking(ctx, h, j+1, c);
   } else {
     return sleep(0);
   }
 }
 
-async function swap(ctx, imgBub, h, j){
+async function swap(ctx, h, j){
   ctx.fillStyle = "white";
   ctx.clearRect(0, 0, SCR_WIDTH, SCR_HEIGHT);
   ctx.fillRect(0, 0, SCR_WIDTH, SCR_HEIGHT);
@@ -322,7 +321,7 @@ async function swap(ctx, imgBub, h, j){
   ctx.strokeText("Speed: " + Math.round((1-bubbles[0].speed)*100), 528, 120);
   if(n<20)ctx.strokeText("Set: {" + numbers + '}', 100, 40);
   for(let i = 0; i < n; i++){
-    arrBub[i].draw(ctx, imgBub);
+    arrBub[i].draw(ctx);
     arrBub[i].update();
   }
   if(arrBub[j].upto == true && arrBub[j+1].upto == true) {
@@ -332,7 +331,7 @@ async function swap(ctx, imgBub, h, j){
     return sleep(0);
   } else {
     await sleep(1);
-    await swap(ctx, imgBub, h, j);
+    await swap(ctx, h, j);
   }
 }
 
