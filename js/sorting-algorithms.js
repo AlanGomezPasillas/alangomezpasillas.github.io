@@ -80,7 +80,7 @@ async function getClick(canvas, clicked = false, loop = true, x1 = 0, x2 = SCR_W
   } else {
     if (loop) {
       await sleep(100);
-      await getClick(clicked, loop, x1, x2, y1, y2);
+      await getClick(canvas, clicked, loop, x1, x2, y1, y2);
     }else{
       return false;
     }
@@ -135,16 +135,6 @@ async function title(canvas, ctx, imgTit, objCli, titY = 0){
 }
 
 async function selectAlg(canvas, ctx, imgBubs, imgFils, imgPlay, n, arrNum){
-  /*canvas.addEventListener("click", (e) => {
-    var rect = canvas.getBoundingClientRect();
-    if(state == "selected") {
-      if(e.clientX-rect.left > 480 && e.clientX-rect.left < 608) {
-        if(e.clientY-rect.top > 120 && e.clientY-rect.top < 248) {
-          state = "playing";
-        }
-      }
-    }
-  });*/
   var file;
   var data;
   const fr = new FileReader();
