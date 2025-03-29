@@ -80,7 +80,7 @@ async function getClick(canvas, clicked = false, loop = true, x1 = 0, x2 = SCR_W
   } else {
     if (loop) {
       await sleep(100);
-      await getClick(canvas, clicked, loop, x1, x2, y1, y2);
+      return await getClick(canvas, clicked, loop, x1, x2, y1, y2);
     }else{
       return false;
     }
@@ -95,9 +95,9 @@ function fade(i, ctx, img, type){
   ctx.fillRect(0, 0, SCR_WIDTH, SCR_HEIGHT);
   ctx.globalAlpha = 1;
   if (type == 1) {
-    if (i > 0) setTimeout(fade, 100, i-0.05, ctx, img, type);
+    if (i >= 0.5) setTimeout(fade, 50, i-0.05, ctx, img, type);
   } else {
-    if (i < 1) setTimeout(fade, 100, i+0.05, ctx, img, type);
+    if (i <= 0.95) setTimeout(fade, 50, i+0.05, ctx, img, type);
   }
 }
 
@@ -106,11 +106,11 @@ async function presentation(ctx, imgPre){
   await sleep(4000);
   fade(0, ctx, imgPre, 0);
   ctx.fillStyle = "white";
-  await sleep(2500);
+  await sleep(2000);
   mscArmony.play();
 }
 
-async function title(canvas, ctx, imgTit, objCli, titY = 0){
+async function title(canvas, ctx, imgTit, objCli, titY){
   var timeout = 100;
   ctx.fillStyle = "white";
   ctx.clearRect(0, 0, SCR_WIDTH, SCR_HEIGHT);
@@ -325,7 +325,7 @@ async function main() {
   ctx.fillText("Click here to start!", 130, 240);
   await getClick(canvas);
   await presentation(ctx, imgPre)
-  await title(canvas, ctx, imgTit, objCli);
+  await title(canvas, ctx, imgTit, objCli, 0);
   while(true){
     n = 0;
     arrNum = new Array();
