@@ -123,12 +123,12 @@ async function title(canvas, ctx, imgTit, objCli, titY){
   }
   objCli.update();
   titY += titY;
+  if(getClick(canvas, false, false, 230, 410, 200, 264)) {
+     titY = -0.0001;
+  }
   if(titY < -880) {
     return sleep(0);
   } else {
-    if(getClick(canvas, false, false, 230, 410, 200, 264)) {
-      titY = -0.0001;
-    }
     await sleep(timeout);
     await title(canvas, ctx, imgTit, objCli, titY);
   }
