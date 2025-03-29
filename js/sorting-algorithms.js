@@ -70,7 +70,7 @@ async function getClick(canvas, clicked = false, loop = true, x1 = 0, x2 = SCR_W
         clicked = true;
       }
     }
-  }
+  });
   if(clicked){
     return true;
   } else {
