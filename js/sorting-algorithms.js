@@ -62,6 +62,10 @@ class Sprite {
   }
 }
 
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms))
+}
+
 async function getClick(canvas, clicked = false, loop = true, x1 = 0, x2 = SCR_WIDTH, y1 = 0, y2 = SCR_HEIGHT){
   canvas.addEventListener("click", (e) => {
     var rect = canvas.getBoundingClientRect();
@@ -83,81 +87,27 @@ async function getClick(canvas, clicked = false, loop = true, x1 = 0, x2 = SCR_W
   }
 }
 
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms))
-}
-
-async function main() {
-  var canvas = document.getElementById('game');
-  var ctx = canvas.getContext('2d');
-  //var state = "presentation";
-  var n;
-  var arrNum;
-  var arrBub;
-  
-  const imgPre = new Image();
-  const imgTit = new Image();
-  const imgCli = new Image();
-  const imgBubs = new Image();
-  const imgFils = new Image();
-  const imgPlay = new Image();
-  const imgBub = new Image();
-  
-  imgPre.src = "img/sorting-algorithms/presentation.png";
-  imgTit.src = "img/sorting-algorithms/title.png";
-  imgCli.src = "img/sorting-algorithms/cli-st.png";
-  imgBubs.src = "img/sorting-algorithms/bubble-sort.png";
-  imgFils.src = "img/sorting-algorithms/file-select.png";
-  imgPlay.src = "img/sorting-algorithms/play.png";
-  imgBub.src = "img/sorting-algorithms/bub.png";
-  
-  await imgPre.decode();
-  await imgTit.decode();
-  await imgCli.decode();
-  await imgBubs.decode();
-  await imgFils.decode();
-  await imgPlay.decode();
-  await imgBub.decode();
-  
-  const objCli = new Sprite(imgCli, 0, 0, 180, 64, 230, 200, 10, 0, 1);
-  
-  ctx.font = "48px Arial";
-  ctx.fillStyle = "white";
-  ctx.fillText("Click here to start!", 130, 240);
-  await getClick(canvas);
-  await presentation(ctx, imgPre)
-  await title(canvas, ctx, imgTit, objCli);
-  while(true){
-    n = 0;
-    arrNum = new Array();
-    arrBub = new Array();
-    await selectAlg(canvas, ctx, imgBubs, imgFils, imgPlay, n, arrNum);
-    await initPlay(imgBub, n, arrNum, arrBub);
-    await playing(canvas, ctx, arrBub, imgBub, 0);
+function fade(i, ctx, img, type){
+  ctx.fillStyle = "black";
+  ctx.clearRect(0, 0, SCR_WIDTH, SCR_HEIGHT);
+  ctx.drawImage(img, 0, 0);
+  ctx.globalAlpha = i;
+  ctx.fillRect(0, 0, SCR_WIDTH, SCR_HEIGHT);
+  ctx.globalAlpha = 1;
+  if (type == 1) {
+    if (i > 0.01) setTimeout(fade, 100, i-0.05, ctx, img, type);
+  } else {
+    if (i < 1.01) setTimeout(fade, 100, i+0.05, ctx, img, type);
   }
 }
 
-function presentation(ctx, imgPre){
+async function presentation(ctx, imgPre){
   fade(1, ctx, imgPre, 1);
   await sleep(4000);
   fade(0, ctx, imgPre, 0);
   ctx.fillStyle = "white";
   await sleep(2500);
   armony.play();
-}
-
-function fade(i, ctx, imgPre, type){
-  ctx.fillStyle = "black";
-  ctx.clearRect(0, 0, SCR_WIDTH, SCR_HEIGHT);
-  ctx.drawImage(imgPre, 0, 0);
-  ctx.globalAlpha = i;
-  ctx.fillRect(0, 0, SCR_WIDTH, SCR_HEIGHT);
-  ctx.globalAlpha = 1;
-  if (type == 1) {
-    if (i > 0.01) setTimeout(fade, 100, i-0.05, ctx, imgPre, type);
-  } else {
-    if (i < 1.01) setTimeout(fade, 100, i+0.05, ctx, imgPre, type);
-  }
 }
 
 async function title(canvas, ctx, imgTit, objCli, titY = 0){
@@ -343,6 +293,56 @@ async function swap(ctx, h, j){
   } else {
     await sleep(1);
     await swap(ctx, h, j);
+  }
+}
+
+async function main() {
+  var canvas = document.getElementById('game');
+  var ctx = canvas.getContext('2d');
+  //var state = "presentation";
+  var n;
+  var arrNum;
+  var arrBub;
+  
+  const imgPre = new Image();
+  const imgTit = new Image();
+  const imgCli = new Image();
+  const imgBubs = new Image();
+  const imgFils = new Image();
+  const imgPlay = new Image();
+  const imgBub = new Image();
+  
+  imgPre.src = "img/sorting-algorithms/presentation.png";
+  imgTit.src = "img/sorting-algorithms/title.png";
+  imgCli.src = "img/sorting-algorithms/cli-st.png";
+  imgBubs.src = "img/sorting-algorithms/bubble-sort.png";
+  imgFils.src = "img/sorting-algorithms/file-select.png";
+  imgPlay.src = "img/sorting-algorithms/play.png";
+  imgBub.src = "img/sorting-algorithms/bub.png";
+  
+  await imgPre.decode();
+  await imgTit.decode();
+  await imgCli.decode();
+  await imgBubs.decode();
+  await imgFils.decode();
+  await imgPlay.decode();
+  await imgBub.decode();
+  
+  const objCli = new Sprite(imgCli, 0, 0, 180, 64, 230, 200, 10, 0, 1);
+  
+  ctx.font = "48px Arial";
+  ctx.fillStyle = "white";
+  ctx.fillText("Click here to start!", 130, 240);
+  await getClick(canvas);
+  await presentation(ctx, imgPre)
+  await title(canvas, ctx, imgTit, objCli);
+  while(true){
+    n = 0;
+    arrNum = new Array();
+    arrBub = new Array();
+    await selectAlg(canvas, ctx, imgBubs, imgFils, imgPlay, n, arrNum);
+    await initPlay(imgBub, n, arrNum, arrBub);
+    await playing(canvas, ctx, arrBub, imgBub, 0);
   }
 }
 
