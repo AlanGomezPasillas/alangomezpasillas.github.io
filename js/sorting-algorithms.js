@@ -95,9 +95,9 @@ function fade(i, ctx, img, type){
   ctx.fillRect(0, 0, SCR_WIDTH, SCR_HEIGHT);
   ctx.globalAlpha = 1;
   if (type == 1) {
-    if (i > 0.01) setTimeout(fade, 100, i-0.05, ctx, img, type);
+    if (i > 0) setTimeout(fade, 100, i-0.05, ctx, img, type);
   } else {
-    if (i < 1.01) setTimeout(fade, 100, i+0.05, ctx, img, type);
+    if (i < 1) setTimeout(fade, 100, i+0.05, ctx, img, type);
   }
 }
 
