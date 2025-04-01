@@ -147,11 +147,8 @@ async function title(canvas, ctx, imgTit, objCli, titY, checker = {clicked: fals
 
 async function selectAlg(canvas, ctx, imgBubs, imgFils, imgPlay, n, arrNum, checker = {clicked: false}) {
   const fr = new FileReader();
-  await getClick(canvas, false, false, 480, 608, 120, 248, checker);
-  
   //console.log("File: " + file + "Data: " + data);
   //console.log("n: " + n + "arrNum: " + arrNum);
-
   canvas.addEventListener("dragover", (e) => {
     e.stopPropagation();
     e.preventDefault();
@@ -196,12 +193,13 @@ async function selectAlg(canvas, ctx, imgBubs, imgFils, imgPlay, n, arrNum, chec
     ctx.drawImage(imgPlay, 480, 120);
     ctx.fillText("Ready! Press Play to Start", 34, 420);
   }
+  await getClick(canvas, false, false, 480, 608, 120, 248, checker);
   console.log("Clicked: " + checker.clicked + " n: "+n);
   if(checker.clicked && n > 0){
     return sleep(0);
   }else{
     await sleep(10);
-    await selectAlg(canvas, ctx, imgBubs, imgFils, imgPlay, n, arrNum);
+    await selectAlg(canvas, ctx, imgBubs, imgFils, imgPlay, n, arrNum, checker);
   }
 }
 
