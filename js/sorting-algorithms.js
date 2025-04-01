@@ -165,7 +165,7 @@ async function selectAlg(canvas, ctx, imgBubs, imgFils, imgPlay, n, arrNum, chec
     //n = numberss[0];
     //numberss.shift();
     arrNum = data.split(' ').map(Number);
-    n = arrNum.length;
+    n.val = arrNum.length;
   });
   ctx.fillStyle = "white";
   ctx.clearRect(0, 0, SCR_WIDTH, SCR_HEIGHT);
@@ -175,7 +175,7 @@ async function selectAlg(canvas, ctx, imgBubs, imgFils, imgPlay, n, arrNum, chec
   ctx.font = "48px Arial";
   ctx.strokeText("Drag and Drop a .txt File: ", 10, 50);
   if(file != undefined) fr.readAsText(file);
-  if(n > 0) {
+  if(n.val > 0) {
     ctx.strokeText("Done!", 10, 100);
     ctx.strokeText("Total: " + n, 10, 300);
     if(n < 6) {
@@ -194,9 +194,8 @@ async function selectAlg(canvas, ctx, imgBubs, imgFils, imgPlay, n, arrNum, chec
     ctx.fillText("Ready! Press Play to Start", 34, 420);
   }
   await getClick(canvas, false, false, 480, 608, 120, 248, checker);
-  console.log("Clicked: " + checker.clicked + " n: "+n);
-  if(checker.clicked && n > 0){
-    return n;
+  if(checker.clicked && n.val > 0){
+    return sleep(0);
   }else{
     await sleep(10);
     return await selectAlg(canvas, ctx, imgBubs, imgFils, imgPlay, n, arrNum, checker);
@@ -300,7 +299,6 @@ async function main() {
   var canvas = document.getElementById('game');
   var ctx = canvas.getContext('2d');
   //var state = "presentation";
-  var n;
   var arrNum;
   var arrBub;
   
@@ -337,14 +335,14 @@ async function main() {
   await presentation(ctx, imgPre);
   await title(canvas, ctx, imgTit, objCli, 0);
   while(true){
-    n = 0;
+    var n = {val = 0}
     file = undefined;
     data = undefined;
     arrNum = new Array();
     arrBub = new Array();
-    n = await selectAlg(canvas, ctx, imgBubs, imgFils, imgPlay, n, arrNum);
-    await initPlay(imgBub, n, arrNum, arrBub);
-    await playing(canvas, ctx, n, arrNum, arrBub);
+    await selectAlg(canvas, ctx, imgBubs, imgFils, imgPlay, n, arrNum);
+    await initPlay(imgBub, n.val, arrNum, arrBub);
+    await playing(canvas, ctx, n.val, arrNum, arrBub);
   }
 }
 
