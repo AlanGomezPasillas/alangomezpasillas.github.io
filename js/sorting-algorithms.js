@@ -344,6 +344,7 @@ async function main() {
     arrBub = new Array();
     await selectAlg(canvas, ctx, imgBubs, imgFils, imgPlay, n, arrNum);
     n = arrNum.length;
+    console.log(n);
     await initPlay(imgBub, n, arrNum, arrBub);
     await playing(canvas, ctx, n, arrNum, arrBub);
   }
