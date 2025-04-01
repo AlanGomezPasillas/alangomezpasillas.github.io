@@ -261,7 +261,7 @@ async function checking(canvas, ctx, n, arr, h, j, c) {
       arr.nums[j+1] = arr.nums[j] ^ arr.nums[j+1];
       await swap(canvas, ctx, n, arr, h, j);
       c.swapped = true;
-      await getClick(true);
+      await getClick(canvas);
     } else {
       //sleep(Math.round((1-bubbles[0].speed)*100*500))
     }
