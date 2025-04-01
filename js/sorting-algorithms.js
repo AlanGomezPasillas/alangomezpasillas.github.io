@@ -206,8 +206,8 @@ async function initPlay(imgBub, n, arrNum, arrBub){
   const arrSorted = arrNum.toSorted(function (a, b){return a - b;});
   console.log(n);
   for(let i = 0; i < n; i++){
-    const bub = new Bubble(imgBub, 400/n, 20, i*(400/n)+120, (n-arrSorted.indexOf(arrNum[i]))*(400/n)+20, arrNum[i]);
-    arrSorted[arrSorted.indexOf(arrNum[i])]=-123456;
+    const bub = new Bubble(imgBub, 20, 400/n, i*(400/n)+120, (n-arrSorted.indexOf(arrNum[i]))*(400/n)+20, arrNum[i]);
+    arrSorted[i]=-123456;
     arrBub.push(bub);
   }
 }
