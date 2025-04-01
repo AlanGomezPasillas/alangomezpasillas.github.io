@@ -198,7 +198,7 @@ async function selectAlg(canvas, ctx, imgBubs, imgFils, imgPlay, n, arrNum, chec
   }
   console.log("Clicked: " + checker.clicked + " n: "+n);
   if(checker.clicked && n > 0){
-    return;
+    return sleep(0);
   }else{
     await sleep(10);
     await selectAlg(canvas, ctx, imgBubs, imgFils, imgPlay, n, arrNum);
