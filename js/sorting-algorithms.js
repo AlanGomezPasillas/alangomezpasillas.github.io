@@ -334,15 +334,17 @@ async function main() {
   ctx.fillStyle = "white";
   ctx.fillText("Click here to start!", 130, 240);
   await getClick(canvas);
-  await presentation(ctx, imgPre)
+  await presentation(ctx, imgPre);
   await title(canvas, ctx, imgTit, objCli, 0);
   while(true){
     n = 0;
+    file = undefined;
+    data = undefined;
     arrNum = new Array();
     arrBub = new Array();
     await selectAlg(canvas, ctx, imgBubs, imgFils, imgPlay, n, arrNum);
-    await initPlay(imgBub, n, arrNum, arrBub);
     n = arrNum.length;
+    await initPlay(imgBub, n, arrNum, arrBub);
     await playing(canvas, ctx, n, arrNum, arrBub);
   }
 }
