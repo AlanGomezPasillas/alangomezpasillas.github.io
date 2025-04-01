@@ -196,7 +196,7 @@ async function selectAlg(canvas, ctx, imgBubs, imgFils, imgPlay, n, arrNum, chec
   await getClick(canvas, false, false, 480, 608, 120, 248, checker);
   console.log("Clicked: " + checker.clicked + " n: "+n);
   if(checker.clicked && n > 0){
-    return sleep(0);
+    return n;
   }else{
     await sleep(10);
     await selectAlg(canvas, ctx, imgBubs, imgFils, imgPlay, n, arrNum, checker);
@@ -342,9 +342,7 @@ async function main() {
     data = undefined;
     arrNum = new Array();
     arrBub = new Array();
-    await selectAlg(canvas, ctx, imgBubs, imgFils, imgPlay, n, arrNum);
-    n = arrNum.length;
-    console.log(n);
+    n = await selectAlg(canvas, ctx, imgBubs, imgFils, imgPlay, n, arrNum);
     await initPlay(imgBub, n, arrNum, arrBub);
     await playing(canvas, ctx, n, arrNum, arrBub);
   }
