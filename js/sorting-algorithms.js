@@ -342,6 +342,8 @@ async function main() {
     data = undefined;
     await selectAlg(canvas, ctx, imgBubs, imgFils, imgPlay, n, arrNum);
     console.log(Number(n.val));
+    console.log(n);
+    console.log(arrNum);
     await initPlay(imgBub, Number(n.val), arrNum, arrBub);
     await playing(canvas, ctx, Number(n.val), arrNum, arrBub);
   }
