@@ -301,8 +301,8 @@ async function main() {
   var canvas = document.getElementById('game');
   var ctx = canvas.getContext('2d');
   //var state = "presentation";
-  var arrNum;
-  var arrBub;
+  var arrNum = new Array();
+  var arrBub = new Array();
   
   const imgPre = new Image();
   const imgTit = new Image();
@@ -340,8 +340,6 @@ async function main() {
     let n = {val: 0};
     file = undefined;
     data = undefined;
-    arrNum = new Array();
-    arrBub = new Array();
     await selectAlg(canvas, ctx, imgBubs, imgFils, imgPlay, n, arrNum);
     console.log(Number(n.val));
     await initPlay(imgBub, Number(n.val), arrNum, arrBub);
