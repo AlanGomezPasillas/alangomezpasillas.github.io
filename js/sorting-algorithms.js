@@ -335,7 +335,7 @@ async function main() {
   await presentation(ctx, imgPre);
   await title(canvas, ctx, imgTit, objCli, 0);
   while(true){
-    var n = {val = 0};
+    var n = {val: 0};
     file = undefined;
     data = undefined;
     arrNum = new Array();
