@@ -199,7 +199,7 @@ async function selectAlg(canvas, ctx, imgBubs, imgFils, imgPlay, n, arrNum, chec
     return n;
   }else{
     await sleep(10);
-    await selectAlg(canvas, ctx, imgBubs, imgFils, imgPlay, n, arrNum, checker);
+    return await selectAlg(canvas, ctx, imgBubs, imgFils, imgPlay, n, arrNum, checker);
   }
 }
 
