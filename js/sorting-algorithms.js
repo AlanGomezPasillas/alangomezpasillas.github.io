@@ -324,7 +324,7 @@ async function main() {
   await imgBub.decode();
   
   const objCli = new Sprite(imgCli, 0, 0, 180, 64, 230, 200, 10, 0, 1);
-  var objArr = {nums: new Array(), bubs: new Array()};
+  const objArr = {nums: new Array(), bubs: new Array()};
   
   ctx.font = "48px Arial";
   ctx.fillStyle = "white";
@@ -337,9 +337,6 @@ async function main() {
     file = undefined;
     data = undefined;
     await selectAlg(canvas, ctx, imgBubs, imgFils, imgPlay, n, objArr);
-    console.log(Number(n.val));
-    console.log(n);
-    console.log(arrNum);
     await initPlay(imgBub, Number(n.val), objArr);
     await playing(canvas, ctx, Number(n.val), objArr);
   }
