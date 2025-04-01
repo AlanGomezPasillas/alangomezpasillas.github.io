@@ -177,7 +177,7 @@ async function selectAlg(canvas, ctx, imgBubs, imgFils, imgPlay, n, arrNum, chec
   if(file != undefined) fr.readAsText(file);
   if(n.val > 0) {
     ctx.strokeText("Done!", 10, 100);
-    ctx.strokeText("Total: " + n.val, 10, 300);
+    ctx.strokeText("Total: " + Number(n.val), 10, 300);
     if(n.val < 6) {
       ctx.strokeText('{' + arrNum + '}', 10, 350);
     } else {
@@ -340,9 +340,10 @@ async function main() {
     data = undefined;
     arrNum = new Array();
     arrBub = new Array();
-    await selectAlg(canvas, ctx, imgBubs, imgFils, imgPlay, n, arrNum); console.log(n.val);
-    await initPlay(imgBub, n.val, arrNum, arrBub);
-    await playing(canvas, ctx, n.val, arrNum, arrBub);
+    await selectAlg(canvas, ctx, imgBubs, imgFils, imgPlay, n, arrNum);
+    console.log(Number(n.val));
+    await initPlay(imgBub, Number(n.val), arrNum, arrBub);
+    await playing(canvas, ctx, Number(n.val), arrNum, arrBub);
   }
 }
 
