@@ -14,6 +14,7 @@ class Bubble {
     this.num = num;
     this.go = x;
     this.upto = true;
+    this.cspd = speed;
   }
 
   draw(ctx){
@@ -205,8 +206,8 @@ async function selectAlg(canvas, ctx, imgBubs, imgFils, imgPlay, n, arr, checker
 async function initPlay(imgBub, n, arr){
   const arrSorted = arr.nums.toSorted(function (a, b){return a - b;});
   for(let i = 0; i < n; i++){
-    const bub = new Bubble(imgBub, 20, 400/n, i*(400/n)+120, (n-arrSorted.indexOf(arr.nums[i]))*(400/n)+20, arr.nums[i]);
-    arrSorted[i]=-123456;
+    const bub = new Bubble(imgBub, 20, 400/n, i*(400/n)+120, (n-arrSorted.indexOf(arr.nums[i]))*(400/n)+10, arr.nums[i]);
+    arrSorted[arrSorted.indexOf(arrNum[i])]=-123456;
     arr.bubs.push(bub);
   }
 }
@@ -245,7 +246,7 @@ async function checking(canvas, ctx, n, arr, h, j, c) {
   ctx.fillRect(0, 0, SCR_WIDTH, SCR_HEIGHT);
   ctx.strokeText("Loop1: " + h, 528, 40);
   ctx.strokeText("Loop2: " + j, 528, 80);
-  ctx.strokeText("Speed: " + Math.round((1-arr.bubs[0].speed)*100), 528, 120);
+  ctx.strokeText("Speed: " + arr.bubs[0].cspd, 528, 120);
   if(n < 20)ctx.strokeText("Set: {" + arr.nums + '}', 100, 40);
   for(let i = 0; i < n; i++) {
     arr.bubs[i].draw(ctx);
@@ -278,7 +279,7 @@ async function swap(canvas, ctx, n, arr, h, j){
   ctx.fillRect(0, 0, SCR_WIDTH, SCR_HEIGHT);
   ctx.strokeText("Loop1: " + h, 528, 40);
   ctx.strokeText("Loop2: " + j, 528, 80);
-  ctx.strokeText("Speed: " + Math.round((1-arr.bubs[0].speed)*100), 528, 120);
+  ctx.strokeText("Speed: " + arr.bubs[0].cspd, 528, 120);
   if(n<20)ctx.strokeText("Set: {" + arr.nums + '}', 100, 40);
   for(let i = 0; i < n; i++){
     arr.bubs[i].draw(ctx);
