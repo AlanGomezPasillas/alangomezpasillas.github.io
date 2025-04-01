@@ -204,6 +204,7 @@ async function selectAlg(canvas, ctx, imgBubs, imgFils, imgPlay, n, arrNum, chec
 
 async function initPlay(imgBub, n, arrNum, arrBub){
   const arrSorted = arrNum.toSorted(function (a, b){return a - b;});
+  console.log(n);
   for(let i = 0; i < n; i++){
     const bub = new Bubble(imgBub, 400/n, 20, i*(400/n)+120, (n-arrSorted.indexOf(arrNum[i]))*(400/n)+20, arrNum[i]);
     arrSorted[arrSorted.indexOf(arrNum[i])]=-123456;
@@ -211,7 +212,7 @@ async function initPlay(imgBub, n, arrNum, arrBub){
   }
 }
 
-async function playing(canvas, ctx, n, arrNum, arrBub, h){
+async function playing(canvas, ctx, n, arrNum, arrBub, h = 0){
   let checker = {swapped: false};
   if (h < n-1){
     if(h==0){
