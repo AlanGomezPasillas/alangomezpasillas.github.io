@@ -177,8 +177,8 @@ async function selectAlg(canvas, ctx, imgBubs, imgFils, imgPlay, n, arrNum, chec
   if(file != undefined) fr.readAsText(file);
   if(n.val > 0) {
     ctx.strokeText("Done!", 10, 100);
-    ctx.strokeText("Total: " + n, 10, 300);
-    if(n < 6) {
+    ctx.strokeText("Total: " + n.val, 10, 300);
+    if(n.val < 6) {
       ctx.strokeText('{' + arrNum + '}', 10, 350);
     } else {
       let head = '{';
@@ -198,7 +198,7 @@ async function selectAlg(canvas, ctx, imgBubs, imgFils, imgPlay, n, arrNum, chec
     return sleep(0);
   }else{
     await sleep(10);
-    return await selectAlg(canvas, ctx, imgBubs, imgFils, imgPlay, n, arrNum, checker);
+    await selectAlg(canvas, ctx, imgBubs, imgFils, imgPlay, n, arrNum, checker);
   }
 }
 
@@ -335,12 +335,12 @@ async function main() {
   await presentation(ctx, imgPre);
   await title(canvas, ctx, imgTit, objCli, 0);
   while(true){
-    var n = {val: 0};
+    let n = {val: 0};
     file = undefined;
     data = undefined;
     arrNum = new Array();
     arrBub = new Array();
-    await selectAlg(canvas, ctx, imgBubs, imgFils, imgPlay, n, arrNum);
+    await selectAlg(canvas, ctx, imgBubs, imgFils, imgPlay, n, arrNum); console.log(n.val);
     await initPlay(imgBub, n.val, arrNum, arrBub);
     await playing(canvas, ctx, n.val, arrNum, arrBub);
   }
