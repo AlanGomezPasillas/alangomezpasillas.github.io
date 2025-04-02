@@ -337,7 +337,7 @@ async function main() {
     objFile.txt = undefined;
     objFile.data = undefined;
     objArr.nums = new Array();
-    objArr.nums = new Array();
+    objArr.bubs = new Array();
     await selectAlg(canvas, ctx, imgBubs, imgFils, imgPlay, n, objArr, objFile);
     await initPlay(imgBub, Number(n.val), objArr);
     await playing(canvas, ctx, Number(n.val), objArr);
