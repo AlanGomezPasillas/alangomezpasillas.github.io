@@ -1,8 +1,6 @@
 const SCR_WIDTH = 640;
 const SCR_HEIGHT = 480;
 const mscArmony = new Audio("msc/armonia.wav");
-var file;
-var data;
 
 class Bubble {
   constructor(image, speed, size, x, y, num){
@@ -146,7 +144,7 @@ async function title(canvas, ctx, imgTit, objCli, titY, checker = {clicked: fals
   }
 }
 
-async function selectAlg(canvas, ctx, imgBubs, imgFils, imgPlay, n, arr, checker = {clicked: false}) {
+async function selectAlg(canvas, ctx, imgBubs, imgFils, imgPlay, n, arr, file, checker = {clicked: false}) {
   const fr = new FileReader();
   //console.log("File: " + file + "Data: " + data);
   //console.log("n: " + n + "arrNum: " + arrNum);
@@ -158,14 +156,14 @@ async function selectAlg(canvas, ctx, imgBubs, imgFils, imgPlay, n, arr, checker
   canvas.addEventListener("drop", (e) => {
     e.stopPropagation();
     e.preventDefault();
-    file = e.dataTransfer.files[0];
+    file.txt = e.dataTransfer.files[0];
   });
   fr.addEventListener("load", (e) => {
-    data = e.target.result.split(/[\r\n]+/).filter(Boolean).join(' ');
+    file.data = e.target.result.split(/[\r\n]+/).filter(Boolean).join(' ');
     //numberss = data.split(' ');
     //n = numberss[0];
     //numberss.shift();
-    arr.nums = data.split(' ').map(Number);
+    arr.nums = file.data.split(' ').map(Number);
     n.val = arr.nums.length;
   });
   ctx.fillStyle = "white";
@@ -175,7 +173,7 @@ async function selectAlg(canvas, ctx, imgBubs, imgFils, imgPlay, n, arr, checker
   ctx.drawImage(imgFils, 256, 120);
   ctx.font = "48px Arial";
   ctx.strokeText("Drag and Drop a .txt File: ", 10, 50);
-  if(file != undefined) fr.readAsText(file);
+  if(file.txt != undefined) fr.readAsText(file.txt);
   if(n.val > 0) {
     ctx.strokeText("Done!", 10, 100);
     ctx.strokeText("Total: " + Number(n.val), 10, 300);
@@ -199,7 +197,7 @@ async function selectAlg(canvas, ctx, imgBubs, imgFils, imgPlay, n, arr, checker
     return sleep(0);
   }else{
     await sleep(10);
-    await selectAlg(canvas, ctx, imgBubs, imgFils, imgPlay, n, arr, checker);
+    await selectAlg(canvas, ctx, imgBubs, imgFils, imgPlay, n, arr, file, checker);
   }
 }
 
@@ -326,6 +324,7 @@ async function main() {
   
   const objCli = new Sprite(imgCli, 0, 0, 180, 64, 230, 200, 10, 0, 1);
   const objArr = {nums: new Array(), bubs: new Array()};
+  const objFile = {txt: undefined, data: undefined};
   
   ctx.font = "48px Arial";
   ctx.fillStyle = "white";
@@ -335,9 +334,11 @@ async function main() {
   await title(canvas, ctx, imgTit, objCli, 0);
   while(true){
     let n = {val: 0};
-    file = undefined;
-    data = undefined;
-    await selectAlg(canvas, ctx, imgBubs, imgFils, imgPlay, n, objArr);
+    objFile.txt = undefined;
+    objFile.data = undefined;
+    objArr.nums = new Array();
+    objArr.nums = new Array();
+    await selectAlg(canvas, ctx, imgBubs, imgFils, imgPlay, n, objArr, objFile);
     await initPlay(imgBub, Number(n.val), objArr);
     await playing(canvas, ctx, Number(n.val), objArr);
   }
