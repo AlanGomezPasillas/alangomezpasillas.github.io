@@ -67,13 +67,12 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms))
 }
 
-async function getClick(canvas, clicked = false, loop = true, x1 = 0, x2 = SCR_WIDTH, y1 = 0, y2 = SCR_HEIGHT, c = {clicked: false}){
+async function getClick(canvas, loop = true, x1 = 0, x2 = SCR_WIDTH, y1 = 0, y2 = SCR_HEIGHT, c = {clicked: false}){
   canvas.addEventListener("click", (e) => {
     var rect = canvas.getBoundingClientRect();
     if (e.clientX-rect.left > x1 && e.clientX-rect.left < x2) {
       if (e.clientY-rect.top > y1 && e.clientY-rect.top < y2) {
-	c.clicked = true;
-	console.log("Entro al click correcto "+e.clientX+','+e.clientY);
+    	c.clicked = true;
       }
     }
   });
@@ -81,7 +80,7 @@ async function getClick(canvas, clicked = false, loop = true, x1 = 0, x2 = SCR_W
     return true;
   } else if (loop) {
     await sleep(100);
-    return await getClick(canvas, clicked, loop, x1, x2, y1, y2, c);
+    return await getClick(canvas, loop, x1, x2, y1, y2, c);
   } else {
     return false;
   }
@@ -118,7 +117,7 @@ async function presentation(ctx, imgPre){
 
 async function title(canvas, ctx, imgTit, objCli, titY, checker = {clicked: false}){
   var timeout = 100;
-  await getClick(canvas, false, false, 230, 410, 200, 264, checker);
+  await getClick(canvas, false, 230, 410, 200, 264, checker);
   if (checker.clicked && titY == 0) {
     titY = -0.0001;
   }
@@ -192,7 +191,7 @@ async function selectAlg(canvas, ctx, imgBubs, imgFils, imgPlay, n, arr, file, c
     ctx.drawImage(imgPlay, 480, 120);
     ctx.fillText("Ready! Press Play to Start", 34, 420);
   }
-  await getClick(canvas, false, false, 480, 608, 120, 248, checker);
+  await getClick(canvas, false, 480, 608, 120, 248, checker);
   if(checker.clicked && n.val > 0){
     return sleep(0);
   }else{
@@ -251,8 +250,8 @@ async function checking(canvas, ctx, n, arr, h, j, c) {
   }
   if (j < n-1) {
     if (arr.nums[j] > arr.nums[j+1]) {
-      arr.bubs[j].upto=false;
-      arr.bubs[j+1].upto=false;
+      arr.bubs[j].upto = false;
+      arr.bubs[j+1].upto = false;
       arr.bubs[j].go = arr.bubs[j+1].x;
       arr.bubs[j+1].go = arr.bubs[j].x;
       arr.nums[j+1] = arr.nums[j] ^ arr.nums[j+1];
