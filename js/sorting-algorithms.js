@@ -73,14 +73,15 @@ async function getClick(canvas, loop = true, x1 = 0, x2 = SCR_WIDTH, y1 = 0, y2 
     if (e.clientX-rect.left > x1 && e.clientX-rect.left < x2) {
       if (e.clientY-rect.top > y1 && e.clientY-rect.top < y2) {
     	c.clicked = true;
+        console.log(c.clicked + ' ' + x2);
       }
     }
-  });
+  }, false);
   if (c.clicked) { 
     return true;
   } else if (loop) {
     await sleep(100);
-    return await getClick(canvas, loop, x1, x2, y1, y2, c);
+    await getClick(canvas, loop, x1, x2, y1, y2, c);
   } else {
     return false;
   }
@@ -151,12 +152,12 @@ async function selectAlg(canvas, ctx, imgBubs, imgFils, imgPlay, n, arr, file, c
     e.stopPropagation();
     e.preventDefault();
     e.dataTransfer.dropEffect = "copy";
-  });
+  }, false);
   canvas.addEventListener("drop", (e) => {
     e.stopPropagation();
     e.preventDefault();
     file.txt = e.dataTransfer.files[0];
-  });
+  }, false);
   fr.addEventListener("load", (e) => {
     file.data = e.target.result.split(/[\r\n]+/).filter(Boolean).join(' ');
     //numberss = data.split(' ');
@@ -164,7 +165,7 @@ async function selectAlg(canvas, ctx, imgBubs, imgFils, imgPlay, n, arr, file, c
     //numberss.shift();
     arr.nums = file.data.split(' ').map(Number);
     n.val = arr.nums.length;
-  });
+  }, false);
   ctx.fillStyle = "white";
   ctx.clearRect(0, 0, SCR_WIDTH, SCR_HEIGHT);
   ctx.fillRect(0, 0, SCR_WIDTH, SCR_HEIGHT);
@@ -346,6 +347,6 @@ async function main() {
 mscArmony.addEventListener("ended", function() {
   this.currentTime = 0;
   this.play();
-});
+}, false);
 
 main();
