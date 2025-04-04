@@ -1,6 +1,5 @@
 const SCR_WIDTH = 640;
 const SCR_HEIGHT = 480;
-const mscArmony = new Audio("msc/armonia.wav");
 
 class Bubble {
   constructor(image, speed, size, x, y, num){
@@ -67,18 +66,23 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms))
 }
 
-async function pause(c){
+async function pause(c) {
   while(!c.done){
-    
+    sleep(1);
   }
 }
 
-async function handleClick(c, e){
+function handleMusic(){
+  this.currentTime = 0;
+  this.play();
+}
+
+function handleClick(c, e) {
   console.log(e.clientX);
   c.done = true;
 }
 
-async function getClick(canvas, loop = true, x1 = 0, x2 = SCR_WIDTH, y1 = 0, y2 = SCR_HEIGHT, c = {clicked: false}){
+async function getClick(canvas, loop = true, x1 = 0, x2 = SCR_WIDTH, y1 = 0, y2 = SCR_HEIGHT, c = {clicked: false}) {
   canvas.addEventListener("click", (e) => {
     var rect = canvas.getBoundingClientRect();
     if (e.clientX-rect.left > x1 && e.clientX-rect.left < x2) {
@@ -99,7 +103,7 @@ async function getClick(canvas, loop = true, x1 = 0, x2 = SCR_WIDTH, y1 = 0, y2 
   }
 }
 
-async function fade(i, ctx, img, type){
+async function fade(i, ctx, img, type) {
   ctx.fillStyle = "black";
   ctx.clearRect(0, 0, SCR_WIDTH, SCR_HEIGHT);
   ctx.drawImage(img, 0, 0);
@@ -119,7 +123,7 @@ async function fade(i, ctx, img, type){
   }
 }
 
-async function presentation(ctx, imgPre){
+async function presentation(ctx, imgPre) {
   await fade(1, ctx, imgPre, 1);
   await sleep(2000);
   await fade(0, ctx, imgPre, 0);
@@ -128,7 +132,7 @@ async function presentation(ctx, imgPre){
   mscArmony.play();
 }
 
-async function title(canvas, ctx, imgTit, objCli, titY, checker = {clicked: false}){
+async function title(canvas, ctx, imgTit, objCli, titY, checker = {clicked: false}) {
   var timeout = 100;
   await getClick(canvas, false, 230, 410, 200, 264, checker);
   if (checker.clicked && titY == 0) {
@@ -213,7 +217,7 @@ async function selectAlg(canvas, ctx, imgBubs, imgFils, imgPlay, n, arr, file, c
   }
 }
 
-async function initPlay(imgBub, n, arr){
+async function initPlay(imgBub, n, arr) {
   const arrSorted = arr.nums.toSorted(function (a, b){return a - b;});
   for(let i = 0; i < n; i++){
     const bub = new Bubble(imgBub, 20, 400/n, i*(400/n)+120, (n-arrSorted.indexOf(arr.nums[i]))*(400/n)+10, arr.nums[i]);
@@ -222,7 +226,7 @@ async function initPlay(imgBub, n, arr){
   }
 }
 
-async function playing(canvas, ctx, n, arr, h = 0){
+async function playing(canvas, ctx, n, arr, h = 0) {
   let checker = {swapped: false};
   if (h < n-1){
     if(h==0){
@@ -283,7 +287,7 @@ async function checking(canvas, ctx, n, arr, h, j, c) {
   }
 }
 
-async function swap(canvas, ctx, n, arr, h, j){
+async function swap(canvas, ctx, n, arr, h, j) {
   ctx.fillStyle = "white";
   ctx.clearRect(0, 0, SCR_WIDTH, SCR_HEIGHT);
   ctx.fillRect(0, 0, SCR_WIDTH, SCR_HEIGHT);
@@ -318,6 +322,8 @@ async function main() {
   const imgPlay = new Image();
   const imgBub = new Image();
   
+  const mscArmony = new Audio("msc/armonia.wav");
+  
   imgPre.src = "img/sorting-algorithms/presentation.png";
   imgTit.src = "img/sorting-algorithms/title.png";
   imgCli.src = "img/sorting-algorithms/cli-st.png";
@@ -340,17 +346,17 @@ async function main() {
   const objFile = {txt: undefined, data: undefined};
   
   const msg = "Hola";
+  mscArmony.addEventListener("ended", handleMusic, false);
   canvas.addEventListener("click", (e) => handleClick(objCheck, e), false);
+  
   
   ctx.font = "48px Arial";
   ctx.fillStyle = "white";
   ctx.fillText("Click here to start!", 130, 240);
-  while(!objCheck.done){
-    await pause(objCheck);
-  }
+  await pause(objCheck);
   await presentation(ctx, imgPre);
   await title(canvas, ctx, imgTit, objCli, 0);
-  while(true){
+  while(true) {
     let n = {val: 0};
     objFile.txt = undefined;
     objFile.data = undefined;
@@ -361,10 +367,5 @@ async function main() {
     await playing(canvas, ctx, Number(n.val), objArr);
   }
 }
-
-mscArmony.addEventListener("ended", function() {
-  this.currentTime = 0;
-  this.play();
-}, false);
 
 main();
