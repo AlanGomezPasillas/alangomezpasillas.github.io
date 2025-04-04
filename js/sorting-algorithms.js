@@ -68,6 +68,7 @@ function sleep(ms) {
 }
 
 function handleClick(e){
+  console.log(e.currentTarget.msg);
   console.log("Entro");
   console.log(e.clientX);
 }
@@ -332,6 +333,7 @@ async function main() {
   const objArr = {nums: new Array(), bubs: new Array()};
   const objFile = {txt: undefined, data: undefined};
   
+  const msg = "Hola";
   canvas.addEventListener("click", handleClick, false);
   
   ctx.font = "48px Arial";
