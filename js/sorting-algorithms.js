@@ -68,7 +68,7 @@ async function sleep(ms) {
 
 async function pause(c) {
   if(c.paused){
-    sleep(1);
+    sleep(10);
     await pause(c);
   };
 }
