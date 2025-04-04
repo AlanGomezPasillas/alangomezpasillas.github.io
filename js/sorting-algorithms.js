@@ -332,7 +332,7 @@ async function main() {
   const objArr = {nums: new Array(), bubs: new Array()};
   const objFile = {txt: undefined, data: undefined};
   
-  canvas.addEventListener("click", handleClick(e), false);
+  canvas.addEventListener("click", handleClick, false);
   
   ctx.font = "48px Arial";
   ctx.fillStyle = "white";
