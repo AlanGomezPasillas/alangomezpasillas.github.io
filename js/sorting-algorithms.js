@@ -67,10 +67,15 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms))
 }
 
-function handleClick(msg, e){
-  console.log(msg);
-  console.log("Entro");
+async function wait(c){
+  if(!c.done){
+    await wait(c);
+  }
+}
+
+async function handleClick(c, e){
   console.log(e.clientX);
+  c.done = true;
 }
 
 async function getClick(canvas, loop = true, x1 = 0, x2 = SCR_WIDTH, y1 = 0, y2 = SCR_HEIGHT, c = {clicked: false}){
@@ -329,17 +334,18 @@ async function main() {
   await imgPlay.decode();
   await imgBub.decode();
   
+  const objCheck = {clicked: false, done: false};
   const objCli = new Sprite(imgCli, 0, 0, 180, 64, 230, 200, 10, 0, 1);
   const objArr = {nums: new Array(), bubs: new Array()};
   const objFile = {txt: undefined, data: undefined};
   
   const msg = "Hola";
-  canvas.addEventListener("click", (e) => handleClick(msg, e), false);
+  canvas.addEventListener("click", (e) => handleClick(objCheck, e), false);
   
   ctx.font = "48px Arial";
   ctx.fillStyle = "white";
   ctx.fillText("Click here to start!", 130, 240);
-  await getClick(canvas);
+  await wait();
   await presentation(ctx, imgPre);
   await title(canvas, ctx, imgTit, objCli, 0);
   while(true){
