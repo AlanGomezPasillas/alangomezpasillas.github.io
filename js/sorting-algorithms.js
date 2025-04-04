@@ -67,7 +67,10 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms))
 }
 
-async function wait(){
+async function pause(c){
+  while(!c.done){
+    
+  }
 }
 
 async function handleClick(c, e){
@@ -343,7 +346,7 @@ async function main() {
   ctx.fillStyle = "white";
   ctx.fillText("Click here to start!", 130, 240);
   while(!objCheck.done){
-    await wait();
+    await pause(objCheck);
   }
   await presentation(ctx, imgPre);
   await title(canvas, ctx, imgTit, objCli, 0);
