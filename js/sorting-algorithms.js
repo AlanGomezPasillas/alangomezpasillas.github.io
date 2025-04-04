@@ -67,8 +67,8 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms))
 }
 
-function handleClick(e){
-  console.log(e.currentTarget.msg);
+function handleClick(msg, e){
+  console.log(msg);
   console.log("Entro");
   console.log(e.clientX);
 }
@@ -334,7 +334,7 @@ async function main() {
   const objFile = {txt: undefined, data: undefined};
   
   const msg = "Hola";
-  canvas.addEventListener("click", handleClick, false);
+  canvas.addEventListener("click", (e) => handleClick(msg, e), false);
   
   ctx.font = "48px Arial";
   ctx.fillStyle = "white";
