@@ -67,6 +67,11 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms))
 }
 
+function handleClick(e){
+  console.log("Entro");
+  console.log(e.clientX);
+}
+
 async function getClick(canvas, loop = true, x1 = 0, x2 = SCR_WIDTH, y1 = 0, y2 = SCR_HEIGHT, c = {clicked: false}){
   canvas.addEventListener("click", (e) => {
     var rect = canvas.getBoundingClientRect();
@@ -77,6 +82,7 @@ async function getClick(canvas, loop = true, x1 = 0, x2 = SCR_WIDTH, y1 = 0, y2 
       }
     }
   }, false);
+  
   if (c.clicked) { 
     return true;
   } else if (loop) {
@@ -325,6 +331,8 @@ async function main() {
   const objCli = new Sprite(imgCli, 0, 0, 180, 64, 230, 200, 10, 0, 1);
   const objArr = {nums: new Array(), bubs: new Array()};
   const objFile = {txt: undefined, data: undefined};
+  
+  canvas.addEventListener("click", handleClick(e), false);
   
   ctx.font = "48px Arial";
   ctx.fillStyle = "white";
