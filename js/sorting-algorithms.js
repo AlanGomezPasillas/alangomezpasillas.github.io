@@ -69,7 +69,7 @@ function sleep(ms) {
 
 async function wait(c){
   if(!c.done){
-    await wait(c);
+    return await wait(c);
   }
 }
 
