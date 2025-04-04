@@ -67,9 +67,10 @@ function sleep(ms) {
 }
 
 async function pause(c) {
-  while(!c.done){
+  if(c.paused){
     sleep(1);
-  }
+    await pause(c);
+  };
 }
 
 function handleMusic(){
@@ -340,15 +341,13 @@ async function main() {
   await imgPlay.decode();
   await imgBub.decode();
   
-  const objCheck = {clicked: false, done: false};
+  const objCheck = {clicked: false, paused: true};
   const objCli = new Sprite(imgCli, 0, 0, 180, 64, 230, 200, 10, 0, 1);
   const objArr = {nums: new Array(), bubs: new Array()};
   const objFile = {txt: undefined, data: undefined};
   
-  const msg = "Hola";
   mscArmony.addEventListener("ended", handleMusic, false);
   canvas.addEventListener("click", (e) => handleClick(objCheck, e), false);
-  
   
   ctx.font = "48px Arial";
   ctx.fillStyle = "white";
