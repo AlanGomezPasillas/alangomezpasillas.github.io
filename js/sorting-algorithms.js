@@ -80,7 +80,7 @@ function handleMusic(){
 
 function handleClick(c, e) {
   console.log(e.clientX);
-  c.done = true;
+  c.paused = false;
 }
 
 async function getClick(canvas, loop = true, x1 = 0, x2 = SCR_WIDTH, y1 = 0, y2 = SCR_HEIGHT, c = {clicked: false}) {
