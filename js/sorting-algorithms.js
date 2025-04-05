@@ -79,7 +79,7 @@ function handleMusic(){
 }
 
 function handleClick(c, e) {
-  var rect = canvas.getBoundingClientRect();
+  var rect = e.currentTarget.getBoundingClientRect();
   if (c.paused) {
     c.paused = false;
   }
