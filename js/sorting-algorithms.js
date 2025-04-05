@@ -79,8 +79,23 @@ function handleMusic(){
 }
 
 function handleClick(c, e) {
-  console.log(e.clientX);
-  c.paused = false;
+  var rect = canvas.getBoundingClientRect();
+  if (c.paused) {
+    c.paused = false;
+  }
+  if (c.state == "title") {
+    if(isClicked(e.clientX-rect.left, e.clientY-rect.top, 230, 410, 200, 264)) {
+      c.clicked = "start";
+    }
+  }
+}
+
+function isClicked(px, py, x1, x2, y1, y2) {
+  if (px > x1 && px < x2) {
+    if (py > y1 && py < y2) {
+      return = true;
+    }
+  }
 }
 
 async function getClick(canvas, loop = true, x1 = 0, x2 = SCR_WIDTH, y1 = 0, y2 = SCR_HEIGHT, c = {clicked: false}) {
@@ -89,7 +104,6 @@ async function getClick(canvas, loop = true, x1 = 0, x2 = SCR_WIDTH, y1 = 0, y2 
     if (e.clientX-rect.left > x1 && e.clientX-rect.left < x2) {
       if (e.clientY-rect.top > y1 && e.clientY-rect.top < y2) {
     	c.clicked = true;
-        console.log(c.clicked + ' ' + x2);
       }
     }
   }, false);
@@ -132,10 +146,10 @@ async function presentation(ctx, imgPre) {
   await sleep(100);
 }
 
-async function title(canvas, ctx, imgTit, objCli, titY, checker = {clicked: false}) {
+async function title(canvas, ctx, imgTit, objCli, titY, c) {
   var timeout = 100;
-  await getClick(canvas, false, 230, 410, 200, 264, checker);
-  if (checker.clicked && titY == 0) {
+  //await getClick(canvas, false, 230, 410, 200, 264, checker);
+  if (c.clicked == "start" && titY == 0) {
     titY = -0.0001;
   }
   ctx.fillStyle = "white";
@@ -151,12 +165,11 @@ async function title(canvas, ctx, imgTit, objCli, titY, checker = {clicked: fals
   }
   objCli.update();
   titY += titY;
-     //titY = -0.0001;
   if(titY < -880) {
     return sleep(0);
   } else {
     await sleep(timeout);
-    await title(canvas, ctx, imgTit, objCli, titY, checker);
+    await title(canvas, ctx, imgTit, objCli, titY, c);
   }
 }
 
@@ -340,7 +353,7 @@ async function main() {
   await imgPlay.decode();
   await imgBub.decode();
   
-  const objCheck = {clicked: false, paused: true};
+  const objCheck = {state: "presentation", clicked: "none", paused: true};
   const objCli = new Sprite(imgCli, 0, 0, 180, 64, 230, 200, 10, 0, 1);
   const objArr = {nums: new Array(), bubs: new Array()};
   const objFile = {txt: undefined, data: undefined};
@@ -354,6 +367,7 @@ async function main() {
   await pause(objCheck);
   await presentation(ctx, imgPre);
   mscArmony.play();
+  objCheck.state = "title";
   await title(canvas, ctx, imgTit, objCli, 0);
   while(true) {
     let n = {val: 0};
