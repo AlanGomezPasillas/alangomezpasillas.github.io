@@ -93,7 +93,7 @@ function handleClick(c, e) {
 function isClicked(px, py, x1, x2, y1, y2) {
   if (px > x1 && px < x2) {
     if (py > y1 && py < y2) {
-      return = true;
+      return true;
     }
   }
 }
