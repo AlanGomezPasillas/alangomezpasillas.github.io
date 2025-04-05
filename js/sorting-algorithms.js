@@ -100,10 +100,11 @@ function handleDrag(e) {
   e.dataTransfer.dropEffect = "copy";
 }
 
-function handleDrop(file, e) {
-  //e.stopPropagation();
+function handleDrop(file, fr, e) {
+  //e.stopPropagation(); 
   e.preventDefault();
   file.txt = e.dataTransfer.files[0];
+  fr.readAsText(file.txt);
 }
 
 function handleLoad(file, arr, e) {
@@ -195,7 +196,7 @@ async function title(canvas, ctx, imgTit, objCli, titY, c) {
   }
 }
 
-async function selectAlg(canvas, ctx, imgBubs, imgFils, imgPlay, arr, file, c, fr) {
+async function selectAlg(canvas, ctx, imgBubs, imgFils, imgPlay, arr, file, c) {
   ctx.fillStyle = "white";
   ctx.clearRect(0, 0, SCR_WIDTH, SCR_HEIGHT);
   ctx.fillRect(0, 0, SCR_WIDTH, SCR_HEIGHT);
@@ -203,7 +204,7 @@ async function selectAlg(canvas, ctx, imgBubs, imgFils, imgPlay, arr, file, c, f
   ctx.drawImage(imgFils, 256, 120);
   ctx.font = "48px Arial";
   ctx.strokeText("Drag and Drop a .txt File: ", 10, 50);
-  if (file.txt != undefined) fr.readAsText(file.txt);
+  //if (file.txt != undefined) 
   if (arr.n > 0) {
     ctx.strokeText("Done!", 10, 100);
     ctx.strokeText("Total: " + Number(arr.n), 10, 300);
@@ -229,7 +230,7 @@ async function selectAlg(canvas, ctx, imgBubs, imgFils, imgPlay, arr, file, c, f
   }else{
     c.clicked = "none";
     await sleep(1);
-    await selectAlg(canvas, ctx, imgBubs, imgFils, imgPlay, arr, file, c, fr);
+    await selectAlg(canvas, ctx, imgBubs, imgFils, imgPlay, arr, file, c);
   }
 }
 
@@ -361,7 +362,7 @@ async function main() {
   mscArmony.addEventListener("ended", handleMusic, false);
   canvas.addEventListener("click", (e) => handleClick(objCheck, e), false);
   canvas.addEventListener("dragover", handleDrag, false);
-  canvas.addEventListener("drop", (e) => handleDrop(objFile, e), false);
+  canvas.addEventListener("drop", (e) => handleDrop(objFile, fr, e), false);
   fr.addEventListener("load", (e) => handleLoad(objFile, objArr, e), false);
   
   ctx.font = "48px Arial";
@@ -379,7 +380,7 @@ async function main() {
     objArr.n = 0;
     objArr.nums = new Array();
     objArr.bubs = new Array();
-    await selectAlg(canvas, ctx, imgBubs, imgFils, imgPlay, objArr, objFile, objCheck, fr);
+    await selectAlg(canvas, ctx, imgBubs, imgFils, imgPlay, objArr, objFile, objCheck);
     await initPlay(imgBub, objArr);
     objCheck.state = "playing";
     await playing(canvas, ctx, objArr, objCheck);
