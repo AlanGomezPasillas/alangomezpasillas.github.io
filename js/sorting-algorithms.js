@@ -368,7 +368,7 @@ async function main() {
   await presentation(ctx, imgPre);
   mscArmony.play();
   objCheck.state = "title";
-  await title(canvas, ctx, imgTit, objCli, 0);
+  await title(canvas, ctx, imgTit, objCli, 0, objCheck);
   while(true) {
     let n = {val: 0};
     objFile.txt = undefined;
