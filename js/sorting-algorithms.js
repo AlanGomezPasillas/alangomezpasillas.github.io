@@ -94,19 +94,19 @@ function handleClick(c, e) {
   }
 }
 
-function handleDrag(){
+function handleDrag(e) {
   e.stopPropagation();
   e.preventDefault();
   e.dataTransfer.dropEffect = "copy";
 }
 
-function handleDrop(file, e){
+function handleDrop(file, e) {
   e.stopPropagation();
   e.preventDefault();
   file.txt = e.dataTransfer.files[0];
 }
 
-function handleLoad(file, arr, e){
+function handleLoad(file, arr, e) {
   file.data = e.target.result.split(/[\r\n]+/).filter(Boolean).join(' ');
   arr.nums = file.data.split(' ').map(Number);
   arr.n = arr.nums.length;
