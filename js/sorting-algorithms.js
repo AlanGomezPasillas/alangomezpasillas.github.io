@@ -130,7 +130,6 @@ async function presentation(ctx, imgPre) {
   await fade(0, ctx, imgPre, 0);
   ctx.fillStyle = "white";
   await sleep(100);
-  mscArmony.play();
 }
 
 async function title(canvas, ctx, imgTit, objCli, titY, checker = {clicked: false}) {
@@ -354,6 +353,7 @@ async function main() {
   ctx.fillText("Click here to start!", 130, 240);
   await pause(objCheck);
   await presentation(ctx, imgPre);
+  mscArmony.play();
   await title(canvas, ctx, imgTit, objCli, 0);
   while(true) {
     let n = {val: 0};
