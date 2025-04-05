@@ -68,9 +68,9 @@ async function sleep(ms) {
 
 async function pause(c) {
   if(c.paused){
-    sleep(10);
+    await sleep(1);
     await pause(c);
-  };
+  }
 }
 
 function handleMusic(){
