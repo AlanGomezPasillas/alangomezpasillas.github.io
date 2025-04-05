@@ -95,13 +95,13 @@ function handleClick(c, e) {
 }
 
 function handleDrag(e) {
-  e.stopPropagation();
+  //e.stopPropagation();
   e.preventDefault();
   e.dataTransfer.dropEffect = "copy";
 }
 
 function handleDrop(file, e) {
-  e.stopPropagation();
+  //e.stopPropagation();
   e.preventDefault();
   file.txt = e.dataTransfer.files[0];
 }
@@ -360,7 +360,7 @@ async function main() {
 
   mscArmony.addEventListener("ended", handleMusic, false);
   canvas.addEventListener("click", (e) => handleClick(objCheck, e), false);
-  canvas.addEventListener("dragover", (e) => handleDrag, false);
+  canvas.addEventListener("dragover", handleDrag, false);
   canvas.addEventListener("drop", (e) => handleDrop(objFile, e), false);
   fr.addEventListener("load", (e) => handleLoad(objFile, objArr, e), false);
   
