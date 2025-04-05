@@ -243,7 +243,7 @@ async function initPlay(imgBub, arr) {
   }
 }
 
-async function playing(canvas, ctx, arr, h = 0, c) {
+async function playing(canvas, ctx, arr, h, c) {
   if (h < arr.n-1){
     if(h==0){
       ctx.fillStyle = "white";
@@ -383,7 +383,7 @@ async function main() {
     await selectAlg(canvas, ctx, imgBubs, imgFils, imgPlay, objArr, objFile, objCheck);
     await initPlay(imgBub, objArr);
     objCheck.state = "playing";
-    await playing(canvas, ctx, objArr, objCheck);
+    await playing(canvas, ctx, objArr, 0, objCheck);
   }
 }
 
