@@ -51,6 +51,10 @@ class Sprite {
     this.fIdx = fIndex;
     this.spd = speed;
   }
+  
+  draw(ctx){
+    ctx.drawImage(this.img, this.px, this.py, this.width, this.height, this.x, this.y, this.width, this.height);
+  }
 
   update(){
     if(this.fIdx < this.nFrames-1) {
@@ -159,7 +163,8 @@ async function title(ctx, imgTit, objCli, titY, c) {
   ctx.fillRect(0, 0, SCR_WIDTH, SCR_HEIGHT);
   ctx.drawImage(imgTit, 0, titY);
   if(titY == 0) {
-    ctx.drawImage(objCli.img, objCli.px, objCli.py, objCli.width, objCli.height, objCli.x, objCli.y, objCli.width, objCli.height);
+    //ctx.drawImage(objCli.img, objCli.px, objCli.py, objCli.width, objCli.height, objCli.x, objCli.y, objCli.width, objCli.height);
+    objCli.draw(ctx);
   } else {
     timeout = 15;
   }
@@ -219,6 +224,23 @@ async function initPlay(imgBub, arr) {
   }
 }
 
+async function drawGame(ctx, arr, h, j){
+  ctx.fillStyle = "white";
+  ctx.clearRect(0, 0, SCR_WIDTH, SCR_HEIGHT);
+  ctx.fillRect(0, 0, SCR_WIDTH, SCR_HEIGHT);
+  ctx.strokeText("Loop1: " + h, 528, 40);
+  ctx.strokeText("Loop2: " + j, 528, 80);
+  ctx.strokeText("Speed: " + arr.bubs[0].cspd, 528, 120);
+  if(arr.n < 20)ctx.strokeText("Set: {" + arr.nums + '}', 100, 40);
+  for(let i = 0; i < arr.n; i++) {
+    arr.bubs[i].draw(ctx);
+    arr.bubs[i].update();
+  }
+  for(let i = 0; i < 3; i++){
+    arr.btns[i].draw(ctx);
+  }
+}
+
 async function playing(ctx, arr, h, c) {
   if (h < arr.n-1){
     if(h==0){
@@ -247,16 +269,7 @@ async function playing(ctx, arr, h, c) {
 }
 
 async function checking(ctx, arr, h, j, c) {
-  ctx.fillStyle = "white";
-  ctx.clearRect(0, 0, SCR_WIDTH, SCR_HEIGHT);
-  ctx.fillRect(0, 0, SCR_WIDTH, SCR_HEIGHT);
-  ctx.strokeText("Loop1: " + h, 528, 40);
-  ctx.strokeText("Loop2: " + j, 528, 80);
-  ctx.strokeText("Speed: " + arr.bubs[0].cspd, 528, 120);
-  if(arr.n < 20)ctx.strokeText("Set: {" + arr.nums + '}', 100, 40);
-  for(let i = 0; i < arr.n; i++) {
-    arr.bubs[i].draw(ctx);
-  }
+  drawGame(ctx, arr, h, j);
   if (j < arr.n-1) {
     if (arr.nums[j] > arr.nums[j+1]) {
       arr.bubs[j].upto = false;
@@ -275,22 +288,12 @@ async function checking(ctx, arr, h, j, c) {
     await sleep(1);
     await checking(ctx, arr, h, j+1, c);
   } else {
-    return sleep(0);
+    return;
   }
 }
 
 async function swap(ctx, arr, h, j) {
-  ctx.fillStyle = "white";
-  ctx.clearRect(0, 0, SCR_WIDTH, SCR_HEIGHT);
-  ctx.fillRect(0, 0, SCR_WIDTH, SCR_HEIGHT);
-  ctx.strokeText("Loop1: " + h, 528, 40);
-  ctx.strokeText("Loop2: " + j, 528, 80);
-  ctx.strokeText("Speed: " + arr.bubs[0].cspd, 528, 120);
-  if(arr.n<20)ctx.strokeText("Set: {" + arr.nums + '}', 100, 40);
-  for(let i = 0; i < arr.n; i++){
-    arr.bubs[i].draw(ctx);
-    arr.bubs[i].update();
-  }
+  drawGame(ctx, arr, h, j);
   if(arr.bubs[j].upto == true && arr.bubs[j+1].upto == true) {
     var bubAux = arr.bubs[j];
     arr.bubs[j] = arr.bubs[j+1];
@@ -313,11 +316,15 @@ async function main() {
   const imgFils = new Image();
   const imgPlay = new Image();
   const imgBub = new Image();
+  const imgBtns = new Image();
   const fr = new FileReader();
   const mscArmony = new Audio("msc/armonia.wav");
   const objCli = new Sprite(imgCli, 0, 0, 180, 64, 230, 200, 10, 0, 1);
+  const objPlay = new Sprite(imgBtns, 0, 0, 96, 96, 2, 64, 2, 0, 0);
+  const objStop = new Sprite(imgBtns, 192, 0, 96, 96, 2, 184, 2, 0, 0);
+  const objNext = new Sprite(imgBtns, 384, 0, 96, 96, 2, 304, 2, 0, 0);
   const objCheck = {state: "presentation", clicked: "none", paused: true, swapped: true};
-  const objArr = {n: 0, nums: new Array(), bubs: new Array()};
+  const objArr = {n: 0, nums: new Array(), bubs: new Array(), btns: new Array()};
   const objFile = {txt: undefined, data: undefined};
   
   imgPre.src = "img/sorting-algorithms/presentation.png";
@@ -327,6 +334,7 @@ async function main() {
   imgFils.src = "img/sorting-algorithms/file-select.png";
   imgPlay.src = "img/sorting-algorithms/play.png";
   imgBub.src = "img/sorting-algorithms/bub.png";
+  imgBtns.src = "img/sorting-algorithms/buttons.png";
   await imgPre.decode();
   await imgTit.decode();
   await imgCli.decode();
@@ -334,6 +342,7 @@ async function main() {
   await imgFils.decode();
   await imgPlay.decode();
   await imgBub.decode();
+  await imgBtns.decode();
 
   mscArmony.addEventListener("ended", handleMusic, false);
   canvas.addEventListener("click", (e) => handleClick(objCheck, e), false);
@@ -341,6 +350,10 @@ async function main() {
   canvas.addEventListener("drop", (e) => handleDrop(objFile, fr, e), false);
   fr.addEventListener("load", (e) => handleLoad(objFile, objArr, e), false);
   
+  objArr.btns.push(objPlay);
+  objArr.btns.push(objStop);
+  objArr.btns.push(objNext);
+
   ctx.font = "48px Arial";
   ctx.fillStyle = "white";
   ctx.fillText("Click here to start!", 130, 240);
