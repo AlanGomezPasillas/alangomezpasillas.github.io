@@ -121,26 +121,6 @@ function isClicked(px, py, x1, x2, y1, y2) {
   }
 }
 
-async function getClick(canvas, loop = true, x1 = 0, x2 = SCR_WIDTH, y1 = 0, y2 = SCR_HEIGHT, c = {clicked: false}) {
-  canvas.addEventListener("click", (e) => {
-    var rect = canvas.getBoundingClientRect();
-    if (e.clientX-rect.left > x1 && e.clientX-rect.left < x2) {
-      if (e.clientY-rect.top > y1 && e.clientY-rect.top < y2) {
-    	c.clicked = true;
-      }
-    }
-  }, false);
-  
-  if (c.clicked) { 
-    return true;
-  } else if (loop) {
-    await sleep(100);
-    await getClick(canvas, loop, x1, x2, y1, y2, c);
-  } else {
-    return false;
-  }
-}
-
 async function fade(i, ctx, img, type) {
   ctx.fillStyle = "black";
   ctx.clearRect(0, 0, SCR_WIDTH, SCR_HEIGHT);
@@ -169,9 +149,8 @@ async function presentation(ctx, imgPre) {
   await sleep(100);
 }
 
-async function title(canvas, ctx, imgTit, objCli, titY, c) {
+async function title(ctx, imgTit, objCli, titY, c) {
   var timeout = 100;
-  //await getClick(canvas, false, 230, 410, 200, 264, checker);
   if (c.clicked == "start" && titY == 0) {
     titY = -0.0001;
   }
@@ -179,8 +158,6 @@ async function title(canvas, ctx, imgTit, objCli, titY, c) {
   ctx.clearRect(0, 0, SCR_WIDTH, SCR_HEIGHT);
   ctx.fillRect(0, 0, SCR_WIDTH, SCR_HEIGHT);
   ctx.drawImage(imgTit, 0, titY);
-  //ctx.fillText("TitY = " + titY, 100, 100);
-  //ctx.fillText("clicked = " + checker.clicked, 100, 200);
   if(titY == 0) {
     ctx.drawImage(objCli.img, objCli.px, objCli.py, objCli.width, objCli.height, objCli.x, objCli.y, objCli.width, objCli.height);
   } else {
@@ -192,11 +169,11 @@ async function title(canvas, ctx, imgTit, objCli, titY, c) {
     return sleep(0);
   } else {
     await sleep(timeout);
-    await title(canvas, ctx, imgTit, objCli, titY, c);
+    await title(ctx, imgTit, objCli, titY, c);
   }
 }
 
-async function selectAlg(canvas, ctx, imgBubs, imgFils, imgPlay, arr, file, c) {
+async function selectAlg(ctx, imgBubs, imgFils, imgPlay, arr, file, c) {
   ctx.fillStyle = "white";
   ctx.clearRect(0, 0, SCR_WIDTH, SCR_HEIGHT);
   ctx.fillRect(0, 0, SCR_WIDTH, SCR_HEIGHT);
@@ -204,7 +181,6 @@ async function selectAlg(canvas, ctx, imgBubs, imgFils, imgPlay, arr, file, c) {
   ctx.drawImage(imgFils, 256, 120);
   ctx.font = "48px Arial";
   ctx.strokeText("Drag and Drop a .txt File: ", 10, 50);
-  //if (file.txt != undefined) 
   if (arr.n > 0) {
     ctx.strokeText("Done!", 10, 100);
     ctx.strokeText("Total: " + Number(arr.n), 10, 300);
@@ -230,7 +206,7 @@ async function selectAlg(canvas, ctx, imgBubs, imgFils, imgPlay, arr, file, c) {
   }else{
     c.clicked = "none";
     await sleep(1);
-    await selectAlg(canvas, ctx, imgBubs, imgFils, imgPlay, arr, file, c);
+    await selectAlg(ctx, imgBubs, imgFils, imgPlay, arr, file, c);
   }
 }
 
@@ -238,12 +214,12 @@ async function initPlay(imgBub, arr) {
   const arrSorted = arr.nums.toSorted(function (a, b){return a - b;});
   for(let i = 0; i < arr.n; i++){
     const bub = new Bubble(imgBub, 20, 400/arr.n, i*(400/arr.n)+120, (arr.n-arrSorted.indexOf(arr.nums[i]))*(400/arr.n)+10, arr.nums[i]);
-    arrSorted[arrSorted.indexOf(arr.nums[i])]=-123456;
+    arrSorted[arrSorted.indexOf(arr.nums[i])] = -123456;
     arr.bubs.push(bub);
   }
 }
 
-async function playing(canvas, ctx, arr, h, c) {
+async function playing(ctx, arr, h, c) {
   if (h < arr.n-1){
     if(h==0){
       ctx.fillStyle = "white";
@@ -255,9 +231,9 @@ async function playing(canvas, ctx, arr, h, c) {
       }
       await sleep(4000);
     }
-    await checking(canvas, ctx, arr, h, 0, c);
+    await checking(ctx, arr, h, 0, c);
     if (c.swapped == true) {
-      await playing(canvas, ctx, arr, h+1);
+      await playing(ctx, arr, h+1, c);
     } else {
       ctx.font = "48px Arial";
       ctx.strokeText("Done!", 480, 400);
@@ -270,7 +246,7 @@ async function playing(canvas, ctx, arr, h, c) {
   }
 }
 
-async function checking(canvas, ctx, arr, h, j, c) {
+async function checking(ctx, arr, h, j, c) {
   ctx.fillStyle = "white";
   ctx.clearRect(0, 0, SCR_WIDTH, SCR_HEIGHT);
   ctx.fillRect(0, 0, SCR_WIDTH, SCR_HEIGHT);
@@ -290,20 +266,20 @@ async function checking(canvas, ctx, arr, h, j, c) {
       arr.nums[j+1] = arr.nums[j] ^ arr.nums[j+1];
       arr.nums[j] = arr.nums[j] ^ arr.nums[j+1];
       arr.nums[j+1] = arr.nums[j] ^ arr.nums[j+1];
-      await swap(canvas, ctx, arr, h, j);
+      await swap(ctx, arr, h, j);
       c.swapped = true;
-      await getClick(canvas);
+      //todo wait till click
     } else {
       //sleep(Math.round((1-bubbles[0].speed)*100*500))
     }
     await sleep(1);
-    await checking(canvas, ctx, arr, h, j+1, c);
+    await checking(ctx, arr, h, j+1, c);
   } else {
     return sleep(0);
   }
 }
 
-async function swap(canvas, ctx, arr, h, j) {
+async function swap(ctx, arr, h, j) {
   ctx.fillStyle = "white";
   ctx.clearRect(0, 0, SCR_WIDTH, SCR_HEIGHT);
   ctx.fillRect(0, 0, SCR_WIDTH, SCR_HEIGHT);
@@ -322,7 +298,7 @@ async function swap(canvas, ctx, arr, h, j) {
     return sleep(0);
   } else {
     await sleep(1);
-    await swap(canvas, ctx, arr, h, j);
+    await swap(ctx, arr, h, j);
   }
 }
 
@@ -372,7 +348,7 @@ async function main() {
   await presentation(ctx, imgPre);
   mscArmony.play();
   objCheck.state = "title";
-  await title(canvas, ctx, imgTit, objCli, 0, objCheck);
+  await title(ctx, imgTit, objCli, 0, objCheck);
   while(true) {
     objCheck.state = "select";
     objFile.txt = undefined;
@@ -380,10 +356,10 @@ async function main() {
     objArr.n = 0;
     objArr.nums = new Array();
     objArr.bubs = new Array();
-    await selectAlg(canvas, ctx, imgBubs, imgFils, imgPlay, objArr, objFile, objCheck);
+    await selectAlg(ctx, imgBubs, imgFils, imgPlay, objArr, objFile, objCheck);
     await initPlay(imgBub, objArr);
     objCheck.state = "playing";
-    await playing(canvas, ctx, objArr, 0, objCheck);
+    await playing(ctx, objArr, 0, objCheck);
   }
 }
 
