@@ -14,13 +14,14 @@ class Bubble {
     this.cspd = speed;
   }
 
+  setSpd(s){
+    this.cspd = s;
+    this.spd = 1-(s*0.01);
+  }
+
   draw(ctx){
-    ctx.textAlign = "center";
-    ctx.font = "20px Arial";
-    ctx.fillStyle = "black";
     ctx.drawImage(this.img, 0, 0, 400, 400, this.x, this.y, this.size, this.size);
     ctx.fillText(this.num, this.x+(this.size/2), this.y+(this.size/1.5));
-    ctx.textAlign = "left";
   }
 
   update(){
@@ -53,7 +54,7 @@ class Sprite {
   }
   
   draw(ctx){
-    ctx.drawImage(this.img, this.px, this.py, this.width, this.height, this.x, this.y, this.width, this.height);
+    ctx.drawImage(this.img, this.px+(this.width*this.fIdx), this.py, this.width, this.height, this.x, this.y, this.width, this.height);
   }
 
   update(){
@@ -62,7 +63,7 @@ class Sprite {
     } else {
       this.fIdx = 0;
     }
-    this.px = this.width * this.fIdx;
+    //this.px = this.width * this.fIdx;
   }
 }
 
@@ -77,15 +78,20 @@ async function pause(c) {
   }
 }
 
-function handleMusic(){
-  this.currentTime = 0;
-  this.play();
+function isClicked(px, py, x1, x2, y1, y2) {
+  if (px > x1 && px < x2) {
+    if (py > y1 && py < y2) {
+      return true;
+    }
+  }
 }
 
 function handleClick(c, e) {
   var rect = e.currentTarget.getBoundingClientRect();
-  if (c.paused) {
-    c.paused = false;
+  if (c.state == "presentation" || c.state == "done") {
+    if (c.paused) {
+      c.paused = false;
+    }
   }
   if (c.state == "title") {
     if(isClicked(e.clientX-rect.left, e.clientY-rect.top, 230, 410, 200, 264)) {
@@ -94,6 +100,23 @@ function handleClick(c, e) {
   } else if (c.state == "select") {
     if(isClicked(e.clientX-rect.left, e.clientY-rect.top, 480, 608, 120, 248)) {
       c.clicked = "play";
+    }
+  } else if (c.state == "playing") {
+    if (isClicked(e.clientX-rect.left, e.clientY-rect.top, 2, 98, 64, 160)) {
+      c.paused = false;
+      c.clicked = "resume"
+    } else if (isClicked(e.clientX-rect.left, e.clientY-rect.top, 2, 98, 184, 280)) {
+      c.paused = true;
+      c.clicked = "pause";
+    } else if (isClicked(e.clientX-rect.left, e.clientY-rect.top, 2, 98, 304, 400)) {
+      c.paused = false;
+      c.clicked = "next";
+    } else if (isClicked(e.clientX-rect.left, e.clientY-rect.top, 530, 726, 153, 185)) {
+      c.paused = false;
+      c.clicked = "more-speed";
+    } else if (isClicked(e.clientX-rect.left, e.clientY-rect.top, 530, 726, 225, 257)) {
+      c.paused = false;
+      c.clicked = "less-speed";
     }
   }
 }
@@ -117,12 +140,9 @@ function handleLoad(file, arr, e) {
   arr.n = arr.nums.length;
 }
 
-function isClicked(px, py, x1, x2, y1, y2) {
-  if (px > x1 && px < x2) {
-    if (py > y1 && py < y2) {
-      return true;
-    }
-  }
+function handleMusic(){
+  this.currentTime = 0;
+  this.play();
 }
 
 async function fade(i, ctx, img, type) {
@@ -182,8 +202,9 @@ async function selectAlg(ctx, imgBubs, imgFils, imgPlay, arr, file, c) {
   ctx.fillStyle = "white";
   ctx.clearRect(0, 0, SCR_WIDTH, SCR_HEIGHT);
   ctx.fillRect(0, 0, SCR_WIDTH, SCR_HEIGHT);
-  ctx.drawImage(imgBubs, 32, 120);
+  ctx.drawImage(imgBubs, 66, 120);
   ctx.drawImage(imgFils, 256, 120);
+  ctx.textAlign = "left";
   ctx.font = "48px Arial";
   ctx.strokeText("Drag and Drop a .txt File: ", 10, 50);
   if (arr.n > 0) {
@@ -218,59 +239,97 @@ async function selectAlg(ctx, imgBubs, imgFils, imgPlay, arr, file, c) {
 async function initPlay(imgBub, arr) {
   const arrSorted = arr.nums.toSorted(function (a, b){return a - b;});
   for(let i = 0; i < arr.n; i++){
-    const bub = new Bubble(imgBub, 20, 400/arr.n, i*(400/arr.n)+120, (arr.n-arrSorted.indexOf(arr.nums[i]))*(400/arr.n)+10, arr.nums[i]);
+    const bub = new Bubble(imgBub, arr.spds[arr.si], 400/arr.n, i*(400/arr.n)+120, (arr.n-arrSorted.indexOf(arr.nums[i]))*(400/arr.n)+10, arr.nums[i]);
     arrSorted[arrSorted.indexOf(arr.nums[i])] = -123456;
     arr.bubs.push(bub);
   }
 }
 
 async function drawGame(ctx, arr, h, j){
+  ctx.textAlign = "left";
   ctx.fillStyle = "white";
   ctx.clearRect(0, 0, SCR_WIDTH, SCR_HEIGHT);
   ctx.fillRect(0, 0, SCR_WIDTH, SCR_HEIGHT);
+  ctx.font = "20px Arial";
+  ctx.fillStyle = "black";
   ctx.strokeText("Loop1: " + h, 528, 40);
   ctx.strokeText("Loop2: " + j, 528, 80);
-  ctx.strokeText("Speed: " + arr.bubs[0].cspd, 528, 120);
-  if(arr.n < 20)ctx.strokeText("Set: {" + arr.nums + '}', 100, 40);
+  ctx.strokeText("Speed: " + arr.bubs[0].cspd, 528, 210);
+  if (arr.n < 20) ctx.strokeText("Set: {" + arr.nums + '}', 100, 40);
+  ctx.textAlign = "center";
   for(let i = 0; i < arr.n; i++) {
     arr.bubs[i].draw(ctx);
     arr.bubs[i].update();
+    arr.bubs[i].setSpd(arr.spds[arr.si]);
   }
-  for(let i = 0; i < 3; i++){
+  for(let i = 0; i < arr.btns.length; i++){
     arr.btns[i].draw(ctx);
   }
 }
 
-async function playing(ctx, arr, h, c) {
-  if (h < arr.n-1){
-    if(h==0){
-      ctx.fillStyle = "white";
-      ctx.clearRect(0, 0, SCR_WIDTH, SCR_HEIGHT);
-      ctx.fillRect(0, 0, SCR_WIDTH, SCR_HEIGHT);
-      ctx.strokeText("Start!", 400, 50);
-      for(let i = 0; i < arr.n; i++){
-	    arr.bubs[i].draw(ctx);
+async function adjustSpeed(ctx, arr, h, j, c){
+  while (c.clicked == "pause"){
+    arr.btns[0].fIdx = 0;
+    arr.btns[1].fIdx = 1;
+    arr.btns[2].fIdx = 0;
+    await drawGame(ctx, arr, h, j);
+    //while (c.clicked == "pause") {
+    await pause(c);
+    if (c.clicked == "more-speed") {
+      if (arr.si < 10) {
+	arr.btns[3].fIdx = 1;
+	arr.si++;
       }
-      await sleep(4000);
+      c.clicked = "pause";
+      c.paused = true;
     }
-    await checking(ctx, arr, h, 0, c);
-    if (c.swapped == true) {
-      await playing(ctx, arr, h+1, c);
-    } else {
-      ctx.font = "48px Arial";
-      ctx.strokeText("Done!", 480, 400);
-      return sleep(5000);
+    if (c.clicked == "less-speed") {
+      if (arr.si > 0) {
+	arr.btns[4].fIdx = 1;
+	arr.si--;
+      }
+      c.clicked = "pause"
+      c.paused = true;
     }
-  } else {
-    ctx.font = "48px Arial";
-    ctx.strokeText("Done!", 480, 400);
-    return sleep(5000);
+    await drawGame(ctx, arr, h, j);
+    await sleep(50);
+    arr.btns[3].fIdx = 0;
+    arr.btns[4].fIdx = 0;
+    await drawGame(ctx, arr, h, j);
+  }
+}
+
+async function playing(ctx, arr, h, c) {
+  if (c.swapped == true) {
+    if (h < arr.n-1){
+      c.swapped = false;
+      if(h==0){
+	arr.btns[0].fIdx = 0;
+	arr.btns[1].fIdx = 1;
+	arr.btns[2].fIdx = 0;
+	await drawGame(ctx, arr, h, 0);
+	ctx.textAlign = "left";
+	ctx.font = "32px Arial";
+	ctx.strokeText("Start!", 528, 400);
+	await adjustSpeed(ctx, arr, h, 0, c);
+      }
+      await checking(ctx, arr, h, 0, c);
+    }
+    await playing(ctx, arr, h+1, c);
+  } else if (c.state == "playing") {
+    ctx.textAlign = "left";
+    ctx.font = "32px Arial";
+    ctx.strokeText("Done!", 528, 400);
+    c.state = "done";
+    c.paused = true;
+    await pause(c);
+    return;
   }
 }
 
 async function checking(ctx, arr, h, j, c) {
-  drawGame(ctx, arr, h, j);
   if (j < arr.n-1) {
+    await adjustSpeed(ctx, arr, h, j, c);
     if (arr.nums[j] > arr.nums[j+1]) {
       arr.bubs[j].upto = false;
       arr.bubs[j+1].upto = false;
@@ -279,9 +338,18 @@ async function checking(ctx, arr, h, j, c) {
       arr.nums[j+1] = arr.nums[j] ^ arr.nums[j+1];
       arr.nums[j] = arr.nums[j] ^ arr.nums[j+1];
       arr.nums[j+1] = arr.nums[j] ^ arr.nums[j+1];
+      if (c.clicked == "next") {
+	arr.btns[1].fIdx = 0;
+	arr.btns[2].fIdx = 1;
+	c.paused = true;
+	c.clicked = "pause";
+      } else {
+	arr.btns[0].fIdx = 1;
+	arr.btns[1].fIdx = 0;
+	arr.btns[2].fIdx = 0;
+      }
       await swap(ctx, arr, h, j);
       c.swapped = true;
-      //todo wait till click
     } else {
       //sleep(Math.round((1-bubbles[0].speed)*100*500))
     }
@@ -293,7 +361,7 @@ async function checking(ctx, arr, h, j, c) {
 }
 
 async function swap(ctx, arr, h, j) {
-  drawGame(ctx, arr, h, j);
+  await drawGame(ctx, arr, h, j);
   if(arr.bubs[j].upto == true && arr.bubs[j+1].upto == true) {
     var bubAux = arr.bubs[j];
     arr.bubs[j] = arr.bubs[j+1];
@@ -317,14 +385,17 @@ async function main() {
   const imgPlay = new Image();
   const imgBub = new Image();
   const imgBtns = new Image();
+  const imgArws = new Image();
   const fr = new FileReader();
   const mscArmony = new Audio("msc/armonia.wav");
   const objCli = new Sprite(imgCli, 0, 0, 180, 64, 230, 200, 10, 0, 1);
   const objPlay = new Sprite(imgBtns, 0, 0, 96, 96, 2, 64, 2, 0, 0);
   const objStop = new Sprite(imgBtns, 192, 0, 96, 96, 2, 184, 2, 0, 0);
   const objNext = new Sprite(imgBtns, 384, 0, 96, 96, 2, 304, 2, 0, 0);
+  const objMoreSpd = new Sprite(imgArws, 0, 0, 96, 32, 530, 153, 2, 0, 0);  
+  const objLessSpd = new Sprite(imgArws, 192, 0, 96, 32, 530, 225, 2, 0, 0);  
   const objCheck = {state: "presentation", clicked: "none", paused: true, swapped: true};
-  const objArr = {n: 0, nums: new Array(), bubs: new Array(), btns: new Array()};
+  const objArr = {n: 0, si: 2, nums: new Array(), bubs: new Array(), btns: new Array(), spds: new Array()};
   const objFile = {txt: undefined, data: undefined};
   
   imgPre.src = "img/sorting-algorithms/presentation.png";
@@ -335,6 +406,8 @@ async function main() {
   imgPlay.src = "img/sorting-algorithms/play.png";
   imgBub.src = "img/sorting-algorithms/bub.png";
   imgBtns.src = "img/sorting-algorithms/buttons.png";
+  imgArws.src = "img/sorting-algorithms/arrows.png";
+
   await imgPre.decode();
   await imgTit.decode();
   await imgCli.decode();
@@ -343,6 +416,7 @@ async function main() {
   await imgPlay.decode();
   await imgBub.decode();
   await imgBtns.decode();
+  await imgArws.decode();
 
   mscArmony.addEventListener("ended", handleMusic, false);
   canvas.addEventListener("click", (e) => handleClick(objCheck, e), false);
@@ -353,6 +427,9 @@ async function main() {
   objArr.btns.push(objPlay);
   objArr.btns.push(objStop);
   objArr.btns.push(objNext);
+  objArr.btns.push(objMoreSpd);
+  objArr.btns.push(objLessSpd);
+  objArr.spds = [1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
 
   ctx.font = "48px Arial";
   ctx.fillStyle = "white";
@@ -364,6 +441,7 @@ async function main() {
   await title(ctx, imgTit, objCli, 0, objCheck);
   while(true) {
     objCheck.state = "select";
+    objCheck.swapped = true;
     objFile.txt = undefined;
     objFile.data = undefined;
     objArr.n = 0;
@@ -372,6 +450,8 @@ async function main() {
     await selectAlg(ctx, imgBubs, imgFils, imgPlay, objArr, objFile, objCheck);
     await initPlay(imgBub, objArr);
     objCheck.state = "playing";
+    objCheck.paused = true;
+    objCheck.clicked = "pause";
     await playing(ctx, objArr, 0, objCheck);
   }
 }
