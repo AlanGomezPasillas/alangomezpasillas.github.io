@@ -367,6 +367,8 @@ async function checking(ctx, arr, h, j, c) {
 	c.min = j;
       }
     }
+    await sleep(1);
+    await checking(ctx, arr, h, j+1, c)
   } else if (j < arr.n-1) {
     await adjustSpeed(ctx, arr, h, j, c);
     if (arr.nums[j] > arr.nums[j+1]) {
