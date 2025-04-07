@@ -339,6 +339,7 @@ async function playing(ctx, arr, h, c) {
   if (c.alg == "select") {
     if (h < arr.n-1){
       arr.min = h;
+      console.log("segundo");
       await checking(ctx, arr, h, h+1, c);
       if (arr.min != h) {
 	    console.log(arr.min, h);
@@ -347,7 +348,7 @@ async function playing(ctx, arr, h, c) {
       }
       await sleep(1);
       await playing(ctx, arr, h+1, c);
-      console.log("segundo");
+      console.log("tercero");
     }
   } else if (c.swapped == true) {
     if (h < arr.n-1){
@@ -373,9 +374,9 @@ async function checking(ctx, arr, h, j, c) {
       if (arr.nums[j] < arr.nums[arr.min]) {
 	    arr.min = j;
       }
+      await sleep(1);
+      await checking(ctx, arr, h, j+1, c);
     }
-    await sleep(1);
-    await checking(ctx, arr, h, j+1, c);
   } else if (j < arr.n-1) {
     await adjustSpeed(ctx, arr, h, j, c);
     if (arr.nums[j] > arr.nums[j+1]) {
