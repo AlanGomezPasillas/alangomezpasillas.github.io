@@ -114,19 +114,24 @@ function handleClick(c, e) {
   } else if (c.state == "playing") {
     if (isClicked(e.clientX-rect.left, e.clientY-rect.top, 2, 98, 64, 160)) {
       c.paused = false;
-      c.clicked = "resume"
+      c.clicked = "resume";
+      console.log("resume");
     } else if (isClicked(e.clientX-rect.left, e.clientY-rect.top, 2, 98, 184, 280)) {
       c.paused = true;
       c.clicked = "pause";
+      console.log("pause");
     } else if (isClicked(e.clientX-rect.left, e.clientY-rect.top, 2, 98, 304, 400)) {
       c.paused = false;
       c.clicked = "next";
+      console.log("next");
     } else if (isClicked(e.clientX-rect.left, e.clientY-rect.top, 530, 726, 153, 185)) {
       c.paused = false;
       c.clicked = "more-speed";
+      console.log("speed++");
     } else if (isClicked(e.clientX-rect.left, e.clientY-rect.top, 530, 726, 225, 257)) {
       c.paused = false;
       c.clicked = "less-speed";
+      console.log("speed--");
     }
   }
 }
@@ -308,7 +313,7 @@ async function adjustSpeed(ctx, arr, h, j, c){
 	arr.btns[4].fIdx = 1;
 	arr.si--;
       }
-      c.clicked = "pause"
+      c.clicked = "pause";
       c.paused = true;
     }
     await drawGame(ctx, arr, h, j);
@@ -363,12 +368,12 @@ async function checking(ctx, arr, h, j, c) {
   if (c.alg == "select") {
     if (j < arr.n){
       await adjustSpeed(ctx, arr, h, j, c);
-      if (arr.nums[j] < arr.nums[arr.min]){
+      if (arr.nums[j] < arr.nums[arr.min]) {
 	    arr.min = j;
       }
     }
     await sleep(1);
-    await checking(ctx, arr, h, j+1, c)
+    await checking(ctx, arr, h, j+1, c);
   } else if (j < arr.n-1) {
     await adjustSpeed(ctx, arr, h, j, c);
     if (arr.nums[j] > arr.nums[j+1]) {
