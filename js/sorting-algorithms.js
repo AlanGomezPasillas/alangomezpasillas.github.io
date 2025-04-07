@@ -335,11 +335,12 @@ async function playing(ctx, arr, h, c) {
       arr.min = h;
       await checking(ctx, arr, h, h+1, c);
       if (arr.min != h) {
-	console.log(arr.min, h);
-	await initSwap(arr, arr.min, h);
-	await swap(ctx, arr, arr.min, h);
+	    console.log(arr.min, h);
+	    await initSwap(arr, arr.min, h);
+	    await swap(ctx, arr, arr.min, h);
       }
     }
+    await sleep(1);
     await playing(ctx, arr, h+1, c);
   } else if (c.swapped == true) {
     if (h < arr.n-1){
