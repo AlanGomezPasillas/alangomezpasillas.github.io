@@ -334,6 +334,7 @@ async function playing(ctx, arr, h, c) {
     ctx.font = "32px Arial";
     ctx.strokeText("Start!", 528, 400);
     await adjustSpeed(ctx, arr, h, 0, c);
+    console.log("primero")
   }
   if (c.alg == "select") {
     if (h < arr.n-1){
@@ -344,9 +345,10 @@ async function playing(ctx, arr, h, c) {
 	    await initSwap(arr, arr.min, h);
 	    await swap(ctx, arr, arr.min, h);
       }
+      await sleep(1);
+      await playing(ctx, arr, h+1, c);
+      console.log("segundo");
     }
-    await sleep(1);
-    await playing(ctx, arr, h+1, c);
   } else if (c.swapped == true) {
     if (h < arr.n-1){
       c.swapped = false;
