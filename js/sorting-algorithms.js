@@ -363,8 +363,8 @@ async function checking(ctx, arr, h, j, c) {
   if (c.alg == "select") {
     if (j < arr.n){
       await adjustSpeed(ctx, arr, h, j, c);
-      if (arr.nums[j] < arr.nums[c.min]){
-	c.min = j;
+      if (arr.nums[j] < arr.nums[arr.min]){
+	    arr.min = j;
       }
     }
     await sleep(1);
