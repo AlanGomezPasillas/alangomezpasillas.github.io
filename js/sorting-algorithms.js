@@ -21,10 +21,10 @@ class Bubble {
   }
 
   draw(ctx){
-    //ctx.fillStyle = "white";
+    ctx.fillStyle = "white";
     ctx.drawImage(this.img, 0, 0, 400, 400, this.x, this.y, this.sizex, this.sizey);
     ctx.fillText(this.num, this.x+(this.sizex/2), this.y+(this.sizey/1.5));
-    //ctx.strokeText(this.num, this.x+(this.sizex/2), this.y+(this.sizey/1.5));
+    ctx.strokeText(this.num, this.x+(this.sizex/2), this.y+(this.sizey/1.5));
     //ctx.fillStyle = "black";
   }
 
@@ -263,7 +263,7 @@ async function initPlay(imgBub, imgForu, arr, c) {
     if (c.alg == "bubble") {
       bub = new Bubble(imgBub, arr.spds[arr.si], sizex, sizex, i*sizex+120, (arr.n-arrSorted.indexOf(arr.nums[i]))*sizex+10, arr.nums[i]);
     } else if (c.alg == "select") {
-      bub = new Bubble(imgForu, arr.spds[arr.si], sizex, arr.n-arrSorted.indexOf(arr.nums[i])*sizex, i*sizex+120, arr.n*sizex+10, arr.nums[i]);
+      bub = new Bubble(imgForu, arr.spds[arr.si], sizex, -sizex+arr.n-arrSorted.indexOf(arr.nums[i])*sizex, i*sizex+120, arr.n*sizex+40, arr.nums[i]);
     }							//todo add more changes for the selection sort
     arrSorted[arrSorted.indexOf(arr.nums[i])] = -123456;
     arr.bubs.push(bub);
@@ -275,7 +275,7 @@ async function drawGame(ctx, arr, h, j){
   ctx.fillStyle = "white";
   ctx.clearRect(0, 0, SCR_WIDTH, SCR_HEIGHT);
   ctx.fillRect(0, 0, SCR_WIDTH, SCR_HEIGHT);
-  ctx.font = "20px Arial";
+  ctx.font = "24px Arial";
   ctx.fillStyle = "black";
   ctx.strokeText("Loop1: " + h, 528, 40);
   ctx.strokeText("Loop2: " + j, 528, 80);
@@ -334,21 +334,17 @@ async function playing(ctx, arr, h, c) {
     ctx.font = "32px Arial";
     ctx.strokeText("Start!", 528, 400);
     await adjustSpeed(ctx, arr, h, 0, c);
-    console.log("primero")
   }
   if (c.alg == "select") {
     if (h < arr.n-1){
       arr.min = h;
-      console.log("segundo");
       await checking(ctx, arr, h, h+1, c);
       if (arr.min != h) {
 	    console.log(arr.min, h);
 	    await initSwap(arr, arr.min, h, c);
-	    await swap(ctx, arr, arr.min, h);
+	    await swap(ctx, arr, h, arr.min, arr.min, h);
       }
-      await sleep(1);
       await playing(ctx, arr, h+1, c);
-      console.log("tercero");
     }
   } else if (c.swapped == true) {
     if (h < arr.n-1){
@@ -356,15 +352,7 @@ async function playing(ctx, arr, h, c) {
       await checking(ctx, arr, h, 0, c);
     }
     await playing(ctx, arr, h+1, c);
-  } else if (c.state == "playing") {
-    ctx.textAlign = "left";
-    ctx.font = "32px Arial";
-    ctx.strokeText("Done!", 528, 400);
-    c.state = "done";
-    c.paused = true;
-    await pause(c);
-    return;
-  }
+  } 
 }
 
 async function checking(ctx, arr, h, j, c) {
@@ -381,7 +369,7 @@ async function checking(ctx, arr, h, j, c) {
     await adjustSpeed(ctx, arr, h, j, c);
     if (arr.nums[j] > arr.nums[j+1]) {
       await initSwap(arr, j, j+1, c);
-      await swap(ctx, arr, h, j);
+      await swap(ctx, arr, h, j, j, j+1);
       c.swapped = true;
     } else {
       //sleep(Math.round((1-bubbles[0].speed)*100*500))
@@ -413,16 +401,16 @@ async function initSwap(arr, a, b, c){
   }
 }
 
-async function swap(ctx, arr, h, j) {
+async function swap(ctx, arr, h, j, a, b) {
   await drawGame(ctx, arr, h, j);
-  if(arr.bubs[j].upto == true && arr.bubs[j+1].upto == true) {
-    var bubAux = arr.bubs[j];
-    arr.bubs[j] = arr.bubs[j+1];
-    arr.bubs[j+1] = bubAux;
+  if(arr.bubs[a].upto == true && arr.bubs[b].upto == true) {
+    var bubAux = arr.bubs[a];
+    arr.bubs[a] = arr.bubs[b];
+    arr.bubs[b] = bubAux;
     return sleep(0);
   } else {
     await sleep(1);
-    await swap(ctx, arr, h, j);
+    await swap(ctx, arr, h, j, a, b);
   }
 }
 
@@ -512,6 +500,12 @@ async function main() {
     objCheck.paused = true;
     objCheck.clicked = "pause";
     await playing(ctx, objArr, 0, objCheck);
+    objCheck.state = "done";
+    ctx.textAlign = "left";
+    ctx.font = "32px Arial";
+    ctx.strokeText("Done!", 528, 400);
+    objCheck.paused = true;
+    await pause(objCheck);
   }
 }
 
