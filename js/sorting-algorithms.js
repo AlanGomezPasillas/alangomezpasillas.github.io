@@ -278,7 +278,11 @@ async function drawGame(ctx, arr, h, j){
   ctx.font = "24px Arial";
   ctx.fillStyle = "black";
   ctx.strokeText("Loop1: " + h, 528, 40);
-  ctx.strokeText("Loop2: " + j, 528, 80);
+  if (arr.min != -1) {
+    ctx.strokeText("Loop2: " + j, 528, 80);
+  } else {
+    ctx.strokeText("Min: " + arr.min, 528, 80);
+  }
   ctx.strokeText("Speed: " + arr.bubs[0].cspd, 528, 210);
   if (arr.n < 20) ctx.strokeText("Set: {" + arr.nums + '}', 100, 40);
   ctx.textAlign = "center";
@@ -492,6 +496,7 @@ async function main() {
     objFile.txt = undefined;
     objFile.data = undefined;
     objArr.n = 0;
+    objArr.min = -1;
     objArr.nums = new Array();
     objArr.bubs = new Array();
     await selectAlg(ctx, imgBubs, imgSele, imgFils, imgPlay, objArr, objFile, objCheck);
