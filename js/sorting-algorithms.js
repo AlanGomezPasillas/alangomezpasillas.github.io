@@ -278,7 +278,7 @@ async function drawGame(ctx, arr, h, j){
   ctx.font = "24px Arial";
   ctx.fillStyle = "black";
   ctx.strokeText("Loop1: " + h, 528, 40);
-  if (arr.min != -1) {
+  if (arr.min == -1) {
     ctx.strokeText("Loop2: " + j, 528, 80);
   } else {
     ctx.strokeText("Min: " + arr.min, 528, 80);
