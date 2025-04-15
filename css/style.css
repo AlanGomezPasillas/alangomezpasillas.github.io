@@ -80,15 +80,6 @@ header {
   border-radius: 10px;
 }
 
-.centered {
-  text-align: center;
-  align-items: center;
-}
-
-.last {
-  text-align: right;
-}
-
 .flex-box, .flex-pack{
   display: flex;
   flex-direction: row;
@@ -195,10 +186,6 @@ header {
   }
   
   #follow > a {
-    width: 100%
-  }
-  
-  .follow {
-    width: 70%;
+    margin: auto;
   }
 }
