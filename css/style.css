@@ -80,6 +80,15 @@ header {
   border-radius: 10px;
 }
 
+.centered {
+  text-align: center;
+  align-items: center;
+}
+
+.last {
+  text-align: right;
+}
+
 .flex-box, .flex-pack{
   display: flex;
   flex-direction: row;
@@ -87,15 +96,16 @@ header {
 
 .follow{
   Background: white;
-  width: 64px;
+  min-width: 64px;
   height: 64px;
   padding: 10px;
 }
 
 .flagbt{
+  background-color: black;
   width: 100%;
   height: 92px;
-  min-width: 180px;
+  min-width: 184px;
   padding: 0px;
 }
 
@@ -139,14 +149,15 @@ header {
 
 #mystic {
   display: flex;
-  padding: 10px;
-  min-width: 352px;
+  padding: 10px 0px;
+  min-width: 360px;
   height: 64px;
   justify-content: center;
+  width: 100%;
 }
 
 #mystic > img {
-  display: block;
+  /*display: block;*/
   /*padding: 0px;*/
 }
 
@@ -155,11 +166,12 @@ header {
   /*justify-content: center;*/
   /*min-width: 380px;*/
   /*height: 100%;*/
-  flex: 50%;
+  flex: 1%;
 }
 
 #flag {
   display: flex;
+  align-self: right
   flex: 1%;
 }
 
@@ -171,10 +183,22 @@ header {
   .flex-box {
     flex-direction: column;
   }
+  
+  #mystic {
+    width: auto;
+  }
 }
 
 @media (max-width: 806px) {
   .flex-pack {
     flex-direction: column;
+  }
+  
+  #follow > a {
+    width: 100%
+  }
+  
+  .follow {
+    width: 70%;
   }
 }
