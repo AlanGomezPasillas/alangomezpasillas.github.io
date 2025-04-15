@@ -147,11 +147,6 @@ header {
   width: 100%;
 }
 
-#mystic > img {
-  /*display: block;*/
-  /*padding: 0px;*/
-}
-
 #follow {
   display: flex;
   /*justify-content: center;*/
@@ -185,7 +180,7 @@ header {
     flex-direction: column;
   }
   
-  #follow > a {
-    margin: auto;
+  #follow {
+    justify-content: space-between;
   }
 }
