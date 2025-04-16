@@ -249,7 +249,7 @@ async function selectAlg(ctx, imgBubs, imgSele, imgInse, imgFils, imgPlay, arr, 
   }else{
     c.clicked = "none";
     await sleep(1);
-    await selectAlg(ctx, imgBubs, imgSele, imgFils, imgPlay, arr, file, c);
+    await selectAlg(ctx, imgBubs, imgSele, imgInse, imgFils, imgPlay, arr, file, c);
   }
 }
 
