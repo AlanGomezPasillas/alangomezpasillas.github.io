@@ -354,9 +354,9 @@ async function playing(ctx, arr, h, c) {
 	    await initSwap(arr, arr.min, h, c);
 	    await swap(ctx, arr, h, arr.min, arr.min, h);
       }
+      await sleep(1);
+      await playing(ctx, arr, h+1, c);
     }
-    await sleep(1);
-    await playing(ctx, arr, h+1, c);
   } else if (c.swapped == true) {
     if (h < arr.n-1){
       c.swapped = false;
@@ -388,6 +388,8 @@ async function checking(ctx, arr, h, j, c) {
       if (arr.nums[j] < arr.nums[arr.min]) {
 	    arr.min = j;
       }
+      await sleep(1);
+      await checking(ctx, arr, h, j+1, c);
     }
   } else if (j < arr.n-1) {
     await adjustSpeed(ctx, arr, h, j, c);
