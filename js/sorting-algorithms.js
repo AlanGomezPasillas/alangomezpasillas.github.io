@@ -342,10 +342,11 @@ async function playing(ctx, arr, h, c) {
   if (c.alg == "insert") {
     h++;
     if (h < arr.n) {
+      await sleep(1);
       await checking(ctx, arr, h, h, c);
+      await sleep(1);
+      await playing(ctx, arr, h+1, c);
     }
-    await sleep(1);
-    await playing(ctx, arr, h, c);
   } else if (c.alg == "select") {
     if (h < arr.n-1){
       arr.min = h;
@@ -358,7 +359,7 @@ async function playing(ctx, arr, h, c) {
       await playing(ctx, arr, h+1, c);
     }
   } else if (c.swapped == true) {
-    if (h < arr.n-1){
+    if (h < arr.n-1) {
       c.swapped = false;
       await sleep(1);
       await checking(ctx, arr, h, 0, c);
@@ -371,7 +372,7 @@ async function playing(ctx, arr, h, c) {
 async function checking(ctx, arr, h, j, c) {
   if (c.alg == "insert") {
     if(j > 0 && (arr.nums[j-1] > arr.nums[j])){ 
-      c.swapped = true;
+      await initSwap(arr, j, h, c);
       await sleep(1);
       await checking(ctx, arr, h, j-1, c);
     }else{
