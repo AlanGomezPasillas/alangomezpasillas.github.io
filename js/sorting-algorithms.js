@@ -32,8 +32,14 @@ class Bubble {
     var velocity = distance-(distance*this.spd);
     if (Math.round(this.x) < Math.round(this.go)) {
       this.x -= velocity;
+      if (this.img.src == "img/sorting-algorithms/cube.png") {
+        this.y = Math.cbrt(Math.sin(Math.PI*this.go)*0.1);
+      }
     } else if(Math.round(this.x) > Math.round(this.go)) {
       this.x -= velocity;
+      if (this.img.src == "img/sorting-algorithms/cube.png") {
+        this.y = -Math.cbrt(Math.sin(Math.PI*this.go)*0.1);
+      }
     } else {
       this.x = Math.round(this.x);
       this.upto = true;
