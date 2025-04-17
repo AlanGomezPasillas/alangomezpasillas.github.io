@@ -376,7 +376,7 @@ async function checking(ctx, arr, h, j, c) {
       await initSwap(arr, j-1, j, c);
       await swap(ctx, arr, h, j, j-1, j);
       await sleep(1);
-      await checking(ctx, arr, h, j-1, c);
+      await checking(ctx, arr, j-1, j-1, c);
     /*}else{
       if (c.swapped) {
         await adjustSpeed(ctx, arr, h, j, c);
