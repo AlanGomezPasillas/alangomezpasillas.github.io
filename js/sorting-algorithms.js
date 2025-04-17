@@ -371,17 +371,18 @@ async function playing(ctx, arr, h, c) {
 
 async function checking(ctx, arr, h, j, c) {
   if (c.alg == "insert") {
-    if(j > 0 && (arr.nums[j-1] > arr.nums[j])){ 
-      await initSwap(arr, j, h, c);
+   if(j > 0 && (arr.nums[j-1] > arr.nums[j])){ 
+      await initSwap(arr, j-1, j, c);
+      await swap(ctx, arr, h, j, j-1, j);
       await sleep(1);
       await checking(ctx, arr, h, j-1, c);
-    }else{
+    /*}else{
       if (c.swapped) {
         await adjustSpeed(ctx, arr, h, j, c);
         await initSwap(arr, j, h, c);
         await swap(ctx, arr, h, j, h, j);
         c.swapped = false;
-      }
+      }*/
     }
   } else if (c.alg == "select") {
     if (j < arr.n) {
