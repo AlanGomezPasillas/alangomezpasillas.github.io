@@ -34,12 +34,12 @@ class Bubble {
       this.x -= velocity;
       console.log(this.img.src);
       if (this.img.src == "https://alangomezpasillas.github.io/img/sorting-algorithms/cube.png") {
-        this.y = Math.cbrt(Math.sin((Math.PI*this.x)/this.go))+200;
+        this.y = Math.cbrt(Math.sin(((Math.PI*this.x)+this.go)/this.go)*10)+180;
       }
     } else if(Math.round(this.x) > Math.round(this.go)) {
       this.x -= velocity;
       if (this.img.src == "https://alangomezpasillas.github.io/img/sorting-algorithms/cube.png") {
-        this.y = -Math.cbrt(Math.sin((Math.PI*this.x)/this.go))+200;
+        this.y = -Math.cbrt(Math.sin(((Math.PI*this.x)+this.go)/this.go)*10)+180;
       }
     } else {
       this.x = Math.round(this.x);
