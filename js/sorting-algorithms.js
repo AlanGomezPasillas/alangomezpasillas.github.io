@@ -372,6 +372,7 @@ async function playing(ctx, arr, h, c) {
 async function checking(ctx, arr, h, j, c) {
   if (c.alg == "insert") {
    if(j > 0 && (arr.nums[j-1] > arr.nums[j])){ 
+      await adjustSpeed(ctx, arr, h, j, c);
       await initSwap(arr, j-1, j, c);
       await swap(ctx, arr, h, j, j-1, j);
       await sleep(1);
