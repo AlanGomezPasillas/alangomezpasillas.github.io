@@ -44,10 +44,12 @@ class Bubble {
       }
     } else {
       this.x = Math.round(this.x);
-      this.y = 220-(sizex/2);
       this.upto = true;
       this.go = this.x;
-      this.tdis = 0;
+      if (this.tdis != 0){
+        this.y = 220-(this.sizex/2);
+        this.tdis = 0;
+      }
     }
   }
 }
