@@ -35,7 +35,7 @@ class Bubble {
     if (Math.round(this.x) < Math.round(this.go)) {
       this.x -= velocity;
       if (this.img.src == "https://alangomezpasillas.github.io/img/sorting-algorithms/cube.png") {
-        this.y = Math.cbrt(Math.sin(((Math.PI)*(this.x+1))/this.tdis)*64000)+224;
+        this.y = Math.cbrt(Math.sin(((Math.PI)*(this.x+1))/this.tdis)*64000)+232;
       }
     } else if(Math.round(this.x) > Math.round(this.go)) {
       this.x -= velocity;
@@ -44,6 +44,7 @@ class Bubble {
       }
     } else {
       this.x = Math.round(this.x);
+      this.y = 220-(sizex/2);
       this.upto = true;
       this.go = this.x;
       this.tdis = 0;
@@ -272,7 +273,7 @@ async function initPlay(imgBub, imgForu, imgCube, arr, c) {
     } else if (c.alg == "select") {
       bub = new Bubble(imgForu, arr.spds[arr.si], sizex, -sizex+arr.n-arrSorted.indexOf(arr.nums[i])*sizex, i*sizex+120, arr.n*sizex+40, arr.nums[i]);
     } else if (c.alg == "insert") {
-      bub = new Bubble(imgCube, arr.spds[arr.si], sizex, sizex, i*sizex+120, 200-(sizex/2), arr.nums[i]);
+      bub = new Bubble(imgCube, arr.spds[arr.si], sizex, sizex, i*sizex+120, 220-(sizex/2), arr.nums[i]);
       c.swapped = false;
     }
     arrSorted[arrSorted.indexOf(arr.nums[i])] = -123456;
