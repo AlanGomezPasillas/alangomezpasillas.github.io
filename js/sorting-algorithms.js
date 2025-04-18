@@ -13,6 +13,7 @@ class Bubble {
     this.go = x;
     this.upto = true;
     this.cspd = speed;
+    this.tdis = 0;
   }
 
   setSpd(s){
@@ -30,21 +31,22 @@ class Bubble {
   update(){
     var distance = this.x-this.go;
     var velocity = distance-(distance*this.spd);
+    if (this.tdis == 0) this.tdis = distance;
     if (Math.round(this.x) < Math.round(this.go)) {
       this.x -= velocity;
       if (this.img.src == "https://alangomezpasillas.github.io/img/sorting-algorithms/cube.png") {
-        this.y = Math.cbrt(Math.sin((Math.PI*this.x)/3)*100)+180;
+        this.y = Math.cbrt(Math.sin((Math.PI*this.x)/this.tdis)*800)+180;
       }
     } else if(Math.round(this.x) > Math.round(this.go)) {
       this.x -= velocity;
       if (this.img.src == "https://alangomezpasillas.github.io/img/sorting-algorithms/cube.png") {
-        this.y = -Math.cbrt(Math.sin((Math.PI*this.x)/3)*100)+180;
-          //-Math.cbrt(Math.sin(((Math.PI*this.x)+this.go)/this.go)*10)+180;
+        this.y = -Math.cbrt(Math.sin((Math.PI*this.x)/this.tdis)*800)+180;
       }
     } else {
       this.x = Math.round(this.x);
       this.upto = true;
       this.go = this.x;
+      this.tdis = 0;
     }
   }
 }
