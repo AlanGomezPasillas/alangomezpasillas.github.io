@@ -31,7 +31,6 @@ class Bubble {
   update(){
     var distance = this.x-this.go;
     var velocity = distance-(distance*this.spd);
-    if (this.tdis == 0) this.tdis = distance;
     if (Math.round(this.x) < Math.round(this.go)) {
       this.x -= velocity;
       if (this.img.src == "https://alangomezpasillas.github.io/img/sorting-algorithms/cube.png") {
@@ -274,7 +273,7 @@ async function initPlay(imgBub, imgForu, imgCube, arr, c) {
     } else if (c.alg == "select") {
       bub = new Bubble(imgForu, arr.spds[arr.si], sizex, -sizex+arr.n-arrSorted.indexOf(arr.nums[i])*sizex, i*sizex+120, arr.n*sizex+40, arr.nums[i], 0);
     } else if (c.alg == "insert") {
-      bub = new Bubble(imgCube, arr.spds[arr.si], sizex, sizex, i*sizex+120, 220-(sizex/2), arr.nums[i], sizex);
+      bub = new Bubble(imgCube, arr.spds[arr.si], sizex, sizex, i*sizex+120, 220-(sizex/2), arr.nums[i], sizex/2);
       c.swapped = false;
     }
     arrSorted[arrSorted.indexOf(arr.nums[i])] = -123456;
