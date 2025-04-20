@@ -348,10 +348,6 @@ async function playing(ctx, arr, h, c) {
     arr.btns[1].fIdx = 1;
     arr.btns[2].fIdx = 0;
     await drawGame(ctx, arr, h, 0);
-    ctx.textAlign = "left";
-    ctx.font = "32px Arial";
-    ctx.strokeText("Start!", 528, 400);
-    await adjustSpeed(ctx, arr, h, 0, c);
   }
   if (c.alg == "insert") {
     h++;
