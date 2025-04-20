@@ -23,7 +23,9 @@ class Bubble {
 
   draw(ctx){
     ctx.fillStyle = "white";
+    if (this.upto == false) ctx.globalAlpha = 0.3; 
     ctx.drawImage(this.img, 0, 0, 400, 400, this.x, this.y, this.sizex, this.sizey);
+    ctx.globalAlpha = 1;
     ctx.fillText(this.num, this.x+(this.sizex/2), this.y+(this.sizey/1.5));
     ctx.strokeText(this.num, this.x+(this.sizex/2), this.y+(this.sizey/1.5));
   }
@@ -362,8 +364,10 @@ async function playing(ctx, arr, h, c) {
       arr.min = h;
       await checking(ctx, arr, h, h+1, c);
       if (arr.min != h) {
-	    await initSwap(arr, arr.min, h, c);
-	    await swap(ctx, arr, h, arr.min, arr.min, h);
+	await initSwap(arr, arr.min, h);
+	await adjustSpeed(ctx, arr, h, 0, c);
+	await animBtns(arr, c);
+	await swap(ctx, arr, h, arr.min, arr.min, h);
       }
       await sleep(1);
       await playing(ctx, arr, h+1, c);
@@ -382,15 +386,15 @@ async function playing(ctx, arr, h, c) {
 async function checking(ctx, arr, h, j, c) {
   if (c.alg == "insert") {
    if(j > 0 && (arr.nums[j-1] > arr.nums[j])){ 
+      await initSwap(arr, j-1, j);
       await adjustSpeed(ctx, arr, h, j, c);
-      await initSwap(arr, j-1, j, c);
+      await animBtns(arr, c);
       await swap(ctx, arr, h, j, j-1, j);
       await sleep(1);
       await checking(ctx, arr, j-1, j-1, c);
     }
   } else if (c.alg == "select") {
     if (j < arr.n) {
-      await adjustSpeed(ctx, arr, h, j, c);
       if (arr.nums[j] < arr.nums[arr.min]) {
 	    arr.min = j;
       }
@@ -398,9 +402,10 @@ async function checking(ctx, arr, h, j, c) {
       await checking(ctx, arr, h, j+1, c);
     }
   } else if (j < arr.n-1) {
-    await adjustSpeed(ctx, arr, h, j, c);
     if (arr.nums[j] > arr.nums[j+1]) {
-      await initSwap(arr, j, j+1, c);
+      await initSwap(arr, j, j+1);
+      await adjustSpeed(ctx, arr, h, j, c);
+      await animBtns(arr, c);
       await swap(ctx, arr, h, j, j, j+1);
       c.swapped = true;
     }
@@ -411,7 +416,7 @@ async function checking(ctx, arr, h, j, c) {
   }
 }
 
-async function initSwap(arr, a, b, c){
+async function initSwap(arr, a, b){
   arr.bubs[a].upto = false;
   arr.bubs[b].upto = false;
   arr.bubs[a].go = arr.bubs[b].x;
@@ -419,6 +424,9 @@ async function initSwap(arr, a, b, c){
   arr.nums[b] = arr.nums[a] ^ arr.nums[b];
   arr.nums[a] = arr.nums[a] ^ arr.nums[b];
   arr.nums[b] = arr.nums[a] ^ arr.nums[b];
+}
+
+async function animBtns(arr, c){
   if (c.clicked == "next") {
     arr.btns[1].fIdx = 0;
     arr.btns[2].fIdx = 1;
