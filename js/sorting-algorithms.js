@@ -301,7 +301,9 @@ async function drawGame(ctx, arr, h, j){
   ctx.textAlign = "center";
   for(let i = 0; i < arr.n; i++) {
     arr.bubs[i].draw(ctx);
-    arr.bubs[i].update();
+    if (arr.btns[1].fIdx == 0){
+      arr.bubs[i].update();
+    }
     arr.bubs[i].setSpd(arr.spds[arr.si]);
   }
   for(let i = 0; i < arr.btns.length; i++){
