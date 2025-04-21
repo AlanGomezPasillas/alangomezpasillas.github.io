@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <script async custom-element="amp-auto-ads"src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js"></script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8773996523943422"crossorigin="anonymous"></script>
     <script src="js/script.js"></script>
+    <script src="js/tags.js"></script>
     <link rel="icon" href="img/MysticPrisma.svg"/>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
@@ -18,21 +18,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=0.9">
   </head>
   <header>
-    <a href="http://alangomezpasillas.github.io">
-      <div class="flex-box borderblue">
-        <img src="img/MysticPrisma.svg" width="64px" height="64px">
-        <h1>Mystic Prisma</h1>
-      </div>
-    </a>
-    <div class="box">
-      <button class="tran" onclick="changeLanguage(1)"><img class="flag" src="img/MXFlag.svg"></button>
-      <button class="tran" onclick="changeLanguage(0)"><img class="flag" src="img/USAFlag.svg"></button>
-    </div>
+    <mystic-header></mystic-header><script>showMysticHeader()</script>
   </header>
   <body onload="changeLanguage(2)">
-    <amp-auto-ads type="adsense"
-        data-ad-client="ca-pub-8773996523943422">
-    </amp-auto-ads>
     <div id="images">
       <img id="balan" src="img/sorting-algorithms/balan.png">
     </div>
@@ -56,7 +44,7 @@
     </section>
     <section>
       <div id="game-scr" align="center">
-        <canvas id="game" class="borderblue" width="640" height="480"></canvas>
+        <canvas id="game" class="bordered rounded" width="640" height="480"></canvas>
         <script src="js/sorting-algorithms.js"></script>
       </div>
     </section>

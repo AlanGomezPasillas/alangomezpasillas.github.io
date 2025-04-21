@@ -38,12 +38,12 @@ class Bubble {
     if (Math.round(this.x) < Math.round(this.go)) {
       this.x -= velocity;
       if (this.img.src == "https://alangomezpasillas.github.io/img/sorting-algorithms/cube.png") {
-        this.y = -Math.cbrt(Math.sin(((Math.PI)*(this.x+1))/this.tdis)*64000)+242;
+        this.y = -Math.cbrt((Math.sin(((Math.PI)*(this.x+1))/this.tdis)+this.sizex)*64000)+242;
       }
     } else if(Math.round(this.x) > Math.round(this.go)) {
       this.x -= velocity;
       if (this.img.src == "https://alangomezpasillas.github.io/img/sorting-algorithms/cube.png") {
-        this.y = Math.cbrt(Math.sin(((Math.PI)*(this.x+3))/this.tdis)*64000)+170;
+        this.y = Math.cbrt((Math.sin(((Math.PI)*(this.x+3))/this.tdis)+this.sizex*0.2)*64000)+170;
       }
     } else {
       this.x = Math.round(this.x);
@@ -94,9 +94,16 @@ async function pause(c) {
   }
 }
 
-function isClicked(px, py, x1, x2, y1, y2) {
-  if (px > x1 && px < x2) {
-    if (py > y1 && py < y2) {
+function isClicked(px, py, x1, x2, y1, y2, rect) {
+  const rx = rect.width/SCR_WIDTH;
+  const ry = rect.height/SCR_HEIGHT;
+  const x1r = x1 * rx;
+  const x2r = x2 * rx;
+  const y1r = y1 * ry;
+  const y2r = y2 * ry;
+  console.log(px, py, x1r, x2r, y1r, y2r);
+  if (px > x1r && px < x2r) {
+    if (py > y1r && py < y2r) {
       return true;
     }
   }
@@ -110,11 +117,12 @@ function handleClick(c, e) {
     }
   }
   if (c.state == "title") {
-    if (isClicked(e.clientX-rect.left, e.clientY-rect.top, 230, 410, 200, 264)) {
+    //if (isClicked(e.clientX-rect.left, e.clientY-rect.top, 230, 410, 200, 264)) {
+    if (isClicked(e.clientX-rect.left, e.clientY-rect.top, 230, 410, 200, 264, rect)) {
       c.clicked = "start";
     }
   } else if (c.state == "select") {
-    if (isClicked(e.clientX-rect.left, e.clientY-rect.top, 66, 194, 120, 248)) {
+    if (isClicked(e.clientX-rect.left, e.clientY-rect.top, 66, 194, 120, 248, rect)) {
       if (c.alg == "bubble") {
 	c.alg = "select";
       } else if (c.alg == "select") {
@@ -122,37 +130,37 @@ function handleClick(c, e) {
       } else if (c.alg == "insert") {
 	c.alg = "bubble";
       }
-    } else if (isClicked(e.clientX-rect.left, e.clientY-rect.top, 480, 608, 120, 248)) {
+    } else if (isClicked(e.clientX-rect.left, e.clientY-rect.top, 480, 608, 120, 248, rect)) {
       c.clicked = "play";
-    } else if (isClicked(e.clientX-rect.left, e.clientY-rect.top, 256, 384, 120, 248)) {
+    } else if (isClicked(e.clientX-rect.left, e.clientY-rect.top, 256, 384, 120, 248, rect)) {
       if (c.method == "random") {
 	c.method = "file";
       } else {
 	c.method = "random";
       }
-    } else if (isClicked(e.clientX-rect.left, e.clientY-rect.top, 160, 192, 267, 299)) {
+    } else if (isClicked(e.clientX-rect.left, e.clientY-rect.top, 160, 192, 267, 299, rect)) {
       c.clicked = "less";
-    } else if (isClicked(e.clientX-rect.left, e.clientY-rect.top, 300, 332, 267, 299)) {
+    } else if (isClicked(e.clientX-rect.left, e.clientY-rect.top, 300, 332, 267, 299, rect)) {
       c.clicked = "more";
     }
   } else if (c.state == "playing") {
-    if (isClicked(e.clientX-rect.left, e.clientY-rect.top, 2, 98, 64, 160)) {
+    if (isClicked(e.clientX-rect.left, e.clientY-rect.top, 2, 98, 64, 160, rect)) {
       c.paused = false;
       c.clicked = "resume";
       console.log("resume");
-    } else if (isClicked(e.clientX-rect.left, e.clientY-rect.top, 2, 98, 184, 280)) {
+    } else if (isClicked(e.clientX-rect.left, e.clientY-rect.top, 2, 98, 184, 280, rect)) {
       c.paused = true;
       c.clicked = "pause";
       console.log("pause");
-    } else if (isClicked(e.clientX-rect.left, e.clientY-rect.top, 2, 98, 304, 400)) {
+    } else if (isClicked(e.clientX-rect.left, e.clientY-rect.top, 2, 98, 304, 400, rect)) {
       c.paused = false;
       c.clicked = "next";
       console.log("next");
-    } else if (isClicked(e.clientX-rect.left, e.clientY-rect.top, 530, 726, 153, 185)) {
+    } else if (isClicked(e.clientX-rect.left, e.clientY-rect.top, 530, 726, 153, 185, rect)) {
       c.paused = false;
       c.clicked = "more-speed";
       console.log("speed++");
-    } else if (isClicked(e.clientX-rect.left, e.clientY-rect.top, 530, 726, 225, 257)) {
+    } else if (isClicked(e.clientX-rect.left, e.clientY-rect.top, 530, 726, 225, 257, rect)) {
       c.paused = false;
       c.clicked = "less-speed";
       console.log("speed--");

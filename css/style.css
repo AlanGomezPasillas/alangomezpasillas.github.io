@@ -161,6 +161,10 @@ header {
   flex: 1%;
 }
 
+#game {
+  width: 60%;
+}
+
 #images, #music, #videos, #games, .es{
   display: none;
 }
