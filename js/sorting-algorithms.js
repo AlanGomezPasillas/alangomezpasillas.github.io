@@ -38,12 +38,12 @@ class Bubble {
     if (Math.round(this.x) < Math.round(this.go)) {
       this.x -= velocity;
       if (this.img.src == "https://alangomezpasillas.github.io/img/sorting-algorithms/cube.png") {
-	this.y = -Math.cbrt((this.sizex*0.5)+Math.sin(((Math.PI)*(this.x+1))/this.tdis)*64000)+242;
+	this.y = -Math.cbrt(1+Math.sin(((Math.PI)*(this.x+1))/this.tdis)*64000)+242;
       }
     } else if(Math.round(this.x) > Math.round(this.go)) {
       this.x -= velocity;
       if (this.img.src == "https://alangomezpasillas.github.io/img/sorting-algorithms/cube.png") {
-        this.y = Math.cbrt((this.sizex*0.3)+Math.sin(((Math.PI)*(this.x+1))/this.tdis)*64000)+170;
+        this.y = Math.cbrt(2+Math.sin(((Math.PI)*(this.x+1))/this.tdis)*64000)+170;
       }
     } else {
       this.x = Math.round(this.x);
@@ -446,6 +446,7 @@ async function playing(ctx, arr, h, c) {
     await sleep(1);
     await playing(ctx, arr, h+1, c);
   }
+  await drawGame(ctx, arr, h, h);
 }
 
 async function checking(ctx, arr, h, j, c) {
