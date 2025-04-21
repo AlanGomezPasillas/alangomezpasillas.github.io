@@ -123,6 +123,10 @@ header {
   border-radius: 50%;
 }
 
+.spaced {
+  justify-content: space-between;
+}
+
 .video {
   display: flex;
   justify-content: center;
@@ -162,6 +166,7 @@ header {
 }
 
 #game {
+  display: flex;
   width: 60%;
 }
 
