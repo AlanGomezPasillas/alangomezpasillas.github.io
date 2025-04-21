@@ -2,8 +2,9 @@ const SCR_WIDTH = 640;
 const SCR_HEIGHT = 480;
 
 class Bubble {
-  constructor(image, speed, sizex, sizey, x, y, num, tdis){
+  constructor(image, image2, speed, sizex, sizey, x, y, num, tdis){
     this.img = image;
+    this.img2 = image2;
     this.spd = 1-(speed*0.01);
     this.sizex = sizex;
     this.sizey = sizey;	
@@ -23,9 +24,10 @@ class Bubble {
 
   draw(ctx){
     ctx.fillStyle = "white";
-    if (this.upto == false) ctx.globalAlpha = 0.3; 
-    ctx.drawImage(this.img, 0, 0, 400, 400, this.x, this.y, this.sizex, this.sizey);
-    ctx.globalAlpha = 1;
+    if (this.upto == false) {
+      ctx.drawImage(this.img2, 0, 0, 400, 400, this.x, this.y, this.sizex, this.sizey);
+    }
+    else ctx.drawImage(this.img, 0, 0, 400, 400, this.x, this.y, this.sizex, this.sizey);
     ctx.fillText(this.num, this.x+(this.sizex/2), this.y+(this.sizey/1.5));
     ctx.strokeText(this.num, this.x+(this.sizex/2), this.y+(this.sizey/1.5));
   }
@@ -108,20 +110,30 @@ function handleClick(c, e) {
     }
   }
   if (c.state == "title") {
-    if(isClicked(e.clientX-rect.left, e.clientY-rect.top, 230, 410, 200, 264)) {
+    if (isClicked(e.clientX-rect.left, e.clientY-rect.top, 230, 410, 200, 264)) {
       c.clicked = "start";
     }
   } else if (c.state == "select") {
-    if(isClicked(e.clientX-rect.left, e.clientY-rect.top, 66, 194, 120, 248)) {
+    if (isClicked(e.clientX-rect.left, e.clientY-rect.top, 66, 194, 120, 248)) {
       if (c.alg == "bubble") {
-	    c.alg = "select";
+	c.alg = "select";
       } else if (c.alg == "select") {
-	    c.alg = "insert";
+        c.alg = "insert";
       } else if (c.alg == "insert") {
-	    c.alg = "bubble";
+	c.alg = "bubble";
       }
     } else if (isClicked(e.clientX-rect.left, e.clientY-rect.top, 480, 608, 120, 248)) {
       c.clicked = "play";
+    } else if (isClicked(e.clientX-rect.left, e.clientY-rect.top, 256, 384, 120, 248)) {
+      if (c.method == "random") {
+	c.method = "file";
+      } else {
+	c.method = "random";
+      }
+    } else if (isClicked(e.clientX-rect.left, e.clientY-rect.top, 160, 192, 267, 299)) {
+      c.clicked = "less";
+    } else if (isClicked(e.clientX-rect.left, e.clientY-rect.top, 300, 332, 267, 299)) {
+      c.clicked = "more";
     }
   } else if (c.state == "playing") {
     if (isClicked(e.clientX-rect.left, e.clientY-rect.top, 2, 98, 64, 160)) {
@@ -222,8 +234,10 @@ async function title(ctx, imgTit, objCli, titY, c) {
   }
 }
 
-async function selectAlg(ctx, imgBubs, imgSele, imgInse, imgFils, imgPlay, arr, file, c) {
+async function selectAlg(ctx, imgBubs, imgSele, imgInse, imgFils, imgRand, imgPlay, imgLeft, imgRight, arr, file, c, n = 10, change = true) {
   ctx.fillStyle = "white";
+  ctx.textAlign = "left";
+  ctx.font = "48px Arial";
   ctx.clearRect(0, 0, SCR_WIDTH, SCR_HEIGHT);
   ctx.fillRect(0, 0, SCR_WIDTH, SCR_HEIGHT);
   if (c.alg == "bubble"){
@@ -233,20 +247,40 @@ async function selectAlg(ctx, imgBubs, imgSele, imgInse, imgFils, imgPlay, arr, 
   } else if (c.alg == "insert") {
     ctx.drawImage(imgInse, 66, 120);
   }
-  ctx.drawImage(imgFils, 256, 120);
-  ctx.textAlign = "left";
-  ctx.font = "48px Arial";
-  ctx.strokeText("Drag and Drop a .txt File: ", 10, 50);
-  if (arr.n > 0) {
+  if (c.method == "file") {
+    ctx.drawImage(imgFils, 256, 120);
+    ctx.strokeText("Drag and Drop a .txt File: ", 10, 50);
+  } else {
+    ctx.drawImage(imgRand, 256, 120);
+    ctx.strokeText("Pick an amount of numbers: ", 10, 50);
+  }
+  if (change) {
+    await getRandomNums(arr, n);
+    change = false;
+  }
+  if (arr.n > 0 || c.method == "random") {
     ctx.strokeText("Done!", 10, 100);
-    ctx.strokeText("Total: " + Number(arr.n), 10, 300);
-    if(arr.n < 6) {
-      ctx.strokeText('{' + arr.nums + '}', 10, 350);
+    if (c.method == "file") {
+      ctx.strokeText("Total: " + Number(arr.n), 10, 300);
+      if(arr.n < 6 ) {
+	ctx.strokeText('{' + arr.nums + '}', 10, 350);
+      } else {
+	let head = '{';
+	for(let i = 0; i < 6; i++) {
+	  head += arr.nums[i];
+	  head += ",";
+	}
+	head += "...}";
+	ctx.strokeText(head, 10, 350);
+      }
     } else {
+      ctx.drawImage(imgLeft, 160, 267);
+      ctx.drawImage(imgRight, 300, 267);
+      ctx.strokeText("Total:      " + Number(n), 10, 300);
       let head = '{';
       for(let i = 0; i < 6; i++) {
-        head += arr.nums[i];
-        head += ",";
+	head += arr.nums2[i];
+	head += ",";
       }
       head += "...}";
       ctx.strokeText(head, 10, 350);
@@ -255,30 +289,55 @@ async function selectAlg(ctx, imgBubs, imgSele, imgInse, imgFils, imgPlay, arr, 
     ctx.drawImage(imgPlay, 480, 120);
     ctx.fillText("Ready! Press Play to Start", 34, 420);
   }
-  
-  if(c.clicked == "play" && arr.n > 0){
+  if (c.method == "random") {
+    if (c.clicked == "less") {
+      if (n > 10) {
+	n -= 10;
+	change = true;
+      }
+    }
+    if (c.clicked == "more") {
+      if (n < 100) {
+	n += 10;
+	change = true;
+      }
+    }
+  }
+  if (c.clicked == "play" && (arr.n > 0 || c.method == "random")) {
+    if (c.method == "random") {
+      arr.n = n;
+      arr.nums = arr.nums2;
+    }
     return;
-  }else{
+  } else {
     c.clicked = "none";
     await sleep(1);
-    await selectAlg(ctx, imgBubs, imgSele, imgInse, imgFils, imgPlay, arr, file, c);
+    await selectAlg(ctx, imgBubs, imgSele, imgInse, imgFils, imgRand, imgPlay, imgLeft, imgRight, arr, file, c, n, change);
   }
 }
 
-async function initPlay(imgBub, imgForu, imgCube, arr, c) {
+async function getRandomNums(arr, n) {
+  const myarr = new Array();
+  for (let i = 0; i < n; i++) {
+    myarr.push(Math.floor(Math.random() * 100));
+  }
+  arr.nums2 = myarr;
+}
+
+async function initPlay(imgBub, imgBub2, imgForu, imgForu2, imgCube, imgCube2, arr, c) {
   const arrSorted = arr.nums.toSorted(function (a, b){return a - b;});
   var bub;
   var sizex = 400/arr.n;
   for(let i = 0; i < arr.n; i++){
     if (c.alg == "bubble") {
-      bub = new Bubble(imgBub, arr.spds[arr.si], sizex, sizex, i*sizex+120, (arr.n-arrSorted.indexOf(arr.nums[i]))*sizex+10, arr.nums[i], 0);
+      bub = new Bubble(imgBub, imgBub2, arr.spds[arr.si], sizex, sizex, i*sizex+120, (arr.n-arrSorted.indexOf(arr.nums[i]))*sizex+10, arr.nums[i], 0);
     } else if (c.alg == "select") {
-      bub = new Bubble(imgForu, arr.spds[arr.si], sizex, -sizex+arr.n-arrSorted.indexOf(arr.nums[i])*sizex, i*sizex+120, arr.n*sizex+40, arr.nums[i], 0);
+      bub = new Bubble(imgForu, imgForu2, arr.spds[arr.si], sizex, -sizex+arr.n-arrSorted.indexOf(arr.nums[i])*sizex, i*sizex+120, arr.n*sizex+40, arr.nums[i], 0);
     } else if (c.alg == "insert") {
-      bub = new Bubble(imgCube, arr.spds[arr.si], sizex, sizex, i*sizex+120, 220-(sizex/2), arr.nums[i], sizex/2);
+      bub = new Bubble(imgCube, imgCube2, arr.spds[arr.si], sizex, sizex, i*sizex+120, 220-(sizex/2), arr.nums[i], sizex/2);
       c.swapped = false;
     }
-    arrSorted[arrSorted.indexOf(arr.nums[i])] = -123456;
+    if (c.alg != "select") arrSorted[arrSorted.indexOf(arr.nums[i])] = -123456;
     arr.bubs.push(bub);
   }
 }
@@ -371,8 +430,8 @@ async function playing(ctx, arr, h, c) {
       await playing(ctx, arr, h+1, c);
     }
   } else if (c.swapped == true) {
+    c.swapped = false;
     if (h < arr.n-1) {
-      c.swapped = false;
       await sleep(1);
       await checking(ctx, arr, h, 0, c);
     }
@@ -462,12 +521,18 @@ async function main() {
   const imgFils = new Image();
   const imgPlay = new Image();
   const imgBub = new Image();
+  const imgBub2 = new Image();
   const imgBtns = new Image();
   const imgArws = new Image();
   const imgSele = new Image();
   const imgForu = new Image();
   const imgCube = new Image();
+  const imgForu2 = new Image();
+  const imgCube2 = new Image();
+  const imgRand = new Image();
   const imgInse = new Image();
+  const imgLeft = new Image();
+  const imgRight = new Image();
   const fr = new FileReader();
   const mscArmony = new Audio("msc/armonia.wav");
   const objCli = new Sprite(imgCli, 0, 0, 180, 64, 230, 200, 10, 0, 1);
@@ -476,8 +541,8 @@ async function main() {
   const objNext = new Sprite(imgBtns, 384, 0, 96, 96, 2, 304, 2, 0, 0);
   const objMoreSpd = new Sprite(imgArws, 0, 0, 96, 32, 530, 153, 2, 0, 0);  
   const objLessSpd = new Sprite(imgArws, 192, 0, 96, 32, 530, 225, 2, 0, 0);  
-  const objCheck = {state: "presentation", clicked: "none", paused: true, alg: "bubble", swapped: true};
-  const objArr = {n: 0, si: 2, min: -1, nums: new Array(), bubs: new Array(), btns: new Array(), spds: new Array()};
+  const objCheck = {state: "presentation", clicked: "none", paused: true, alg: "bubble", swapped: true, method: "random"};
+  const objArr = {n: 0, si: 2, min: -1, nums: new Array(), nums2: new Array(), bubs: new Array(), btns: new Array(), spds: new Array()};
   const objFile = {txt: undefined, data: undefined};
   
   imgPre.src = path + "presentation.png";
@@ -487,12 +552,18 @@ async function main() {
   imgFils.src = path + "file-select.png";
   imgPlay.src = path + "play.png";
   imgBub.src = path + "bub.png";
+  imgBub2.src = path + "bub2.png";
   imgBtns.src = path + "buttons.png";
   imgArws.src = path + "arrows.png";
   imgSele.src = path + "select-sort.png";
   imgForu.src = path + "forundin.png";
+  imgForu2.src = path + "forundin2.png";
   imgCube.src = path + "cube.png";
+  imgCube2.src = path + "cube2.png";
   imgInse.src = path + "insert-sort.png";
+  imgRand.src = path + "random.png";
+  imgLeft.src = path + "left.png";
+  imgRight.src = path + "right.png";
 
   await imgPre.decode();
   await imgTit.decode();
@@ -501,12 +572,18 @@ async function main() {
   await imgFils.decode();
   await imgPlay.decode();
   await imgBub.decode();
+  await imgBub2.decode();
   await imgBtns.decode();
   await imgArws.decode();
   await imgSele.decode();
   await imgForu.decode();
+  await imgForu2.decode();
   await imgCube.decode();
+  await imgCube2.decode();
   await imgInse.decode();
+  await imgRand.decode();
+  await imgLeft.decode();
+  await imgRight.decode();
 
   mscArmony.addEventListener("ended", handleMusic, false);
   canvas.addEventListener("click", (e) => handleClick(objCheck, e), false);
@@ -538,8 +615,8 @@ async function main() {
     objArr.min = -1;
     objArr.nums = new Array();
     objArr.bubs = new Array();
-    await selectAlg(ctx, imgBubs, imgSele, imgInse, imgFils, imgPlay, objArr, objFile, objCheck);
-    await initPlay(imgBub, imgForu, imgCube, objArr, objCheck);
+    await selectAlg(ctx, imgBubs, imgSele, imgInse, imgFils, imgRand, imgPlay, imgLeft, imgRight, objArr, objFile, objCheck);
+    await initPlay(imgBub, imgBub2, imgForu, imgForu2, imgCube, imgCube2, objArr, objCheck);
     objCheck.state = "playing";
     objCheck.paused = true;
     objCheck.clicked = "pause";
