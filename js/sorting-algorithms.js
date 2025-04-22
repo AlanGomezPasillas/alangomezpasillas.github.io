@@ -338,11 +338,11 @@ async function initPlay(imgBub, imgBub2, imgForu, imgForu2, imgCube, imgCube2, a
   var sizex = 400/arr.n;
   for(let i = 0; i < arr.n; i++){
     if (c.alg == "bubble") {
-      bub = new Bubble(imgBub, imgBub2, arr.spds[arr.si], sizex, sizex, i*sizex+100, (arr.n-arrSorted.indexOf(arr.nums[i]))*sizex+10, arr.nums[i], 0);
+      bub = new Bubble(imgBub, imgBub2, arr.spds[arr.si], sizex, sizex, i*sizex+120, (arr.n-arrSorted.indexOf(arr.nums[i]))*sizex+10, arr.nums[i], 0);
     } else if (c.alg == "select") {
-      bub = new Bubble(imgForu, imgForu2, arr.spds[arr.si], sizex, -sizex+arr.n-arrSorted.indexOf(arr.nums[i])*sizex, i*sizex+100, arr.n*sizex+40, arr.nums[i], 0);
+      bub = new Bubble(imgForu, imgForu2, arr.spds[arr.si], sizex, -sizex+arr.n-arrSorted.indexOf(arr.nums[i])*sizex, i*sizex+120, arr.n*sizex+40, arr.nums[i], 0);
     } else if (c.alg == "insert") {
-      bub = new Bubble(imgCube, imgCube2, arr.spds[arr.si], sizex, sizex, i*sizex+100, 220-(sizex/2), arr.nums[i], sizex/2);
+      bub = new Bubble(imgCube, imgCube2, arr.spds[arr.si], sizex, sizex, i*sizex+130, 220-(sizex/2), arr.nums[i], sizex/2);
       c.swapped = false;
     }
     if (c.alg != "select") arrSorted[arrSorted.indexOf(arr.nums[i])] = -123456;
