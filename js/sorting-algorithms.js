@@ -43,7 +43,7 @@ class Bubble {
     } else if(Math.round(this.x) > Math.round(this.go)) {
       this.x -= velocity;
       if (this.img.src == "https://alangomezpasillas.github.io/img/sorting-algorithms/cube.png") {
-        this.y = -Math.cbrt(Math.sin(((Math.PI)*(this.x+1))/this.tdis)*64000)+(228-(this.sizex*0.8);
+        this.y = -Math.cbrt(Math.sin(((Math.PI)*(this.x+1))/this.tdis)*64000)+(228-(this.sizex*0.8));
       }
     } else {
       this.x = Math.round(this.x);
