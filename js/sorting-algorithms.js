@@ -38,12 +38,12 @@ class Bubble {
     if (Math.round(this.x) < Math.round(this.go)) {
       this.x -= velocity;
       if (this.img.src == "https://alangomezpasillas.github.io/img/sorting-algorithms/cube.png") {
-	    this.y = Math.cbrt(Math.sin(((Math.PI)*(this.x+1))/this.tdis)*64000)+(260);
+	    this.y = Math.cbrt(Math.sin(((Math.PI)*(this.x+1))/this.tdis)*64000)+260;
       }
     } else if(Math.round(this.x) > Math.round(this.go)) {
       this.x -= velocity;
       if (this.img.src == "https://alangomezpasillas.github.io/img/sorting-algorithms/cube.png") {
-        this.y = -Math.cbrt(Math.sin(((Math.PI)*(this.x+1))/this.tdis)*64000)+(200));
+        this.y = -Math.cbrt(Math.sin(((Math.PI)*(this.x+1))/this.tdis)*64000)+200;
       }
     } else {
       this.x = Math.round(this.x);
