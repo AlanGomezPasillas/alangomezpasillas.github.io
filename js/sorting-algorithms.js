@@ -38,19 +38,19 @@ class Bubble {
     if (Math.round(this.x) < Math.round(this.go)) {
       this.x -= velocity;
       if (this.img.src == "https://alangomezpasillas.github.io/img/sorting-algorithms/cube.png") {
-	    this.y = Math.cbrt(Math.sin(((Math.PI)*(this.x+1))/this.tdis)*64000)+(228+(this.sizex*0.5));
+	    this.y = Math.cbrt(Math.sin(((Math.PI)*(this.x+1))/this.tdis)*64000)+(228+(this.sizex*0.2));
       }
     } else if(Math.round(this.x) > Math.round(this.go)) {
       this.x -= velocity;
       if (this.img.src == "https://alangomezpasillas.github.io/img/sorting-algorithms/cube.png") {
-        this.y = -Math.cbrt(Math.sin(((Math.PI)*(this.x+1))/this.tdis)*64000)+(228-(this.sizex*1.2));
+        this.y = -Math.cbrt(Math.sin(((Math.PI)*(this.x+1))/this.tdis)*64000)+(228-(this.sizex*0.8);
       }
     } else {
       this.x = Math.round(this.x);
       this.upto = true;
       this.go = this.x;
       if (this.tdis != 0){
-        this.y = 228-(this.sizex/2);
+        this.y = 228-(this.sizex);
       }
     }
   }
@@ -342,7 +342,7 @@ async function initPlay(imgBub, imgBub2, imgForu, imgForu2, imgCube, imgCube2, a
     } else if (c.alg == "select") {
       bub = new Bubble(imgForu, imgForu2, arr.spds[arr.si], sizex, -sizex+arr.n-arrSorted.indexOf(arr.nums[i])*sizex, i*sizex+120, arr.n*sizex+40, arr.nums[i], 0);
     } else if (c.alg == "insert") {
-      bub = new Bubble(imgCube, imgCube2, arr.spds[arr.si], sizex, sizex, i*sizex+115+(sizex*0.9), 228-(sizex*1), arr.nums[i], sizex/2);
+      bub = new Bubble(imgCube, imgCube2, arr.spds[arr.si], sizex, sizex, i*sizex+113+(sizex), 228-(sizex), arr.nums[i], sizex/2);
       c.swapped = false;
     }
     if (c.alg != "select") arrSorted[arrSorted.indexOf(arr.nums[i])] = -123456;
