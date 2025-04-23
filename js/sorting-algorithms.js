@@ -39,7 +39,7 @@ class Bubble {
     if (Math.round(this.x) < Math.round(this.go)) {
       this.x -= velocity;
       if (this.img.src == "https://alangomezpasillas.github.io/img/sorting-algorithms/cube.png") {
-        if (side == 1) {
+        if (this.side == 1) {
 	      this.y = Math.cbrt(Math.sin((Math.PI*this.x)/this.tdis)*64000)+260;
         } else {
           this.y = -Math.cbrt(Math.sin((Math.PI*this.x)/this.tdis)*64000)+260;
@@ -48,7 +48,7 @@ class Bubble {
     } else if(Math.round(this.x) > Math.round(this.go)) {
       this.x -= velocity;
       if (this.img.src == "https://alangomezpasillas.github.io/img/sorting-algorithms/cube.png") {
-        if (side == 1) {
+        if (this.side == 1) {
           this.y = -Math.cbrt(Math.sin((Math.PI*this.x)/this.tdis)*64000)+186;
         } else {
           this.y = Math.cbrt(Math.sin((Math.PI*this.x)/this.tdis)*64000)+186;
