@@ -342,7 +342,7 @@ async function initPlay(imgBub, imgBub2, imgForu, imgForu2, imgCube, imgCube2, a
     } else if (c.alg == "select") {
       bub = new Bubble(imgForu, imgForu2, arr.spds[arr.si], sizex, -sizex+arr.n-arrSorted.indexOf(arr.nums[i])*sizex, i*sizex+120, arr.n*sizex+40, arr.nums[i], 0);
     } else if (c.alg == "insert") {
-      bub = new Bubble(imgCube, imgCube2, arr.spds[arr.si], sizex, sizex, i*sizex+100+(sizex*0.11), 228, arr.nums[i], sizex*0.5);
+      bub = new Bubble(imgCube, imgCube2, arr.spds[arr.si], sizex, sizex, i*sizex+100+(sizex*0.1), 228, arr.nums[i], sizex*0.5);
       c.swapped = false;
     }
     if (c.alg != "select") arrSorted[arrSorted.indexOf(arr.nums[i])] = -123456;
