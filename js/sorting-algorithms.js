@@ -38,7 +38,8 @@ class Bubble {
     if (Math.round(this.x) < Math.round(this.go)) {
       this.x -= velocity;
       if (this.img.src == "https://alangomezpasillas.github.io/img/sorting-algorithms/cube.png") {
-	    this.y = Math.sqrt(1-Math.pow(this.x, 2)*100000)+260;
+	    this.y = Math.sqrt(1-Math.pow(this.x, 2)+600)+260;
+        console.log(this.y);
       }
     } else if(Math.round(this.x) > Math.round(this.go)) {
       this.x -= velocity;
