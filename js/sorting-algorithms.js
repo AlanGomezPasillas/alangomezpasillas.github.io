@@ -47,7 +47,7 @@ class Bubble {
       }
     } else {
       this.x = Math.round(this.x);
-      this.upto = true;.
+      this.upto = true;
       this.go = this.x;
       if (this.tdis != 0){
         this.y = 228;
