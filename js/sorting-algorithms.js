@@ -49,9 +49,9 @@ class Bubble {
       this.x -= velocity;
       if (this.img.src == "https://alangomezpasillas.github.io/img/sorting-algorithms/cube.png") {
         if (this.side == 1) {
-          this.y = -Math.cbrt(Math.sin((Math.PI*this.x)/this.tdis)*64000)+186;
+          this.y = -Math.cbrt(Math.sin((Math.PI*this.x)/this.tdis)*64000)+188;
         } else {
-          this.y = Math.cbrt(Math.sin((Math.PI*this.x)/this.tdis)*64000)+186;
+          this.y = Math.cbrt(Math.sin((Math.PI*this.x)/this.tdis)*64000)+188;
         }
       }
     } else {
@@ -351,7 +351,7 @@ async function initPlay(imgBub, imgBub2, imgForu, imgForu2, imgCube, imgCube2, a
     } else if (c.alg == "select") {
       bub = new Bubble(imgForu, imgForu2, arr.spds[arr.si], sizex, -sizex+arr.n-arrSorted.indexOf(arr.nums[i])*sizex, i*sizex+120, arr.n*sizex+40, arr.nums[i], 0, 1);
     } else if (c.alg == "insert") {
-      bub = new Bubble(imgCube, imgCube2, arr.spds[arr.si], sizex, sizex, i*sizex+100+(sizex*0.09), 228, arr.nums[i], sizex*0.5, 1);
+      bub = new Bubble(imgCube, imgCube2, arr.spds[arr.si], sizex, sizex, i*sizex+100+(sizex), 228, arr.nums[i], sizex*0.5, 1);
       c.swapped = false;
     }
     if (c.alg != "select") arrSorted[arrSorted.indexOf(arr.nums[i])] = -123456;
