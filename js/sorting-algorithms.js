@@ -38,13 +38,13 @@ class Bubble {
     if (Math.round(this.x) < Math.round(this.go)) {
       this.x -= velocity;
       if (this.img.src == "https://alangomezpasillas.github.io/img/sorting-algorithms/cube.png") {
-	this.y = Math.sqrt((Math.pow(this.sizex,2)*0.25)-Math.pow((this.sizex+distance)-(this.sizex*0.5),2))*(this.sizex-(this.sizex*0.85))+228;
+	this.y = Math.sqrt((Math.pow(this.sizex,2)*0.25)-Math.pow((this.sizex+distance)-(this.sizex*0.5),2))*5+228;
         console.log(this.y);
       }
     } else if(Math.round(this.x) > Math.round(this.go)) {
       this.x -= velocity;
       if (this.img.src == "https://alangomezpasillas.github.io/img/sorting-algorithms/cube.png") {
-	this.y = -Math.sqrt((Math.pow(this.sizex,2)*0.25)-Math.pow((this.sizex-distance)-(this.sizex*0.5),2))*(this.sizex-(this.sizex*0.85))+228;
+	this.y = -Math.sqrt((Math.pow(this.sizex,2)*0.25)-Math.pow((this.sizex-distance)-(this.sizex*0.5),2))*5+228;
       }
     } else {
       this.x = Math.round(this.x);
