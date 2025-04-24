@@ -1,12 +1,11 @@
-var tag;
-
 function showMysticHeader() {
-  tag = document.querySelector('mystic-header');
-  tag.innerHTML = 
+  document.querySelector('mystic-header').innerHTML = 
   `<div class="flex-box">
     <div id="mystic" class="bordered rounded">
+      <a href="https://alangomezpasillas.github.io/sorting-algorithms.html">
       <img src="img/MysticPrisma.svg" width="64px" height="64px">
       <h1>Mystic Prisma</h1>
+      </a>
     </div>
     <div class="flex-pack">
       <div id="follow">
@@ -21,4 +20,23 @@ function showMysticHeader() {
       </div>
     </div>
   </div>`;
+}
+
+function showMysticFooter() {
+  document.querySelector('mystic-footer').innerHTML = 
+  `<footer>
+    <h3>
+      <span class="en">Contact us!</span>
+      <span class="es">Contactanos!</span>
+    </h3>
+    Email: alangomezpasillas@gmail.com<br><br><b>
+      &copy;Mystic Prisma 2025.
+      <span class="en">
+        All Rights Reserved.
+      </span>
+      <span class="es">
+        Todos los derechos resrvados.
+      </span>
+    </b>
+  </footer>`;
 }
