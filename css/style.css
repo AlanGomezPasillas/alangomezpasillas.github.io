@@ -152,7 +152,7 @@ header {
 }
 
 #mystic > a {
-  display: flex;
+  display: inline-flex;
 }
 
 #follow {
