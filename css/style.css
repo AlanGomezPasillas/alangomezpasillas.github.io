@@ -151,6 +151,10 @@ header {
   width: 100%;
 }
 
+#mystic > a {
+  display: flex;
+}
+
 #follow {
   display: flex;
   /*justify-content: center;*/
