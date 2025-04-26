@@ -2,7 +2,7 @@ function showMysticHeader() {
   document.querySelector('mystic-header').innerHTML = 
   `<div class="flex-box">
     <div id="mystic" class="bordered rounded">
-      <a href="https://alangomezpasillas.github.io/sorting-algorithms.html">
+      <a href="https://alangomezpasillas.github.io">
       <img src="img/MysticPrisma.svg" width="64px" height="64px">
       <h1>Mystic Prisma</h1>
       </a>

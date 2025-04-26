@@ -1,9 +1,13 @@
 function loadGame(){
   const game = new URLSearchParams(window.location.search).get('game');
   const name = getAttr(game, "name");
-  const desc = getDesc(game, "desc");
-  document.querySelector('title').innerText = name;
-  document.getElementById('title').innerHTML = 
+  const desc = getAttr(game, "desc");
+  const cont = getAttr(game, "cont");
+  const title = document.querySelector('title');
+  const descr = document.getElementById('title');
+  const contr = document.getElementById('controls');
+  title.innerText = name;
+  descr.innerHTML = 
     `<h2>
       <span class="en">${name}</span>
       <span class="es">${name}</span>
@@ -16,11 +20,20 @@ function loadGame(){
         ${desc}
       </span>
     </p>`;
+  contr.innerHTML = 
+    `<h2>
+      <span class="en">Controls</span>
+      <span class="es">Controles</span>
+    </h2>
+    <p>
+      <span class="en">`
+  for (let i = 0; i < cont.length; i++) contr.innerHTML += `- <b>${cont[i]}</b><br>`
+  contr.innerHTML += "</span></p>";
 }
 
 function getAttr(game, attr) { 
   switch (game) {
-      case "sorting-algorithms": return sortingAlgorithms(attr);
+    case "sorting-algorithms": return sortingAlgorithms(attr);
   }
 }
 
@@ -32,8 +45,10 @@ function sortingAlgorithms(attr) {
                 `En este juego podrás elegir un algoritmo de ordenamiento y
           usarlo con un conjunto de numeros que puede ser aleatorio o
           no, después, podras ver como se comporta paso a paso.`];
+  const cont = [["Mouse","Keyboard"],["Ratón","Teclado"]];
   switch (attr){
     case "name": return name[la];
     case "desc": return desc[la];
+    case "cont": return cont[la];
   }
 }

@@ -18,7 +18,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=0.9">
   </head>
   <header><mystic-header></mystic-header><script>showMysticHeader()</script></header>
-  <body onload="loadGame()">
+  <body onload="changeLanguage(2);loadGame();">
     <section id="title"></section>
     <section>
       <div class="flex-bag spaced">
@@ -31,21 +31,8 @@
         <script> (adsbygoogle = window.adsbygoogle || []).push({}); </script>
       </div>
     </section>
-    <section>
-      <h2>
-        <span class="en">Controls</span>
-        <span class="es">Controles</span>
-      </h2>
-      <p>
-        <span class="en">
-          - <b>Mouse</b><br>
-          - <b>Keyboard</b><br>
-        </span>
-        <span class="es">
-          - <b>Ratón</b><br>
-          - <b>Teclado</b><br>
-        </span>
-      </p>
+    <section id="controls">
+      
     </section>
   </body>
   <mystic-footer></mystic-footer><script>showMysticFooter()</script>
