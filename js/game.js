@@ -1,23 +1,30 @@
-function loadGame(){
-  const game = new URLSearchParams(window.location.search).get('game');
-  const name = getAttr(game, "name");
-  const desc = getAttr(game, "desc");
-  const cont = getAttr(game, "cont");
+class Game {
+  constructor(){
+    this.url = new URLSearchParams(window.location.search).get('game');
+    this.name = getAttr(this.url, "name");
+    this.desc = getAttr(this.url, "desc")
+    this.cont = getAttr(this.url, "cont")
+    this.magic = getAttr(this.url, "magic")
+  }
+}
+
+function loadGame() {
   const title = document.querySelector('title');
   const descr = document.getElementById('title');
   const contr = document.getElementById('controls');
-  title.innerText = name;
+  const screen = document.getElementById('scr');
+  title.innerText = myGame.name;
   descr.innerHTML = 
     `<h2>
-      <span class="en">${name}</span>
-      <span class="es">${name}</span>
+      <span class="en">${myGame.name}</span>
+      <span class="es">${myGame.name}</span>
     </h2>
     <p>
       <span class="en">
-        ${desc}
+        ${myGame.desc}
       </span>
       <span class="es">
-        ${desc}
+        ${myGame.desc}
       </span>
     </p>`;
   contr.innerHTML = 
@@ -29,12 +36,24 @@ function loadGame(){
       <span class="en">`
   for (let i = 0; i < cont.length; i++) contr.innerHTML += `- <b>${cont[i]}</b><br>`
   contr.innerHTML += "</span></p>";
+  screen.innerHTML = myGame.magic;
+}
+
+function loadInfo(game){
+  switch (game) {
+    case "alan-in-super-mario-bros": return alanInSuperMarioBros()
+    case "sorting-algorithms": return sortingAlgorithms();
+  }
 }
 
 function getAttr(game, attr) { 
   switch (game) {
     case "sorting-algorithms": return sortingAlgorithms(attr);
   }
+}
+
+function alanInSuperMarioBros() {
+  
 }
 
 function sortingAlgorithms(attr) {
@@ -46,9 +65,14 @@ function sortingAlgorithms(attr) {
           usarlo con un conjunto de numeros que puede ser aleatorio o
           no, después, podras ver como se comporta paso a paso.`];
   const cont = [["Mouse","Keyboard"],["Ratón","Teclado"]];
+  const magic = `<canvas id="game" class="bordered rounded" width="640" height="480"></canvas><script src="js/sorting-algorithms.js"></script>`;
+  
   switch (attr){
     case "name": return name[la];
     case "desc": return desc[la];
     case "cont": return cont[la];
+    case "magic": return magic;
   }
 }
+
+var myGame = new Game();
