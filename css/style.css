@@ -72,9 +72,11 @@ header {
   margin-top: 0px;
 }
 
-/*.adsbygoogle {
+.adsbygoogle {
+  display: inline-flex;
   height: inherited;
-}*/
+  min-width: 15%;
+}
 
 .bordered {
   border: 4px solid cyan;
