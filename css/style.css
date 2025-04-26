@@ -74,7 +74,7 @@ header {
 
 .adsbygoogle {
   display: flex;
-  width: auto;
+  width: 18%;
   height: inherited
 }
 
@@ -200,6 +200,10 @@ header {
     flex-direction: column;
   }
   
+  .adsbygoogle {
+    width: 8%;
+  }
+
   #follow {
     justify-content: space-between;
   }
