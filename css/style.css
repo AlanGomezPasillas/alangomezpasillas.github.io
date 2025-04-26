@@ -72,6 +72,12 @@ header {
   margin-top: 0px;
 }
 
+.adsbygoogle {
+  display: flex;
+  width: auto;
+  height: inherited
+}
+
 .bordered {
   border: 4px solid cyan;
 }
@@ -80,7 +86,7 @@ header {
   border-radius: 10px;
 }
 
-.flex-box, .flex-pack{
+.flex-box, .flex-pack, .flex-bag{
   display: flex;
   flex-direction: row;
 }
