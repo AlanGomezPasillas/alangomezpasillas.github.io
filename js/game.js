@@ -34,25 +34,19 @@ function loadGame() {
     </h2>
     <p>
       <span class="en">`
-  for (let i = 0; i < cont.length; i++) contr.innerHTML += `- <b>${cont[i]}</b><br>`
+  for (let i = 0; i < myGame.cont.length; i++) contr.innerHTML += `- <b>${myGame.cont[i]}</b><br>`
   contr.innerHTML += "</span></p>";
   screen.innerHTML = myGame.magic;
 }
 
-function loadInfo(game){
-  switch (game) {
-    case "alan-in-super-mario-bros": return alanInSuperMarioBros()
-    case "sorting-algorithms": return sortingAlgorithms();
-  }
-}
-
 function getAttr(game, attr) { 
   switch (game) {
+    case "alan-in-super-mario-bros": return alanInSuperMarioBros(attr);
     case "sorting-algorithms": return sortingAlgorithms(attr);
   }
 }
 
-function alanInSuperMarioBros() {
+function alanInSuperMarioBros(attr) {
   
 }
 
