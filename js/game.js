@@ -72,7 +72,7 @@ function getAttr(game, attr) {
                no, después, podras ver como se comporta paso a paso.`];
       cont = [["Mouse","Keyboard"],["Ratón","Teclado"]];
       magic = `<canvas id="game" class="bordered rounded" width="640" height="480"></canvas>`;
-      execute = `let js = document.createElement("script");js.type = "text/javascript";js.src = "js/sorting-algorithms.js";`;
+      execute = `let js = document.createElement("script");js.type = "text/javascript";js.src = "js/sorting-algorithms.js";document.body.appendChild(js);`;
       break;
   }
   switch (attr){
