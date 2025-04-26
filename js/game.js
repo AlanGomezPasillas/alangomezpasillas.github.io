@@ -71,8 +71,8 @@ function getAttr(game, attr) {
                usarlo con un conjunto de numeros que puede ser aleatorio o
                no, después, podras ver como se comporta paso a paso.`];
       cont = [["Mouse","Keyboard"],["Ratón","Teclado"]];
-      magic = `<canvas id="game" class="bordered rounded" width="640" height="480"></canvas><script src="js/sorting-algorithms.js"></script>`;
-      execute = "main()";
+      magic = `<canvas id="game" class="bordered rounded" width="640" height="480"></canvas>`;
+      execute = `let js = document.createElement("script");js.type = "text/javascript";js.src = "js/sorting-algorithms.js";`;
       break;
   }
   switch (attr){
