@@ -36,31 +36,36 @@ function loadGame() {
       <span class="en">`
   for (let i = 0; i < myGame.cont.length; i++) contr.innerHTML += `- <b>${myGame.cont[i]}</b><br>`
   contr.innerHTML += "</span></p>";
-  screen.innerHTML = myGame.magic;
+  screen.innerHTML += `<ins class="adsbygoogle" data-ad-client="ca-pub-8773996523943422" data-ad-slot="4764091104"></ins><script> (adsbygoogle = window.adsbygoogle || []).push({}); </script>`;
+  screen.innerHTML += myGame.magic;
+  screen.innerHTML += `<ins class="adsbygoogle" data-ad-client="ca-pub-8773996523943422" data-ad-slot="4764091104"></ins><script> (adsbygoogle = window.adsbygoogle || []).push({}); </script>`;
 }
 
 function getAttr(game, attr) { 
   switch (game) {
-    case "alan-in-super-mario-bros": return alanInSuperMarioBros(attr);
-    case "sorting-algorithms": return sortingAlgorithms(attr);
+    case "alan-in-super-mario-bros":
+      const name = ["Alan in Super Mario Bros","Alan en Super Mario Bros"];
+      const desc = [`Alan goes to the awesome world of Super Mario, Andrea
+                      has been rapted by Bowser and Alan is meant to save her,
+                      play this hackrom game and help him save Andrea.`,
+                    `Alan va al asombroso mundo de Super Mario, Andrea ha sido
+                      raptada por Bowser y es deber de Alan rescatarla,
+                      juega éste hackrom y ayuda a Alan a salvar a Andrea.`];
+      const cont = [["A: Jump","S: Run and shoot fireballs","Arrows: Move"],["A: Brincar","S: Correr y lanzar bolas de fuego","Flechas: Moverse"]];
+      const magic = `<iframe width=100% style="aspect-ratio: 500 / 480;" src="https://www.indiexpo.net/en/embed/alan-en-super-mario-bros" frameborder="0" allowfullscreen></iframe>`;
+      break;
+    case "sorting-algorithms":
+      const name = ["Sorting Algorithms","Algoritmos de Ordenamiento"];
+      const desc = [`In this game you will be able to choose a sorting algorithm
+                      and use it with a set of numbers that can be random or
+                      not, then, you will be able to see how it works step by step.`,
+                    `En este juego podrás elegir un algoritmo de ordenamiento y
+                      usarlo con un conjunto de numeros que puede ser aleatorio o
+                      no, después, podras ver como se comporta paso a paso.`];
+      const cont = [["Mouse","Keyboard"],["Ratón","Teclado"]];
+      const magic = `<canvas id="game" class="bordered rounded" width="640" height="480"></canvas><script src="js/sorting-algorithms.js"></script>`;
+      break;
   }
-}
-
-function alanInSuperMarioBros(attr) {
-  
-}
-
-function sortingAlgorithms(attr) {
-  const name = ["Sorting Algorithms","Algoritmos de Ordenamiento"];
-  const desc = [`In this game you will be able to choose a sorting algorithm
-          and use it with a set of numbers that can be random or
-          not, then, you will be able to see how it works step by step.`,
-                `En este juego podrás elegir un algoritmo de ordenamiento y
-          usarlo con un conjunto de numeros que puede ser aleatorio o
-          no, después, podras ver como se comporta paso a paso.`];
-  const cont = [["Mouse","Keyboard"],["Ratón","Teclado"]];
-  const magic = `<canvas id="game" class="bordered rounded" width="640" height="480"></canvas><script src="js/sorting-algorithms.js"></script>`;
-  
   switch (attr){
     case "name": return name[la];
     case "desc": return desc[la];
