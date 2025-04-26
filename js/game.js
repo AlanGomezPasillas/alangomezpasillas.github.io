@@ -2,9 +2,10 @@ class Game {
   constructor(){
     this.url = new URLSearchParams(window.location.search).get('game');
     this.name = getAttr(this.url, "name");
-    this.desc = getAttr(this.url, "desc")
-    this.cont = getAttr(this.url, "cont")
-    this.magic = getAttr(this.url, "magic")
+    this.desc = getAttr(this.url, "desc");
+    this.cont = getAttr(this.url, "cont");
+    this.magic = getAttr(this.url, "magic");
+    this.execute = getAttr(this.url, "execute");
   }
 }
 
@@ -36,9 +37,10 @@ function loadGame() {
       <span class="en">`
   for (let i = 0; i < myGame.cont.length; i++) contr.innerHTML += `- <b>${myGame.cont[i]}</b><br>`
   contr.innerHTML += "</span></p>";
-  screen.innerHTML += `<ins class="adsbygoogle" data-ad-client="ca-pub-8773996523943422" data-ad-slot="4764091104"></ins><script> (adsbygoogle = window.adsbygoogle || []).push({}); </script>`;
+  screen.innerHTML += `<ins class="adsbygoogle" data-ad-client="ca-pub-8773996523943422" data-ad-slot="4764091104"></ins>`;eval((adsbygoogle = window.adsbygoogle || []).push({}););
   screen.innerHTML += myGame.magic;
-  screen.innerHTML += `<ins class="adsbygoogle" data-ad-client="ca-pub-8773996523943422" data-ad-slot="4764091104"></ins><script> (adsbygoogle = window.adsbygoogle || []).push({}); </script>`;
+  screen.innerHTML += `<ins class="adsbygoogle" data-ad-client="ca-pub-8773996523943422" data-ad-slot="4764091104"></ins>`;eval((adsbygoogle = window.adsbygoogle || []).push({}););
+  eval(myGame.execute);
 }
 
 function getAttr(game, attr) { 
@@ -46,6 +48,7 @@ function getAttr(game, attr) {
   var desc;
   var cont;
   var magic;
+  var execute;
   switch (game) {
     case "alan-in-super-mario-bros":
       name = ["Alan in Super Mario Bros","Alan en Super Mario Bros"];
@@ -57,6 +60,7 @@ function getAttr(game, attr) {
                juega éste hackrom y ayuda a Alan a salvar a Andrea.`];
       cont = [["A: Jump","S: Run and shoot fireballs","Arrows: Move"],["A: Brincar","S: Correr y lanzar bolas de fuego","Flechas: Moverse"]];
       magic = `<iframe width=100% style="aspect-ratio: 500 / 480;" src="https://www.indiexpo.net/en/embed/alan-en-super-mario-bros" frameborder="0" allowfullscreen></iframe>`;
+      execute = "";
       break;
     case "sorting-algorithms":
       name = ["Sorting Algorithms","Algoritmos de Ordenamiento"];
@@ -68,6 +72,7 @@ function getAttr(game, attr) {
                no, después, podras ver como se comporta paso a paso.`];
       cont = [["Mouse","Keyboard"],["Ratón","Teclado"]];
       magic = `<canvas id="game" class="bordered rounded" width="640" height="480"></canvas><script src="js/sorting-algorithms.js"></script>`;
+      execute = "main()";
       break;
   }
   switch (attr){
@@ -75,6 +80,7 @@ function getAttr(game, attr) {
     case "desc": return desc[la];
     case "cont": return cont[la];
     case "magic": return magic;
+    case "execute": return execute;
   }
 }
 
