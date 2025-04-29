@@ -1,4 +1,4 @@
-* {
+* { 
   font-family: "Anta";
 }
 
@@ -16,6 +16,7 @@ body {
   background-color: black;
   background-image: linear-gradient(white, black); 
   background-repeat: no-repeat;
+  background-attachment: fixed;
   color: white;
 }
 
@@ -29,9 +30,7 @@ footer {
 
 h1 {
   font-size: 42.2px;
-  margin-right: 22px;
-  margin-top: 1px;
-  margin-bottom: 1px;
+  margin-top: 5px;
 }
 
 h2 {
@@ -39,27 +38,21 @@ h2 {
   color: cyan;
 }
 
-header {
-  background-color: black;
-  padding: 10px;
-  border-radius: 10px;
-}
-
 nav {
   margin-top: 4px;
   margin-bottom: 2px;
+  width: 100%;
+  text-align: center;
+  word-spacing: -10px;
 }
 
 nav > button {
-  display: inline-flex;
   color: white;
   margin-top: 4px;
   margin-bottom: 2px;
-  margin-left: 2px;
   background-color: black;
-  border: 2px solid white;
-  width: 87px;
-  justify-content: center;
+  border: 1px solid white;
+  width: 25%;
   transition-duration: 0.2s;
 }
 
@@ -68,60 +61,57 @@ button:hover{
   color: black;
 }
 
-section {
+section, header {
   background-color: black;
   padding: 10px;
-  margin-top: 10px;
+  margin: 10px 0px;
   border-radius: 10px;
 }
 
-.borderblue {
+header {
+  margin-top: 0px;
+}
+
+.adsbygoogle {
+  display: inline-flex;
+  height: inherited;
+  min-width: 15%;
+}
+
+.bordered {
   border: 4px solid cyan;
+}
+
+.rounded {
   border-radius: 10px;
 }
 
-.box {
-  display: inline-block;
+.flex-box, .flex-pack, .flex-bag{
+  display: flex;
+  flex-direction: row;
 }
 
-.pack {
-  display: inline;
+.follow{
+  Background: white;
+  min-width: 64px;
+  height: 64px;
+  padding: 10px;
+}
+
+.flagbt{
+  background-color: black;
+  width: 100%;
+  height: 92px;
+  min-width: 184px;
+  padding: 0px;
 }
 
 .flag {
-  display: inline-flex;
-  width: 150px;
-  height: 60px;
-}
-
-.tran {
-  margin-left: 2px;
-  margin-right: 20px;
-  margin-top: 7px;
-  border: 4px solid cyan;
-  background-color: transparent;
-}
-
-.flex-box {
-  display: inline-flex;
-  background-color: black;
-  margin-right: 6px;
-  margin-top: 10px;
-}
-
-.flex-box > img {
-  margin-left: 1px;
-  display: block;
-}
-
-.follow {
-  Background: white;
-  width: 49px;
-  height: 49px;
-  padding: 4px;
-  margin-top: 8px;
-  margin-right: 21px;
-  margin-left: 7px
+  display: flex;
+  width: 100%;
+  height: 100%;
+  padding: auto;
+  margin: auto;
 }
 
 .game-img {
@@ -139,6 +129,10 @@ section {
   border-radius: 50%;
 }
 
+.spaced {
+  justify-content: space-between;
+}
+
 .video {
   display: flex;
   justify-content: center;
@@ -154,6 +148,63 @@ section {
   display: block;
 }
 
+#mystic {
+  display: flex;
+  padding: 10px 0px;
+  min-width: 360px;
+  height: 64px;
+  justify-content: center;
+  width: 100%;
+}
+
+#mystic > a {
+  display: inline-flex;
+}
+
+#follow {
+  display: flex;
+  /*justify-content: center;*/
+  /*min-width: 380px;*/
+  /*height: 100%;*/
+  flex: 1%;
+}
+
+#flag {
+  display: flex;
+  align-self: right
+  flex: 1%;
+}
+
+#game {
+  display: flex;
+  width: 60%;
+}
+
 #images, #music, #videos, #games, .es{
   display: none;
+}
+
+@media (max-width: 1178px) {
+  .flex-box {
+    flex-direction: column;
+  }
+  
+  #mystic {
+    width: auto;
+    margin-bottom: 4px;
+  }
+}
+
+@media (max-width: 806px) {
+  .flex-pack {
+    flex-direction: column;
+  }
+  
+  /*.adsbygoogle {
+    width: 8%;
+  }*/
+
+  #follow {
+    justify-content: space-between;
+  }
 }

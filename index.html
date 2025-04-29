@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html>
   <head>
-    <script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js"></script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8773996523943422"crossorigin="anonymous"></script>
     <script src="js/script.js"></script>
+    <script src="js/tags.js"></script>
     <link rel="icon" href="img/MysticPrisma.svg"/>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
@@ -12,27 +12,12 @@
     <meta charset="UTF-8">
     <meta name="google-adsense-account" content="ca-pub-8773996523943422">
     <meta name="description" content="Computer Art Production Games">
-    <meta name="keywords" content="HTML, CSS, JavaScript, Games">
+    <meta name="keywords" content="HTML, CSS, JavaScript, Music, Education, Games">
     <meta name="author" content="Alan Gómez Pasillas">
     <meta name="viewport" content="width=device-width, initial-scale=0.9">
   </head>
   <header>
-    <div class="pack">
-      <div class="flex-box borderblue">
-        <img src="img/MysticPrisma.svg" width="64px" height="64px">
-        <h1>Mystic Prisma</h1>
-      </div>
-      <div class="box">
-        <a target="_blank" href="https://github.com/AlanGomezPasillas/"><img class="follow borderblue" src="img/github-mark.svg"/></a>
-        <a target="_blank" href="https://www.youtube.com/@MysticPrismaGames"><img class="follow borderblue" src="https://upload.wikimedia.org/wikipedia/commons/a/a0/YouTube_social_red_circle_%282017%29.svg"/></a>
-        <a target="_blank" href="https://www.facebook.com/MysticPrismaGames/"><img class="follow borderblue" src="https://upload.wikimedia.org/wikipedia/en/0/04/Facebook_f_logo_%282021%29.svg"/></a>
-        <a target="_blank" href="https://mx.linkedin.com/in/alan-gomez-pasillas/es"><img class="follow borderblue" src="https://upload.wikimedia.org/wikipedia/commons/f/f8/LinkedIn_icon_circle.svg"/></a>
-      </div>
-    </div>
-    <div class="box">
-      <button class="tran" onclick="changeLanguage(1)"><img class="flag" src="img/MXFlag.svg"></button>
-      <button class="tran" onclick="changeLanguage(0)"><img class="flag" src="img/USAFlag.svg"></button>
-    </div>
+    <mystic-header></mystic-header><script >showMysticHeader()</script>
     <nav>
       <button type="button" onclick="changeSection(1)">
         <span class="en">Home</span>
@@ -52,9 +37,9 @@
     </nav>
   </header>
   <body onload="changeLanguage(2)">
-    <amp-auto-ads type="adsense"
-                  data-ad-client="ca-pub-8773996523943422">
-    </amp-auto-ads>
+    <!-- Horizontales -->
+    <ins class="adsbygoogle" style="display:inline-block;width:100%;height:64px" data-ad-client="ca-pub-8773996523943422" data-ad-slot="8577982104"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
     <!-- home -->
     <div id="home">
       <section>
@@ -110,7 +95,7 @@
           <span class="es">Sobre Nosotros</span>
         </h2>
         <p>
-          <img id="alan" src="img/Alan.png" width=84 height=88>
+          <img id="alan" src="img/Alan.webp" width=84 height=88>
           <span class="en">
             Alan Gómez Pasillas is the real CEO
             of the enterprise, he does all the
@@ -261,7 +246,7 @@
         <br><br>
         <h3>Alan Wade</h3>
         <div class="flex-box">
-          <img class="game-img profile" src="img/WadePicture_1.png"/>
+          <img class="game-img profile" src="img/WadePicture_1.webp"/>
           <p>
             <span class="en">
               Alan Wade Muyel is the one who decided to make a rock band, but
@@ -283,7 +268,7 @@
         </div><br>&nbsp;<br>&nbsp;
         <h3>Alan Tob</h3>
         <div class="flex-box">
-          <img class="game-img profile" src="img/TobPicture_1.png"/>
+          <img class="game-img profile" src="img/TobPicture_1.webp"/>
           <p>
             <span class="en">
               Alan Tob became the second member of the band, he listened at
@@ -441,7 +426,7 @@
           </span>
         </p>
       </section>
-      <a target="_blank" href="https://alangomezpasillas.github.io/alan-in-super-mario-bros">
+      <a target="_blank" href="https://alangomezpasillas.github.io/play?game=alan-in-super-mario-bros">
         <section>
           <h2>Alan in Super Mario Bros</h2>
           <div class="flex-box">
@@ -479,7 +464,7 @@
           </span>
         </section>
       </a>
-      <a target="_blank" href="https://alangomezpasillas.github.io/sorting-algorithms">
+      <a target="_blank" href="https://alangomezpasillas.github.io/play?game=sorting-algorithms">
         <section>
           <h2>Sorting Algorithms</h2>
           <div class="flex-box">
@@ -487,8 +472,8 @@
             <p>
               <span class="en">
                 In this game you will be able to choose a sorting algorithm
-				and use it with a set of numbers that can be random or
-				not, then, you will be able to see how it works step by step.
+		and use it with a set of numbers that can be random or
+		not, then, you will be able to see how it works step by step.
                 <br><br>
                 Controls:<br>
                 - <b>Mouse</b><br>
@@ -496,8 +481,8 @@
               </span>
               <span class="es">
                 En este juego podrás elegir un algoritmo de ordenamiento y
-				usarlo con un conjunto de numeros que puede ser aleatorio o
-				no, después, podras ver como se comporta paso a paso.
+		usarlo con un conjunto de numeros que puede ser aleatorio o
+		no, después, podras ver como se comporta paso a paso.
                 <br><br>
                 Controles:<br>
                 - <b>Ratón</b><br>
@@ -516,20 +501,9 @@
         </section>
       </a>
     </div>
+    <!-- Horizontales -->
+    <ins class="adsbygoogle" style="display:inline-block;width:100%;height:64px" data-ad-client="ca-pub-8773996523943422" data-ad-slot="8577982104"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
   </body>
-  <footer>
-    <h3>
-      <span class="en">Contact us!</span>
-      <span class="es">Contactanos!</span>
-    </h3>
-    Email: alangomezpasillas@gmail.com<br><br><b>
-      &copy;Mystic Prisma 2025.
-      <span class="en">
-        All Rights Reserved.
-      </span>
-      <span class="es">
-        Todos los derechos resrvados.
-      </span>
-    </b>
-  </footer>
+  <mystic-footer></mystic-footer><script>showMysticFooter()</script>
 </html>
