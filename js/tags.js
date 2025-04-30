@@ -35,7 +35,7 @@ function showMysticFooter() {
         All Rights Reserved.
       </span>
       <span class="es">
-        Todos los derechos resrvados.
+        Todos los derechos reservados.
       </span>
     </b>
   </footer>`;
