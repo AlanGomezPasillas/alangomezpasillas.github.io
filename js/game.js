@@ -38,7 +38,7 @@ function loadGame() {
   for (let i = 0; i < myGame.cont.length; i++) contr.innerHTML += `- <b>${myGame.cont[i]}</b><br>`
   contr.innerHTML += "</span></p>";
   screen.innerHTML += myGame.magic;
-  screen.innerHTML += `<ins class="adsbygoogle" data-ad-client="ca-pub-8773996523943422" data-ad-slot="4764091104"></ins>`;eval("(adsbygoogle = window.adsbygoogle || []).push({});");
+  //screen.innerHTML += `<ins class="adsbygoogle" data-ad-client="ca-pub-8773996523943422" data-ad-slot="4764091104"></ins>`;eval("(adsbygoogle = window.adsbygoogle || []).push({});");
   eval(myGame.execute);
 }
 
