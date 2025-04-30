@@ -180,6 +180,10 @@ header {
   width: 60%;
 }
 
+#scr {
+  align: center;
+}
+
 #images, #music, #videos, #games, .es{
   display: none;
 }
