@@ -74,7 +74,7 @@ header {
 
 .adsbygoogle {
   display: inline-flex;
-  height: inherited;
+  min-height: 100%;
   min-width: 18%;
 }
 
