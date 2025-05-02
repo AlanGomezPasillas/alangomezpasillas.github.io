@@ -174,11 +174,11 @@ header {
   width: 60%;
 }
 
-#scr {
+/*#scr {
   /*align: center;*/
   width: 100%;
   height: 100%;
-}
+}*/
 
 #images, #music, #videos, #games, .es{
   display: none;
