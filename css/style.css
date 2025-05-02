@@ -72,16 +72,6 @@ header {
   margin-top: 0px;
 }
 
-.adsbygoogle {
-  display: inline-flex;
-  min-width: 20%;
-}
-
-.ingame {
-  height: 100%;
-  overflow: auto;
-}
-
 .bordered {
   border: 4px solid cyan;
 }
