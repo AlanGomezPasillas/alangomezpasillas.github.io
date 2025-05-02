@@ -74,8 +74,13 @@ header {
 
 .adsbygoogle {
   display: inline-flex;
-  height: inherit;
-  min-width: 18%;
+  height: inherited;
+  min-width: 20%;
+}
+
+.ingame {
+  height: 100%;
+  overflow: auto;
 }
 
 .bordered {
@@ -181,7 +186,9 @@ header {
 }
 
 #scr {
-  align: center;
+  /*align: center;*/
+  width: 100%;
+  height: 100%;
 }
 
 #images, #music, #videos, #games, .es{
