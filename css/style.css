@@ -76,6 +76,10 @@ header {
   border: 4px solid cyan;
 }
 
+.center-box {
+    align-items: stretch;
+}
+
 .rounded {
   border-radius: 10px;
 }
