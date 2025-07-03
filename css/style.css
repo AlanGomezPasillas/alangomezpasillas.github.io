@@ -61,7 +61,7 @@ button:hover{
   color: black;
 }
 
-section, header {
+section, header, main {
   background-color: black;
   padding: 10px;
   margin: 10px 0px;
