@@ -180,7 +180,7 @@ header {
 
 #scr {
   display: inline-flex;
-  align: center;
+  justify-content: center;
   width: 100%;
   height: 100%;
 }
