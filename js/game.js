@@ -58,7 +58,7 @@ function getAttr(game, attr) {
                raptada por Bowser y es deber de Alan rescatarla,
                juega éste hackrom y ayuda a Alan a salvar a Andrea.`];
       cont = [["A: Jump","S: Run and shoot fireballs","Arrows: Move"],["A: Brincar","S: Correr y lanzar bolas de fuego","Flechas: Moverse"]];
-      magic = `<iframe width=100% style="aspect-ratio: 500 / 480;" src="https://www.indiexpo.net/en/embed/alan-en-super-mario-bros" frameborder="0" allowfullscreen></iframe>`;
+      magic = `<iframe width=70% style="aspect-ratio: 500 / 480;" src="https://www.indiexpo.net/en/embed/alan-en-super-mario-bros" frameborder="0" allowfullscreen></iframe>`;
       execute = "";
       break;
     case "sorting-algorithms":
