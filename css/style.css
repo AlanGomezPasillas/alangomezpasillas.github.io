@@ -73,8 +73,10 @@ header {
 }
 
 .google-ads {
-    max-height: 100px;
-    margin: 0px;
+  justify-content: center;
+  width: 100%;
+  max-height: 100px;
+  margin: 0px;
 }
 
 .bordered {
@@ -82,7 +84,7 @@ header {
 }
 
 .center-box {
-    align-items: stretch;
+  align-items: stretch;
 }
 
 .rounded {
