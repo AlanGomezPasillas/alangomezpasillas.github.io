@@ -1,0 +1,3 @@
+<IfModule mod_headers.c>
+    Header set Permissions-Policy "browsing-topics=()"
+</IfModule>
