@@ -72,6 +72,11 @@ header {
   margin-top: 0px;
 }
 
+.google-ads {
+    height: 80px;
+    margin: 0px;
+}
+
 .bordered {
   border: 4px solid cyan;
 }
