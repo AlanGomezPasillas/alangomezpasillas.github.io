@@ -73,7 +73,7 @@ header {
 }
 
 .google-ads {
-    height: 80px;
+    max-height: 100px;
     margin: 0px;
 }
 
