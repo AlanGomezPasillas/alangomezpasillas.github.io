@@ -84,3 +84,13 @@ function getAttr(game, attr) {
 }
 
 var myGame = new Game();
+
+document.addEventListener("keydown", preventKeyboardScroll, false);
+
+function preventKeyboardScroll(e) {
+  var keys = [32, 33, 34, 35, 37, 38, 39, 40];
+  if (keys.includes(e.keyCode)) {
+    e.preventDefault();
+    return false;
+  }
+}
